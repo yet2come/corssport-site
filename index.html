@@ -307,7 +307,7 @@
           allowfullscreen
           height="100%"
           loading="lazy"
-          src="https://maps.google.com/maps?q=%E3%82%AF%E3%83%AD%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E6%AD%A6%E7%94%9F%E6%B0%B4&t=&z=17&ie=UTF8&iwloc=&output=embed"
+          src="https://maps.google.com/maps?saddr=%E9%83%B7%E3%83%8E%E6%B5%A6%E6%B8%AF&daddr=%E3%82%AF%E3%83%AD%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E6%AD%A6%E7%94%9F%E6%B0%B4&dirflg=w&output=embed"
           style="border:0;"
           width="100%"
         ></iframe>
@@ -316,7 +316,7 @@
   </section>
 
   <!-- ========== FOOTER ========== -->
-  <footer class="bg-stark-white text-basalt-black p-6 sm:p-8 md:p-20 border-t-8 border-basalt-black">
+  <footer class="bg-stark-white text-basalt-black p-6 pb-20 sm:p-8 sm:pb-20 md:p-20 border-t-8 border-basalt-black">
     <div class="flex flex-col md:flex-row justify-between items-start gap-10 md:gap-12">
       <div class="max-w-md">
         <h3 class="giant-type text-4xl sm:text-6xl mb-6 md:mb-8">CROSSPORT<br/>MSZ</h3>
@@ -352,6 +352,18 @@
       </div>
     </div>
   </footer>
+
+  <!-- ========== FLOATING CTA (Mobile Only) ========== -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 flex md:hidden border-t-4 border-basalt-black">
+    <a href="tel:050-5211-5434" class="flex-1 flex items-center justify-center gap-2 py-3 bg-basalt-black text-white font-black text-sm uppercase tracking-tight border-r-2 border-basalt-black active:bg-concrete-dark transition-colors">
+      <span class="material-symbols-outlined !text-xl">call</span>
+      電話する
+    </a>
+    <a href="https://line.me/R/" class="flex-1 flex items-center justify-center gap-2 py-3 bg-[#06C755] text-white font-black text-sm uppercase tracking-tight border-l-2 border-basalt-black active:bg-[#05a748] transition-colors">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      LINE
+    </a>
+  </div>
 
   <script src="/src/main.js" type="module"></script>
 </body>
