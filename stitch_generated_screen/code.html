@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CROSSPORT MSZ | BRUTALIST COASTAL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&amp;family=Noto+Sans+JP:wght@300;500;700;900&amp;family=Lexend:wght@700;900&amp;family=Outfit:wght@900&amp;family=Space+Grotesk:wght@300;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --basalt-black: #1A1A1D;
+            --concrete-mid: #B0BEC5;
+            --concrete-dark: #424242;
+            --seaweed-green: #5C8B8B;
+            --stark-white: #FFFFFF;
+        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--stark-white);
+            color: var(--basalt-black);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .brutalist-border {
+            border: 3px solid var(--basalt-black);
+        }
+        .brutalist-grid {
+            background-image: radial-gradient(var(--concrete-mid) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .giant-type {
+            font-family: 'Outfit', sans-serif;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+        }
+        /* Unified font for Hero section to match other sections as requested */
+        .hero-title-font {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        /* Subheading font unification */
+        .hero-brand-font {
+            font-family: 'Outfit', sans-serif;
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+        }
+        .material-symbols-outlined {
+            font-size: 2rem;
+        }
+        h1, h2, h3 {
+            letter-spacing: -0.02em;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[var(--basalt-black)] text-white border-b-4 border-[var(--basalt-black)]">
+<div class="flex justify-between items-stretch h-20">
+<div class="flex items-center px-8 bg-[var(--seaweed-green)] text-[var(--stark-white)] font-black text-2xl border-r-4 border-[var(--basalt-black)] tracking-tighter">
+                CROSSPORT MSZ
+            </div>
+<nav class="hidden md:flex flex-grow items-center justify-end px-8 space-x-12 font-bold uppercase tracking-tighter text-sm">
+<a class="hover:text-[var(--seaweed-green)] transition-colors" href="#about">About</a>
+<a class="hover:text-[var(--seaweed-green)] transition-colors" href="#services">Services</a>
+<a class="hover:text-[var(--seaweed-green)] transition-colors" href="#access">Access</a>
+<a class="px-10 py-7 hover:bg-[var(--concrete-mid)] transition-none h-full flex items-center font-black bg-[var(--seaweed-green)] text-white" href="#contact">BOOK</a>
+</nav>
+<button class="md:hidden px-8 flex items-center bg-[var(--stark-white)] text-[var(--basalt-black)]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<section class="relative h-screen overflow-hidden border-b-8 border-[var(--basalt-black)]">
+<!-- Full-bleed background image -->
+<div class="absolute inset-0">
+<img alt="Ocean View" class="w-full h-full object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtp9zv0ZCr33-NkI7LY-gkGMz8hCTHGdORBhC-DhSTMhjZD5m37qoC8qDBjrBSZUSvBWAzVcfg5QyXaGd8bLb1xBmgihRI6vn8eIio_USW8LpqL479ohzEZK7lO_sfm470srqE2nTTOtfBlph2r-o4_-0SKtyjoll7SAh_i-k17oR4P8kxpUmbCslrtAhFThWP1NlFjxyji8PZHJ3CswsRRDw57Yh45773mUf90Ro_4kiynnk9b6O1qBJI4PdyqJiX8JsOM3Mq7K0"/>
+<div class="absolute inset-0 bg-[var(--basalt-black)]/50 mix-blend-multiply"></div>
+</div>
+<!-- Hero Content Overlays -->
+<div class="relative h-full flex flex-col justify-end md:justify-center p-8 md:p-20 z-10 text-[var(--stark-white)]">
+<div class="max-w-7xl w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+<div class="md:col-span-8">
+<p class="text-sm font-bold tracking-[0.4em] uppercase mb-10 border-l-4 border-[var(--seaweed-green)] pl-6">Iki Island / 33°44′N 129°41′E</p>
+<!-- Font updated to Noto Sans JP for familiarity and consistency -->
+<h1 class="hero-title-font text-6xl md:text-[8.5rem] font-black leading-[1.05] mb-8 whitespace-pre-line tracking-tight drop-shadow-2xl">壱岐で、<br/>なにかを<br/>はじめる<br/>あなたの<br/>ために。</h1>
+<!-- Font updated to Outfit to match other subheadings -->
+<h2 class="hero-brand-font text-4xl md:text-7xl text-[var(--seaweed-green)] font-black tracking-tighter">CROSSPORT MSZ</h2>
+</div>
+<div class="md:col-span-4 space-y-12 mb-4">
+<div class="bg-[var(--basalt-black)]/30 backdrop-blur-sm p-8 border-l-8 border-[var(--stark-white)]">
+<p class="text-2xl md:text-3xl font-bold leading-tight mb-4">働く・集う・動き出すための拠点</p>
+<span class="text-xs font-bold opacity-70 uppercase tracking-[0.3em] block">Crossroads of the Remote Island</span>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<a class="block w-full text-center bg-[var(--stark-white)] text-[var(--basalt-black)] py-6 text-lg font-black hover:bg-[var(--seaweed-green)] hover:text-white transition-none border-4 border-[var(--stark-white)] tracking-widest" href="#services">EXPLORE SPACE</a>
+<a class="block w-full text-center border-4 border-[var(--stark-white)] py-6 text-lg font-black hover:bg-[var(--stark-white)] hover:text-[var(--basalt-black)] transition-none tracking-widest" href="#access">VIEW LOCATION</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-[var(--concrete-mid)] brutalist-grid border-b-8 border-[var(--basalt-black)]" id="about">
+<div class="border-b-8 border-[var(--basalt-black)] p-8 md:p-20 flex flex-col md:flex-row md:items-end justify-between bg-[var(--stark-white)]">
+<div>
+<span class="text-[var(--basalt-black)] text-sm font-bold uppercase tracking-widest block mb-6">Concept</span>
+<h2 class="giant-type text-7xl md:text-9xl">ABOUT</h2>
+</div>
+<div class="mt-8 md:mt-0">
+<h3 class="text-3xl font-black">施設について</h3>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+<div class="p-10 border-b-8 lg:border-b-0 lg:border-r-8 border-[var(--basalt-black)] bg-[var(--stark-white)] hover:bg-[var(--seaweed-green)] hover:text-white transition-none group">
+<div class="mb-12"><span class="material-symbols-outlined !text-6xl">bolt</span></div>
+<h3 class="text-3xl font-black mb-4 uppercase">Raw Power</h3>
+<p class="text-sm font-bold mb-8 opacity-60 tracking-widest">剥き出しの創造性</p>
+<p class="mb-10 text-lg leading-relaxed font-medium">余計な装飾を削ぎ落とした、思考を加速させるストイックな空間。海風と共鳴するビジネス拠点。</p>
+<div class="pt-8 border-t-4 border-[var(--basalt-black)] font-black text-sm">
+<p>IKISHIMA / NAGASAKI</p>
+<p>PORT SIDE FOCUS</p>
+</div>
+</div>
+<div class="p-10 border-b-8 lg:border-b-0 lg:border-r-8 border-[var(--basalt-black)] bg-[var(--stark-white)] hover:bg-[var(--seaweed-green)] hover:text-white transition-none group">
+<div class="mb-12"><span class="material-symbols-outlined !text-6xl">location_on</span></div>
+<h3 class="text-3xl font-black mb-4 uppercase">Location</h3>
+<p class="text-sm font-bold mb-8 opacity-60 tracking-widest">港から徒歩3分</p>
+<p class="mb-10 text-lg leading-relaxed font-medium">郷ノ浦港（武生水地区）のすぐそば。博多からの高速船を降りてすぐに、あなたのプロジェクトが動き出す。</p>
+<div class="pt-8 border-t-4 border-[var(--basalt-black)] font-black text-sm">
+<p>GOUNOURA AREA</p>
+<p>3 MIN FROM PORT</p>
+</div>
+</div>
+<div class="p-10 bg-[var(--stark-white)] hover:bg-[var(--seaweed-green)] hover:text-white transition-none group">
+<div class="mb-12"><span class="material-symbols-outlined !text-6xl">architecture</span></div>
+<h3 class="text-3xl font-black mb-4 uppercase">Facility</h3>
+<p class="text-sm font-bold mb-8 opacity-60 tracking-widest">機能性の追求</p>
+<p class="mb-10 text-lg leading-relaxed font-medium">高速Wi-Fi、電源、そして静寂。集中するために必要なものだけを、最高品質で用意しました。</p>
+<div class="pt-8 border-t-4 border-[var(--basalt-black)] font-black text-sm">
+<p>FULL CONCRETE</p>
+<p>HIGH-SPEED NETWORK</p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-[var(--concrete-mid)] brutalist-grid border-b-8 border-[var(--basalt-black)]" id="services">
+<div class="border-b-8 border-[var(--basalt-black)] p-8 md:p-20 flex flex-col md:flex-row md:items-end justify-between">
+<div>
+<span class="text-[var(--basalt-black)] text-sm font-bold uppercase tracking-widest block mb-6">Core Functions</span>
+<h2 class="giant-type text-7xl md:text-9xl">SERVICES</h2>
+</div>
+<div class="mt-8 md:mt-0">
+<h3 class="text-3xl font-black">提供サービス</h3>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+<div class="p-10 border-b-8 lg:border-b-0 lg:border-r-8 border-[var(--basalt-black)] bg-[var(--stark-white)] hover:bg-[var(--seaweed-green)] hover:text-white transition-none group">
+<div class="mb-12"><span class="material-symbols-outlined !text-6xl">computer</span></div>
+<h3 class="text-3xl font-black mb-4 uppercase">Co-working</h3>
+<p class="text-sm font-bold mb-8 opacity-60 tracking-widest">コワーキングスペース</p>
+<p class="mb-10 text-lg leading-relaxed font-medium">全席電源・高速Wi-Fi完備. ドロップイン利用から月額会員まで。</p>
+<div class="pt-8 border-t-4 border-[var(--basalt-black)] font-black text-sm tracking-widest">
+<p>1 HOUR / 500 JPY</p>
+<p>1 DAY / 2,000 JPY</p>
+</div>
+</div>
+<div class="p-10 border-b-8 lg:border-b-0 lg:border-r-8 border-[var(--basalt-black)] bg-[var(--stark-white)] hover:bg-[var(--seaweed-green)] hover:text-white transition-none group">
+<div class="mb-12"><span class="material-symbols-outlined !text-6xl">directions_car</span></div>
+<h3 class="text-3xl font-black mb-4 uppercase">Rent-a-car</h3>
+<p class="text-sm font-bold mb-8 opacity-60 tracking-widest">レンタカー</p>
+<p class="mb-10 text-lg leading-relaxed font-medium">島内の移動をスムーズに。港での受け渡しが可能な便利なカーシェア。</p>
+<div class="pt-8 border-t-4 border-[var(--basalt-black)] font-black text-sm tracking-widest">
+<p>WEB RESERVATION</p>
+<p>PORT DELIVERY</p>
+</div>
+</div>
+<div class="p-10 border-b-8 md:border-b-0 lg:border-r-8 border-[var(--basalt-black)] bg-[var(--stark-white)] hover:bg-[var(--seaweed-green)] hover:text-white transition-none group">
+<div class="mb-12"><span class="material-symbols-outlined !text-6xl">groups</span></div>
+<h3 class="text-3xl font-black mb-4 uppercase">Meeting</h3>
+<p class="text-sm font-bold mb-8 opacity-60 tracking-widest">イベント・会議室</p>
+<p class="mb-10 text-lg leading-relaxed font-medium">最大20名収容。プロジェクター完備. オンライン会議ブース有。</p>
+<div class="pt-8 border-t-4 border-[var(--basalt-black)] font-black text-sm tracking-widest">
+<p>MAX 20 PERSONS</p>
+<p>PRIVATE BOOTH</p>
+</div>
+</div>
+<div class="p-10 bg-[var(--stark-white)] hover:bg-[var(--seaweed-green)] hover:text-white transition-none group">
+<div class="mb-12"><span class="material-symbols-outlined !text-6xl">coffee</span></div>
+<h3 class="text-3xl font-black mb-4 uppercase">Cafe</h3>
+<p class="text-sm font-bold mb-8 opacity-60 tracking-widest">コミュニティカフェ</p>
+<p class="mb-10 text-lg leading-relaxed font-medium">島の人と来訪者が交わる場所。こだわりの島産コーヒーをご用意。</p>
+<div class="pt-8 border-t-4 border-[var(--basalt-black)] font-black text-sm tracking-widest">
+<p>ISLAND BLEND</p>
+<p>FREE FOR MEMBERS</p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-[var(--basalt-black)] text-white" id="access">
+<div class="flex flex-col lg:flex-row">
+<div class="lg:w-1/2 p-8 md:p-20 order-2 lg:order-1">
+<span class="text-[var(--seaweed-green)] text-sm font-bold uppercase tracking-widest block mb-6">Location</span>
+<h2 class="giant-type text-7xl md:text-9xl mb-16">ACCESS</h2>
+<div class="space-y-16">
+<div class="flex items-start gap-10">
+<span class="text-5xl font-black text-[var(--concrete-dark)]">01</span>
+<div>
+<h4 class="text-2xl font-black mb-3 uppercase tracking-tight">Gounoura Port</h4>
+<p class="text-[var(--concrete-mid)] text-lg leading-relaxed">郷ノ浦港から徒歩3分。博多からの高速船到着エリアのすぐ目前です。</p>
+</div>
+</div>
+<div class="flex items-start gap-10">
+<span class="text-5xl font-black text-[var(--concrete-dark)]">02</span>
+<div>
+<h4 class="text-2xl font-black mb-3 uppercase tracking-tight">Address</h4>
+<p class="text-[var(--concrete-mid)] text-lg leading-relaxed">〒811-5135 長崎県壱岐市郷ノ浦町郷ノ浦（武生水地区）</p>
+</div>
+</div>
+<div class="flex items-start gap-10">
+<span class="text-5xl font-black text-[var(--concrete-dark)]">03</span>
+<div>
+<h4 class="text-2xl font-black mb-3 uppercase tracking-tight">Hours</h4>
+<p class="text-[var(--concrete-mid)] text-lg leading-relaxed">Weekday 9:00 - 18:00 (Weekend: Members Only)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/2 h-[50vh] lg:h-auto border-l-0 lg:border-l-8 border-[var(--basalt-black)] grayscale invert brightness-90 order-1 lg:order-2">
+<iframe allowfullscreen="" height="100%" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.9315808798544!2d129.6917646!3d33.7494421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x356a73c75c889a75%3A0xc3995817d91d834d!2z6YO344OO5rWm5riv!5e0!3m2!1sja!2sjp!4v1620000000000!5m2!1sja!2sjp" style="border:0;" width="100%"></iframe>
+</div>
+</div>
+</section>
+<footer class="bg-[var(--stark-white)] text-[var(--basalt-black)] p-8 md:p-20 border-t-8 border-[var(--basalt-black)]">
+<div class="flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="max-w-md">
+<h3 class="giant-type text-6xl mb-8">CROSSPORT<br/>MSZ</h3>
+<p class="text-lg font-bold leading-tight">壱岐島の玄関口で、新たな交流とビジネスが生まれる場所。働く、集う、巡るをサポートします。</p>
+</div>
+<div class="grid grid-cols-2 gap-16 md:gap-24">
+<div>
+<h4 class="font-black uppercase mb-8 text-sm tracking-widest border-b-4 border-[var(--basalt-black)] pb-3">Links</h4>
+<ul class="space-y-4 font-bold text-sm">
+<li><a class="hover:bg-[var(--basalt-black)] hover:text-white px-1 transition-colors inline-block" href="#">Terms</a></li>
+<li><a class="hover:bg-[var(--basalt-black)] hover:text-white px-1 transition-colors inline-block" href="#">Privacy</a></li>
+<li><a class="hover:bg-[var(--basalt-black)] hover:text-white px-1 transition-colors inline-block" href="#">FAQ</a></li>
+<li><a class="hover:bg-[var(--basalt-black)] hover:text-white px-1 transition-colors inline-block" href="#">Booking</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-black uppercase mb-8 text-sm tracking-widest border-b-4 border-[var(--basalt-black)] pb-3">Social</h4>
+<div class="flex gap-4">
+<a class="w-12 h-12 brutalist-border flex items-center justify-center font-black hover:bg-[var(--basalt-black)] hover:text-white transition-colors" href="#">IG</a>
+<a class="w-12 h-12 brutalist-border flex items-center justify-center font-black hover:bg-[var(--basalt-black)] hover:text-white transition-colors" href="#">FB</a>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-24 pt-8 border-t-4 border-[var(--basalt-black)] flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-black uppercase tracking-tight opacity-80">
+<p>© 2024 CROSSPORT MSZ (武生水). NO NONSENSE SINCE DAY ONE.</p>
+<div class="flex gap-8">
+<span>33.7494° N, 129.6918° E</span>
+</div>
+</div>
+</footer>
+</body></html>

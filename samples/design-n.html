@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クロスポート武生水 — Design N</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;700;900&family=Hanken+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff;
+  --washi:#f7f5f0;
+  --rule:rgba(16,24,48,.08);
+  --ink:#101830;
+  --mid:#8a91a8;
+  --blue:#1545c8;
+  --blue-soft:#dee8ff;
+  --blue-dim:#6680cc;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--white);color:var(--ink);font-weight:300;overflow-x:hidden}
+
+/* NAV */
+nav{
+  padding:0 28px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--white);border-bottom:1px solid var(--rule);
+  position:sticky;top:0;z-index:100;
+}
+.nav-logo{font-family:'Noto Serif JP',serif;font-size:13px;font-weight:700;letter-spacing:.04em}
+.nav-logo em{font-family:'Hanken Grotesk',sans-serif;font-size:9px;font-weight:300;font-style:normal;letter-spacing:.2em;color:var(--mid);display:block;margin-top:1px}
+.nav-cta{
+  font-family:'Hanken Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;
+  color:var(--blue);border:1px solid currentColor;padding:7px 16px;text-decoration:none;
+  transition:background .15s,color .15s;
+}
+.nav-cta:hover{background:var(--blue);color:var(--white)}
+
+/* HERO — columns with vertical kicker */
+.hero{
+  min-height:95svh;
+  background:var(--white);
+  display:grid;
+  grid-template-columns:auto 1fr;
+  position:relative;overflow:hidden;
+}
+/* left vertical strip */
+.hero-vert{
+  width:44px;
+  background:var(--blue);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px 0;
+  gap:16px;
+}
+.hero-vert-text{
+  font-family:'Hanken Grotesk',sans-serif;
+  font-size:8px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+}
+.hero-vert-num{
+  font-family:'Noto Serif JP',serif;
+  font-size:9px;color:rgba(255,255,255,.35);
+  writing-mode:vertical-rl;transform:rotate(180deg);
+}
+
+/* main hero content */
+.hero-main{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:40px 28px 48px;
+  position:relative;
+}
+/* top rule */
+.hero-top-rule{
+  position:absolute;top:0;left:0;right:0;
+  height:3px;background:var(--blue-soft);
+}
+/* subtle grid */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--rule) 1px,transparent 1px),
+    linear-gradient(90deg,var(--rule) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+.hero-date{
+  font-family:'Hanken Grotesk',sans-serif;
+  font-size:9px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:24px;
+  position:relative;z-index:1;
+  animation:up .8s ease both;
+}
+.hero-h1{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(34px,8.5vw,68px);
+  font-weight:900;
+  line-height:1.3;
+  letter-spacing:.03em;
+  position:relative;z-index:1;
+  animation:up .8s .1s ease both;
+}
+.hero-h1 .block{display:block}
+.hero-h1 .blue{color:var(--blue)}
+.hero-h1 .dim{color:var(--mid);font-weight:400}
+
+.hero-rule-h{
+  width:100%;height:1px;background:var(--rule);
+  margin:28px 0;position:relative;z-index:1;
+  animation:up .8s .16s ease both;
+}
+.hero-rule-h::after{
+  content:'';position:absolute;left:0;top:0;
+  width:60px;height:1px;background:var(--blue);
+}
+
+.hero-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  position:relative;z-index:1;
+  animation:up .8s .22s ease both;
+}
+.hero-sub{font-size:11px;font-weight:300;letter-spacing:.12em;color:var(--mid)}
+.hero-btns{display:flex;gap:10px}
+.btn-main{background:var(--blue);color:var(--white);padding:12px 24px;font-size:12px;font-weight:400;letter-spacing:.06em;text-decoration:none;transition:background .15s}
+.btn-main:hover{background:#0f35a8}
+.btn-sub{border:1px solid var(--rule);color:var(--ink);padding:12px 24px;font-size:12px;font-weight:300;letter-spacing:.06em;text-decoration:none;transition:border-color .15s}
+.btn-sub:hover{border-color:var(--mid)}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* SECTIONS */
+section{padding:72px 28px 72px 72px;border-top:1px solid var(--rule)}
+@media(max-width:639px){section{padding:64px 28px}}
+section.alt{background:var(--washi)}
+.sect-label{
+  font-family:'Hanken Grotesk',sans-serif;
+  font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.sect-label::before{content:'';width:20px;height:1px;background:var(--blue)}
+h2{
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(20px,4.5vw,28px);font-weight:700;line-height:1.5;
+  color:var(--ink);margin-bottom:14px;
+}
+.lead{font-size:13px;line-height:2.2;color:var(--mid);max-width:500px}
+.link-more{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Hanken Grotesk',sans-serif;
+  font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blue);text-decoration:none;margin-top:20px;transition:gap .2s;
+}
+.link-more::after{content:'→'}
+.link-more:hover{gap:14px}
+
+/* FEATURES */
+.feat-cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);margin-top:24px;border:1px solid var(--rule)}
+.feat-card{
+  background:var(--white);padding:22px 18px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:background .15s;
+}
+.feat-card:hover{background:var(--blue-soft)}
+.feat-card svg{width:22px;height:22px;stroke:var(--blue-dim);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.feat-card:hover svg{stroke:var(--blue)}
+.feat-label{font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--ink)}
+
+/* USERS */
+.user-col{margin-top:20px;display:flex;flex-direction:column;gap:0;border:1px solid var(--rule)}
+.u-row{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;
+  border-bottom:1px solid var(--rule);transition:background .15s,padding-left .15s;
+}
+.u-row:last-child{border-bottom:none}
+.u-row:hover{background:var(--blue-soft);padding-left:28px}
+.u-mark{width:6px;height:6px;background:var(--blue);border-radius:50%;flex-shrink:0}
+.u-text{font-size:13px;font-weight:500}
+.line-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#06C755;color:white;padding:12px 20px;
+  font-size:12px;font-weight:500;text-decoration:none;margin-top:20px;
+  transition:opacity .2s;
+}
+.line-btn:hover{opacity:.85}
+
+/* RENTAL */
+.r-tag{
+  display:inline-block;
+  font-family:'Hanken Grotesk',sans-serif;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blue);border:1px solid rgba(21,69,200,.3);padding:4px 12px;margin-right:8px;margin-bottom:16px;
+}
+
+/* NEWS */
+.news-rows{margin-top:16px;display:flex;flex-direction:column}
+.news-a{
+  display:grid;grid-template-columns:90px 1fr;gap:14px;
+  padding:18px 0;border-bottom:1px solid var(--rule);
+  text-decoration:none;color:inherit;transition:padding-left .15s;
+}
+.news-a:first-child{border-top:1px solid var(--rule)}
+.news-a:hover{padding-left:6px}
+.nd{font-family:'Hanken Grotesk',sans-serif;font-size:9px;font-weight:300;letter-spacing:.1em;color:var(--mid);padding-top:2px}
+.nt{font-size:13px;font-weight:500;margin-bottom:4px;color:var(--ink)}
+.ns{font-size:11px;font-weight:300;color:var(--mid);line-height:1.7}
+.news-a:hover .nt{color:var(--blue)}
+
+/* ACCESS */
+.a-wrap{margin-top:20px;border:1px solid var(--rule);overflow:hidden}
+.a-row{display:grid;grid-template-columns:96px 1fr;border-bottom:1px solid var(--rule)}
+.a-row:last-child{border-bottom:none}
+.a-th{padding:13px;font-family:'Hanken Grotesk',sans-serif;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);background:var(--blue-soft);display:flex;align-items:center}
+.a-td{padding:13px;font-size:12px;color:var(--ink);line-height:1.8}
+.a-td a{color:var(--blue);text-decoration:none}
+.access-note{margin-top:12px;padding:12px 16px;background:var(--washi);border-left:2px solid var(--blue);font-size:12px;color:var(--mid);line-height:1.7}
+
+/* FOOTER */
+footer{background:var(--ink);padding:40px 28px 40px 72px}
+@media(max-width:639px){footer{padding:40px 28px 28px}}
+.f-brand{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:2px}
+.f-en{font-family:'Hanken Grotesk',sans-serif;font-size:9px;font-weight:300;letter-spacing:.22em;color:rgba(255,255,255,.2);margin-bottom:8px}
+.f-op{font-size:11px;font-weight:300;color:rgba(255,255,255,.28);margin-bottom:22px}
+.f-links{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:22px}
+.f-links a{font-family:'Hanken Grotesk',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2);text-decoration:none}
+.f-links a:hover{color:rgba(255,255,255,.6)}
+.f-copy{font-family:'Hanken Grotesk',sans-serif;font-size:9px;letter-spacing:.1em;color:rgba(255,255,255,.1)}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:none}
+
+@media(min-width:640px){
+  nav{padding:0 48px}
+  .feat-cards{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">クロスポート武生水<em>CROSSPORT MSZ · IKI ISLAND</em></div>
+  <a href="#access" class="nav-cta">お問い合わせ</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-vert">
+    <span class="hero-vert-text">CROSSPORT MSZ</span>
+    <span class="hero-vert-num">33.75°N</span>
+  </div>
+  <div class="hero-main">
+    <div class="hero-top-rule"></div>
+    <div class="hero-grid"></div>
+    <p class="hero-date">壱岐島 · 郷ノ浦 · GONOURA PORT AREA</p>
+    <h1 class="hero-h1">
+      <span class="block dim">壱岐で、</span>
+      <span class="block blue">なにかをはじめる</span>
+      <span class="block">人のために。</span>
+    </h1>
+    <div class="hero-rule-h"></div>
+    <div class="hero-bottom">
+      <span class="hero-sub">働く・集う・はじめるための拠点</span>
+      <div class="hero-btns">
+        <a href="#features" class="btn-main">施設を見る</a>
+        <a href="#access" class="btn-sub">アクセス</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="reveal">
+    <p class="sect-label">Facilities</p>
+    <h2>何ができる場所ですか？</h2>
+    <p class="lead">コワーキング、会議室、出力設備、スタートアップオフィス、イベントホール、カフェを備えた、仕事と活動のための施設です。打ち合わせ、日々の作業、仲間づくり、滞在中の拠点として利用できます。</p>
+    <div class="feat-cards">
+      <div class="feat-card"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span class="feat-label">コワーキング・出力</span></div>
+      <div class="feat-card"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span class="feat-label">会議室</span></div>
+      <div class="feat-card"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="feat-label">スタートアップオフィス</span></div>
+      <div class="feat-card"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span class="feat-label">イベントホール</span></div>
+    </div>
+    <a href="/facilities" class="link-more">すべての設備を見る</a>
+  </div>
+</section>
+
+<section id="users" class="alt">
+  <div class="reveal">
+    <p class="sect-label">For Everyone</p>
+    <h2>どんな人が利用できますか？</h2>
+    <p class="lead">起業、副業、地域活動、学び直し、再挑戦。立場や段階を問わず、どなたでも利用できます。アポ無し歓迎。目的が決まっていなくても、立ち寄れる場所です。</p>
+    <div class="user-col">
+      <div class="u-row"><span class="u-mark"></span><span class="u-text">島の外から来た</span></div>
+      <div class="u-row"><span class="u-mark"></span><span class="u-text">事業をはじめたい</span></div>
+      <div class="u-row"><span class="u-mark"></span><span class="u-text">学び直し・再出発</span></div>
+      <div class="u-row"><span class="u-mark"></span><span class="u-text">島内で活動中</span></div>
+    </div>
+    <a href="https://line.me/" class="line-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629"/></svg>LINEで相談する</a>
+  </div>
+</section>
+
+<section id="rental">
+  <div class="reveal">
+    <p class="sect-label">Mobility</p>
+    <span class="r-tag">レンタカー</span><span class="r-tag">電動トゥクトゥク</span>
+    <h2>レンタカー・電動トゥクトゥクのご案内</h2>
+    <p class="lead">施設併設のレンタカーをご利用可能です。壱岐での滞在や活動の移動手段としてご活用ください。</p>
+    <a href="/rental" class="link-more">レンタカーを見る</a>
+  </div>
+</section>
+
+<section id="news" class="alt">
+  <div class="reveal">
+    <p class="sect-label">Information</p>
+    <h2>お知らせ</h2>
+    <div class="news-rows">
+      <a href="#" class="news-a"><span class="nd">2026.02.20</span><div><p class="nt">3月のイベントスケジュールを公開しました</p><p class="ns">ワークショップや交流会など複数のイベントを予定しています。</p></div></a>
+      <a href="#" class="news-a"><span class="nd">2026.02.10</span><div><p class="nt">スタートアップオフィスの空きが出ました</p><p class="ns">月額利用プランについてはお気軽にお問い合わせください。</p></div></a>
+      <a href="#" class="news-a"><span class="nd">2026.01.30</span><div><p class="nt">電動トゥクトゥクの貸出をはじめました</p><p class="ns">島内の短距離移動に最適な新しい移動手段をご用意しました。</p></div></a>
+    </div>
+    <a href="/news" class="link-more">お知らせ一覧</a>
+  </div>
+</section>
+
+<section id="access">
+  <div class="reveal">
+    <p class="sect-label">Access</p>
+    <h2>アクセス・営業案内</h2>
+    <div class="a-wrap">
+      <div class="a-row"><span class="a-th">住所</span><span class="a-td">長崎県壱岐市郷ノ浦町郷ノ浦122-8</span></div>
+      <div class="a-row"><span class="a-th">営業時間</span><span class="a-td">09:00 – 18:00</span></div>
+      <div class="a-row"><span class="a-th">定休日</span><span class="a-td">なし（年中無休）</span></div>
+      <div class="a-row"><span class="a-th">電話</span><span class="a-td"><a href="tel:0505211-5434">050-5211-5434</a></span></div>
+      <div class="a-row"><span class="a-th">メール</span><span class="a-td"><a href="mailto:crossport@xmo.jp">crossport@xmo.jp</a></span></div>
+    </div>
+    <p class="access-note">郷ノ浦港から徒歩約12分。港到着後の移動にはレンタカーや電動トゥクトゥクもご利用いただけます。</p>
+    <a href="/contact" class="btn-main" style="margin-top:24px;display:inline-block;text-decoration:none">お問い合わせ</a>
+  </div>
+</section>
+
+<footer>
+  <p class="f-brand">クロスポート武生水</p>
+  <p class="f-en">CROSSPORT MSZ</p>
+  <p class="f-op">運営：クロスモバイル株式会社</p>
+  <div class="f-links"><a href="https://ikical.com">壱岐カレンダー</a><a href="https://ikilab.org">イキラボ</a><a href="/facilities">設備案内</a><a href="/contact">お問い合わせ</a></div>
+  <p class="f-copy">© CROSSPORT MSZ 2026</p>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
