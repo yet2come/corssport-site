@@ -47,6 +47,18 @@ document.querySelectorAll(".fade-in-up").forEach((el) => {
   observer.observe(el);
 });
 
+// ===== Floating CTA Show on Scroll =====
+const floatingCta = document.getElementById("floating-cta");
+if (floatingCta) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      floatingCta.classList.remove("translate-y-full");
+    } else {
+      floatingCta.classList.add("translate-y-full");
+    }
+  }, { passive: true });
+}
+
 // ===== Active Nav Link Highlight =====
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll('header nav a[href^="#"]');
