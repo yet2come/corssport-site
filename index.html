@@ -15,17 +15,17 @@
 
   <!-- ========== HEADER ========== -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-basalt-black text-white border-b-4 border-basalt-black">
-    <div class="flex justify-between items-stretch h-16 md:h-20">
+    <div class="flex justify-between items-stretch h-11 md:h-12">
       <!-- Logo -->
-      <a href="#" class="flex items-center px-5 md:px-8 bg-seaweed-green text-stark-white font-black text-lg md:text-2xl border-r-4 border-basalt-black tracking-tighter">
+      <a href="#" class="flex items-center px-4 md:px-6 bg-seaweed-green text-stark-white font-black text-sm md:text-base border-r-4 border-basalt-black tracking-tighter">
         CROSSPORT MSZ
       </a>
       <!-- Desktop Nav -->
-      <nav class="hidden md:flex grow items-center justify-end px-8 space-x-12 font-bold uppercase tracking-tighter text-sm">
+      <nav class="hidden md:flex grow items-center justify-end px-6 space-x-10 font-bold uppercase tracking-tighter text-xs">
         <a class="hover:text-seaweed-green transition-colors" href="#about">About</a>
         <a class="hover:text-seaweed-green transition-colors" href="#services">Services</a>
         <a class="hover:text-seaweed-green transition-colors" href="#access">Access</a>
-        <a class="px-10 py-7 h-full flex items-center font-black bg-seaweed-green text-white hover:bg-concrete-mid transition-colors" href="#contact">BOOK</a>
+        <a class="px-8 py-4 h-full flex items-center font-black bg-seaweed-green text-white hover:bg-concrete-mid transition-colors" href="#contact">BOOK</a>
       </nav>
       <!-- Mobile Hamburger -->
       <button id="menu-toggle" class="md:hidden px-5 flex items-center bg-stark-white text-basalt-black" aria-label="メニューを開く">
@@ -34,7 +34,7 @@
     </div>
     <!-- Ticker -->
     <div class="overflow-hidden bg-stark-white text-basalt-black border-t-2 border-basalt-black">
-      <div class="ticker flex whitespace-nowrap py-1.5 text-xs font-bold uppercase tracking-widest">
+      <div class="ticker flex whitespace-nowrap py-1 text-[10px] font-bold uppercase tracking-widest">
         <span class="ticker-content flex shrink-0 items-center gap-6 px-3">
           <span>壱岐島 — 博多港から高速船で約1時間 — 年中無休 9:00-18:00</span>
           <span class="text-seaweed-green">&#9670;</span>
@@ -78,7 +78,7 @@
   </div>
 
   <!-- ========== HERO ========== -->
-  <section class="relative h-screen overflow-hidden border-b-8 border-basalt-black">
+  <section class="relative min-h-screen overflow-hidden border-b-8 border-basalt-black">
     <!-- Background Image -->
     <div class="absolute inset-0">
       <img
@@ -90,12 +90,12 @@
     </div>
 
     <!-- Hero Content -->
-    <div class="relative h-full flex flex-col justify-end p-6 pb-12 sm:p-8 md:p-12 lg:justify-center lg:p-20 z-10 text-stark-white">
+    <div class="relative h-full flex flex-col justify-end p-6 pt-24 pb-12 sm:p-8 sm:pt-24 md:p-12 md:pt-24 lg:justify-center lg:p-20 lg:pt-28 z-10 text-stark-white">
       <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
         <!-- Left: Title -->
         <div class="lg:col-span-8">
           <p class="text-xs sm:text-sm font-bold tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-6 lg:mb-10 border-l-4 border-seaweed-green pl-4 sm:pl-6">
-            Iki Island / 33°44′42″N 129°41′28″E
+            Iki Island<br/>33°44′42″N / 129°41′28″E
           </p>
           <h1 class="hero-title-font text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[8.5rem] font-black leading-[1.1] lg:leading-[1.05] mb-6 lg:mb-8 tracking-tight drop-shadow-2xl">
             壱岐で、<br/>なにかを<br/>はじめる<br/>あなたの<br/>ために。
@@ -142,33 +142,45 @@
     <!-- Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
       <div class="fade-in-up p-8 md:p-10 border-b-8 xl:border-b-0 xl:border-r-8 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
-        <div class="mb-8 md:mb-12"><span class="material-symbols-outlined !text-5xl md:!text-6xl">bolt</span></div>
-        <h3 class="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase">Raw Power</h3>
-        <p class="text-sm font-bold mb-6 md:mb-8 opacity-60 tracking-widest">剥き出しの創造性</p>
-        <p class="mb-8 md:mb-10 text-base md:text-lg leading-relaxed font-medium">余計な装飾を削ぎ落とした、思考を加速させるストイックな空間。海風と共鳴するビジネス拠点。</p>
-        <div class="pt-6 md:pt-8 border-t-4 border-basalt-black group-hover:border-white font-black text-sm">
-          <p>IKISHIMA / NAGASAKI</p>
-          <p>PORT SIDE FOCUS</p>
+        <div class="flex items-start gap-5 md:gap-6">
+          <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 mt-1">bolt</span>
+          <div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase">Raw Power</h3>
+            <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">剥き出しの創造性</p>
+            <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">余計な装飾を削ぎ落とした、思考を加速させるストイックな空間。海風と共鳴するビジネス拠点。</p>
+            <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white font-black text-sm">
+              <p>IKISHIMA / NAGASAKI</p>
+              <p>PORT SIDE FOCUS</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="fade-in-up p-8 md:p-10 border-b-8 xl:border-b-0 xl:border-r-8 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
-        <div class="mb-8 md:mb-12"><span class="material-symbols-outlined !text-5xl md:!text-6xl">location_on</span></div>
-        <h3 class="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase">Location</h3>
-        <p class="text-sm font-bold mb-6 md:mb-8 opacity-60 tracking-widest">港から徒歩12分</p>
-        <p class="mb-8 md:mb-10 text-base md:text-lg leading-relaxed font-medium">郷ノ浦港から徒歩12分、芦辺港から車で約20分。博多港から高速船で約1時間の壱岐島に位置する拠点。</p>
-        <div class="pt-6 md:pt-8 border-t-4 border-basalt-black group-hover:border-white font-black text-sm">
-          <p>GOUNOURA AREA</p>
-          <p>12 MIN FROM PORT</p>
+        <div class="flex items-start gap-5 md:gap-6">
+          <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 mt-1">location_on</span>
+          <div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase">Location</h3>
+            <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">港から徒歩12分</p>
+            <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">郷ノ浦港から徒歩12分、芦辺港から車で約20分。博多港から高速船で約1時間の壱岐島に位置する拠点。</p>
+            <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white font-black text-sm">
+              <p>GOUNOURA AREA</p>
+              <p>12 MIN FROM PORT</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="fade-in-up p-8 md:p-10 bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group md:col-span-2 xl:col-span-1">
-        <div class="mb-8 md:mb-12"><span class="material-symbols-outlined !text-5xl md:!text-6xl">architecture</span></div>
-        <h3 class="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase">Facility</h3>
-        <p class="text-sm font-bold mb-6 md:mb-8 opacity-60 tracking-widest">機能性の追求</p>
-        <p class="mb-8 md:mb-10 text-base md:text-lg leading-relaxed font-medium">高速Wi-Fi、電源、そして静寂。集中するために必要なものだけを、最高品質で用意しました。</p>
-        <div class="pt-6 md:pt-8 border-t-4 border-basalt-black group-hover:border-white font-black text-sm">
-          <p>FULL CONCRETE</p>
-          <p>HIGH-SPEED NETWORK</p>
+        <div class="flex items-start gap-5 md:gap-6">
+          <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 mt-1">architecture</span>
+          <div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase">Facility</h3>
+            <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">機能性の追求</p>
+            <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">高速Wi-Fi、電源、そして静寂。集中するために必要なものだけを、最高品質で用意しました。</p>
+            <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white font-black text-sm">
+              <p>FULL CONCRETE</p>
+              <p>HIGH-SPEED NETWORK</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -189,43 +201,59 @@
     <!-- Service Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
       <div class="fade-in-up p-8 md:p-10 border-b-8 sm:border-r-8 xl:border-b-0 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
-        <div class="mb-8 md:mb-12"><span class="material-symbols-outlined !text-5xl md:!text-6xl">computer</span></div>
-        <h3 class="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase">Co-working</h3>
-        <p class="text-sm font-bold mb-6 md:mb-8 opacity-60 tracking-widest">コワーキングスペース</p>
-        <p class="mb-8 md:mb-10 text-base md:text-lg leading-relaxed font-medium">全席電源・高速Wi-Fi完備. ドロップイン利用から月額会員まで。</p>
-        <div class="pt-6 md:pt-8 border-t-4 border-basalt-black group-hover:border-white font-black text-sm tracking-widest">
-          <p>1 HOUR / 500 JPY</p>
-          <p>1 DAY / 2,000 JPY</p>
+        <div class="flex items-start gap-5 md:gap-6">
+          <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 mt-1">computer</span>
+          <div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase">Co-working</h3>
+            <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">コワーキングスペース</p>
+            <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">全席電源・高速Wi-Fi完備. ドロップイン利用から月額会員まで。</p>
+            <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white font-black text-sm tracking-widest">
+              <p>1 HOUR / 500 JPY</p>
+              <p>1 DAY / 2,000 JPY</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="fade-in-up p-8 md:p-10 border-b-8 xl:border-b-0 xl:border-r-8 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
-        <div class="mb-8 md:mb-12"><span class="material-symbols-outlined !text-5xl md:!text-6xl">directions_car</span></div>
-        <h3 class="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase">Rent-a-car</h3>
-        <p class="text-sm font-bold mb-6 md:mb-8 opacity-60 tracking-widest">レンタカー</p>
-        <p class="mb-8 md:mb-10 text-base md:text-lg leading-relaxed font-medium">島内の移動をスムーズに。港での受け渡しが可能な便利なカーシェア。</p>
-        <div class="pt-6 md:pt-8 border-t-4 border-basalt-black group-hover:border-white font-black text-sm tracking-widest">
-          <p>WEB RESERVATION</p>
-          <p>PORT DELIVERY</p>
+        <div class="flex items-start gap-5 md:gap-6">
+          <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 mt-1">directions_car</span>
+          <div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase">Rent-a-car</h3>
+            <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">レンタカー</p>
+            <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">島内の移動をスムーズに。港での受け渡しが可能な便利なカーシェア。</p>
+            <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white font-black text-sm tracking-widest">
+              <p>WEB RESERVATION</p>
+              <p>PORT DELIVERY</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="fade-in-up p-8 md:p-10 border-b-8 sm:border-r-8 xl:border-b-0 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
-        <div class="mb-8 md:mb-12"><span class="material-symbols-outlined !text-5xl md:!text-6xl">groups</span></div>
-        <h3 class="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase">Meeting</h3>
-        <p class="text-sm font-bold mb-6 md:mb-8 opacity-60 tracking-widest">イベント・会議室</p>
-        <p class="mb-8 md:mb-10 text-base md:text-lg leading-relaxed font-medium">最大20名収容。プロジェクター完備. オンライン会議ブース有。</p>
-        <div class="pt-6 md:pt-8 border-t-4 border-basalt-black group-hover:border-white font-black text-sm tracking-widest">
-          <p>MAX 20 PERSONS</p>
-          <p>PRIVATE BOOTH</p>
+        <div class="flex items-start gap-5 md:gap-6">
+          <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 mt-1">groups</span>
+          <div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase">Meeting</h3>
+            <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">イベント・会議室</p>
+            <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">最大20名収容。プロジェクター完備. オンライン会議ブース有。</p>
+            <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white font-black text-sm tracking-widest">
+              <p>MAX 20 PERSONS</p>
+              <p>PRIVATE BOOTH</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="fade-in-up p-8 md:p-10 bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
-        <div class="mb-8 md:mb-12"><span class="material-symbols-outlined !text-5xl md:!text-6xl">coffee</span></div>
-        <h3 class="text-2xl md:text-3xl font-black mb-3 md:mb-4 uppercase">Cafe</h3>
-        <p class="text-sm font-bold mb-6 md:mb-8 opacity-60 tracking-widest">コミュニティカフェ</p>
-        <p class="mb-8 md:mb-10 text-base md:text-lg leading-relaxed font-medium">島の人と来訪者が交わる場所。こだわりの島産コーヒーをご用意。</p>
-        <div class="pt-6 md:pt-8 border-t-4 border-basalt-black group-hover:border-white font-black text-sm tracking-widest">
-          <p>ISLAND BLEND</p>
-          <p>FREE FOR MEMBERS</p>
+        <div class="flex items-start gap-5 md:gap-6">
+          <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 mt-1">coffee</span>
+          <div>
+            <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase">Cafe</h3>
+            <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">コミュニティカフェ</p>
+            <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">島の人と来訪者が交わる場所。こだわりの島産コーヒーをご用意。</p>
+            <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white font-black text-sm tracking-widest">
+              <p>ISLAND BLEND</p>
+              <p>FREE FOR MEMBERS</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
