@@ -98,3 +98,49 @@ body.menu-open {
   opacity: 1;
   transform: translateY(0);
 }
+
+.brutalist-input {
+  border: 3px solid var(--color-basalt-black);
+  padding: 0.9rem 1rem;
+  font-weight: 700;
+}
+
+.brutalist-input:focus {
+  outline: none;
+  box-shadow: 8px 8px 0 0 var(--color-seaweed-green);
+}
+
+.booking-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.booking-slot {
+  background: var(--color-stark-white);
+  color: var(--color-basalt-black);
+  font-weight: 900;
+  padding: 1rem 0.75rem;
+  min-height: 72px;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.booking-slot:not(:disabled):hover {
+  transform: translate(-2px, -2px);
+}
+
+.booking-slot-skeleton {
+  min-height: 72px;
+  background: linear-gradient(90deg, #d9e4e8 25%, #f4f8fa 37%, #d9e4e8 63%);
+  background-size: 400% 100%;
+  animation: slot-loading 1.4s ease infinite;
+}
+
+@keyframes slot-loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

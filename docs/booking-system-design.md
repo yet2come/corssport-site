@@ -210,13 +210,21 @@ GET /api/availability?facility=meeting-room&date=2026-03-15
 
 **実装**
 1. 全フィールドをサーバー側でバリデーション
-2. freebusy で空き再確認（同時予約の競合防止）
+2. freebusy で空き再確認（ファストパスとしての早期リジェクト。**最終的な排他は eventId 一意制約で担保**）
 3. スロットが埋まっていれば 409 を返却
-4. Calendar REST API `POST /calendars/{calendarId}/events` でイベント作成
-5. 作成直後に `events.list`（`timeMin`/`timeMax` は対象スロット）で同一スロットのイベントを再確認し、**自分以外のイベントが存在**する場合は競合とみなして自イベントを削除し 409 を返却（補償トランザクション）
-6. キャンセルトークン生成: `HMAC-SHA256(eventId + ":" + email, CANCEL_SECRET)`
-7. `events.patch` で拡張プロパティに `cancelToken` を保存
-8. Resend で確認メール送信（キャンセルリンク含む）
+4. イベント ID をサーバー側で決定的に生成する  
+   `booking:{facility}:{date}:{startTime}-{endTime}` を SHA-256 で短縮した値を `eventId` とする
+5. Calendar REST API `POST /calendars/{calendarId}/events?conferenceDataVersion=0` を `eventId` 指定付きで呼び出す
+6. Google Calendar が `409 Conflict` を返した場合は、同一スロットの先行予約が存在するとみなし 409 を返却
+7. キャンセルトークン生成: `HMAC-SHA256(eventId + ":" + email, CANCEL_SECRET)`
+8. `extendedProperties.private` を **イベント作成時のペイロードに含めて** 保存する
+9. 確認メール送信に失敗した場合は、作成済みイベントを削除して 500 を返却（補償トランザクション）
+
+**競合制御の考え方**
+
+- `freebusy` の事前確認だけではレースを防げないため、最終的な排他は Google Calendar 側の `eventId` 一意制約に委ねる
+- 同一施設・同一日付・同一時間帯に対しては常に同じ `eventId` を生成することで、同時リクエストでも **1件だけ成功** させる
+- これにより、作成後に `events.list` を再走査して双方を削除してしまう対称レースを回避する
 
 **レスポンス (201)**
 ```json
@@ -238,6 +246,52 @@ GET /api/availability?facility=meeting-room&date=2026-03-15
 |---|---|
 | 400 | バリデーションエラー（フィールド別メッセージ付き） |
 | 409 | 指定スロットが既に予約済み |
+| 500 | 内部エラー |
+
+---
+
+### `GET /api/booking`
+
+予約詳細を取得する。`cancel.html` の初期表示で利用する。
+
+**リクエスト**
+```
+GET /api/booking?id=google_event_id&facility=meeting-room&token=hmac_hex_string
+```
+
+| パラメータ | 型 | 必須 | 説明 |
+|---|---|---|---|
+| `id` | string | Yes | Google Calendar の event ID |
+| `facility` | string | Yes | `event-space`, `meeting-room`, `solo-booth` のいずれか |
+| `token` | string | Yes | メール記載のキャンセルトークン |
+
+**実装**
+1. `facility` と `id` を検証
+2. `GET /calendars/{calendarId}/events/{eventId}` でイベント取得
+3. 拡張プロパティの `facilityId` を確認し、`cancelToken` は `crypto.timingSafeEqual()` で検証
+4. 一致すればキャンセル確認画面に必要な最小情報のみ返却
+
+**レスポンス (200)**
+```json
+{
+  "booking": {
+    "id": "google_event_id",
+    "facility": "meeting-room",
+    "facilityName": "Meeting Room",
+    "date": "2026-03-15",
+    "startTime": "09:00",
+    "endTime": "10:00",
+    "name": "田中一郎"
+  }
+}
+```
+
+**エラー**
+| ステータス | 条件 |
+|---|---|
+| 400 | パラメータ不正 |
+| 403 | トークン不一致 |
+| 404 | 予約が見つからない |
 | 500 | 内部エラー |
 
 ---
@@ -283,6 +337,7 @@ GET /api/availability?facility=meeting-room&date=2026-03-15
 crossport-site/
 ├── api/
 │   ├── availability.js            # GET /api/availability
+│   ├── booking.js                 # GET /api/booking
 │   ├── book.js                    # POST /api/book
 │   ├── cancel.js                  # POST /api/cancel
 │   └── _lib/
@@ -317,32 +372,54 @@ const auth = new GoogleAuth({
 // モジュールスコープでキャッシュ（ウォームスタート高速化）
 let cachedClient = null;
 
-async function calendarFetch(path, options = {}) {
-  if (!cachedClient) cachedClient = await auth.getClient();
-  const { token } = await cachedClient.getAccessToken();
-
-  const res = await fetch(
-    `https://www.googleapis.com/calendar/v3${path}`,
-    {
-      ...options,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
-    }
-  );
-
-  if (!res.ok) {
-    const error = await res.text();
-    throw new Error(`Calendar API ${res.status}: ${error}`);
+class CalendarApiError extends Error {
+  constructor(status, body) {
+    super(`Calendar API ${status}: ${body}`);
+    this.name = 'CalendarApiError';
+    this.status = status;
+    this.body = body;
   }
-  return res.json();
 }
 
-module.exports = { calendarFetch };
+async function calendarFetch(path, options = {}) {
+  try {
+    if (!cachedClient) cachedClient = await auth.getClient();
+    const { token } = await cachedClient.getAccessToken();
+
+    const res = await fetch(
+      `https://www.googleapis.com/calendar/v3${path}`,
+      {
+        ...options,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          ...options.headers,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      const error = await res.text();
+      throw new CalendarApiError(res.status, error);
+    }
+    return res.json();
+  } catch (error) {
+    cachedClient = null;
+    throw error;
+  }
+}
+
+module.exports = { calendarFetch, CalendarApiError };
 ```
-※ 例外発生時は `cachedClient = null` にして再取得を試みる方針（トークン期限切れ対策）。
+
+`book.js` では `CalendarApiError` の `status === 409` を正常系の競合として扱い、
+それ以外の 4xx / 5xx は内部エラーまたは upstream 障害として処理する。
+
+### `api/book.js` 実装上の注意
+
+- `extendedProperties.private` は `events.insert` の段階で設定し、作成後 `patch` に依存しない
+- メール送信失敗時は `events.delete` を実行して予約をロールバックする
+- `409 Conflict` はバリデーションエラーではなく、ユーザーに「直前に埋まりました」と表示する想定
 
 ## 7. フロントエンド変更
 
@@ -400,7 +477,7 @@ module.exports = { calendarFetch };
 ### cancel.html
 
 ```
-URL: cancel.html?id=EVENT_ID&facility=meeting-room&token=HMAC_HEX
+URL: cancel.html#id=EVENT_ID&facility=meeting-room&token=HMAC_HEX
 
 ┌──────────────────────────────────────────┐
 │ CROSSPORT MSZ                            │
@@ -421,6 +498,9 @@ URL: cancel.html?id=EVENT_ID&facility=meeting-room&token=HMAC_HEX
 └──────────────────────────────────────────┘
 ```
 
+ハッシュフラグメントを使うことで、トークンが通常の HTTP リクエスト URL や Referer に乗るのを避ける。
+`src/cancel.js` は `location.hash` を解析し、`GET /api/booking` で詳細取得後に確認 UI を描画する。
+
 ## 8. セキュリティ
 
 ### キャンセルトークン
@@ -435,11 +515,18 @@ HMAC ベースのため、eventId と email から決定的に再生成可能。
 
 `CANCEL_SECRET` は Vercel 環境変数に設定し、クライアントには公開しない。
 
+### キャンセルリンクの扱い
+
+- キャンセルリンクのトークンは query string ではなく URL フラグメント (`#...`) に載せる
+- フラグメントはサーバーへ送信されないため、アクセスログや Referer への露出を減らせる
+- フラグメントを読むのは `cancel.html` 上の JavaScript のみとし、API 送信時に明示的に JSON / query parameter へ載せ替える
+
 ### レート制限
 
 | エンドポイント | 制限 |
 |---|---|
 | `GET /api/availability` | 60 req/min/IP |
+| `GET /api/booking` | 30 req/min/IP |
 | `POST /api/book` | 5 req/min/IP |
 | `POST /api/cancel` | 10 req/min/IP |
 

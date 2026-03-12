@@ -16,19 +16,21 @@ function closeMenu() {
   document.body.classList.remove("menu-open");
 }
 
-menuToggle.addEventListener("click", () => {
-  if (mobileMenu.classList.contains("open")) {
-    closeMenu();
-  } else {
-    openMenu();
-  }
-});
-
-menuLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    closeMenu();
+if (menuToggle && menuIcon && mobileMenu) {
+  menuToggle.addEventListener("click", () => {
+    if (mobileMenu.classList.contains("open")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
-});
+
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
+  });
+}
 
 // ===== Scroll Reveal Animation =====
 const observer = new IntersectionObserver(
@@ -63,19 +65,29 @@ if (floatingCta) {
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll('header nav a[href^="#"]');
 
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY + 100;
-  sections.forEach((section) => {
-    const top = section.offsetTop;
-    const height = section.offsetHeight;
-    const id = section.getAttribute("id");
-    if (scrollY >= top && scrollY < top + height) {
-      navLinks.forEach((link) => {
-        link.classList.remove("text-seaweed-green");
-        if (link.getAttribute("href") === `#${id}`) {
-          link.classList.add("text-seaweed-green");
-        }
-      });
-    }
+if (sections.length > 0 && navLinks.length > 0) {
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY + 100;
+    sections.forEach((section) => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      const id = section.getAttribute("id");
+      if (scrollY >= top && scrollY < top + height) {
+        navLinks.forEach((link) => {
+          link.classList.remove("text-seaweed-green");
+          if (link.getAttribute("href") === `#${id}`) {
+            link.classList.add("text-seaweed-green");
+          }
+        });
+      }
+    });
   });
-});
+}
+
+const page = document.body.dataset.page;
+if (page === "booking") {
+  import("./booking.js");
+}
+if (page === "cancel") {
+  import("./cancel.js");
+}

@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden" data-page="booking">
 
   <!-- ========== HEADER ========== -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-basalt-black text-white border-b-4 border-basalt-black">
@@ -90,8 +90,7 @@
     </div>
     <!-- Booking Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- Card 1: Event Space -->
-      <div class="fade-in-up p-8 md:p-10 border-b-8 sm:border-r-8 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
+      <button type="button" data-facility-card data-facility="event-space" class="fade-in-up text-left p-8 md:p-10 border-b-8 sm:border-r-8 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group cursor-pointer">
         <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase flex items-center justify-between gap-4">
           Event Space
           <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 opacity-30 group-hover:opacity-60">mic</span>
@@ -99,14 +98,11 @@
         <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">イベントスペース</p>
         <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">最大20名収容のイベントスペース。プロジェクター・音響設備完備。ワークショップや講演会に。</p>
         <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white">
-          <a href="tel:050-5211-5434" class="inline-flex items-center gap-2 font-black text-sm tracking-widest hover:underline">
-            <span class="material-symbols-outlined !text-xl">call</span>
-            050-5211-5434
-          </a>
+          <p class="font-black text-sm tracking-widest">予約フォームを開く</p>
+          <p class="mt-2 text-sm font-bold opacity-70" data-facility-status>本日の空きを確認中...</p>
         </div>
-      </div>
-      <!-- Card 2: Meeting Room -->
-      <div class="fade-in-up p-8 md:p-10 border-b-8 lg:border-r-8 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
+      </button>
+      <button type="button" data-facility-card data-facility="meeting-room" class="fade-in-up text-left p-8 md:p-10 border-b-8 lg:border-r-8 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group cursor-pointer">
         <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase flex items-center justify-between gap-4">
           Meeting Room
           <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 opacity-30 group-hover:opacity-60">groups</span>
@@ -114,14 +110,11 @@
         <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">会議室</p>
         <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">プライベートな打ち合わせに最適。ホワイトボード・モニター完備。オンライン会議にも対応。</p>
         <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white">
-          <a href="tel:050-5211-5434" class="inline-flex items-center gap-2 font-black text-sm tracking-widest hover:underline">
-            <span class="material-symbols-outlined !text-xl">call</span>
-            050-5211-5434
-          </a>
+          <p class="font-black text-sm tracking-widest">予約フォームを開く</p>
+          <p class="mt-2 text-sm font-bold opacity-70" data-facility-status>本日の空きを確認中...</p>
         </div>
-      </div>
-      <!-- Card 3: Solo Booth -->
-      <div class="fade-in-up p-8 md:p-10 border-b-8 sm:border-r-8 lg:border-r-0 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
+      </button>
+      <button type="button" data-facility-card data-facility="solo-booth" class="fade-in-up text-left p-8 md:p-10 border-b-8 sm:border-r-8 lg:border-r-0 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group cursor-pointer">
         <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase flex items-center justify-between gap-4">
           Solo Booth
           <span class="material-symbols-outlined !text-4xl md:!text-5xl shrink-0 opacity-30 group-hover:opacity-60">person</span>
@@ -129,12 +122,10 @@
         <p class="text-sm font-bold mb-4 md:mb-6 opacity-60 tracking-widest">ソロブース</p>
         <p class="mb-6 md:mb-8 text-base md:text-lg leading-relaxed font-medium">集中作業に最適な個室ブース。電源・Wi-Fi完備。ドロップイン利用も歓迎。</p>
         <div class="pt-5 md:pt-6 border-t-4 border-basalt-black group-hover:border-white">
-          <a href="tel:050-5211-5434" class="inline-flex items-center gap-2 font-black text-sm tracking-widest hover:underline">
-            <span class="material-symbols-outlined !text-xl">call</span>
-            050-5211-5434
-          </a>
+          <p class="font-black text-sm tracking-widest">予約フォームを開く</p>
+          <p class="mt-2 text-sm font-bold opacity-70" data-facility-status>本日の空きを確認中...</p>
         </div>
-      </div>
+      </button>
       <!-- Card 4: Rent-a-car -->
       <div class="fade-in-up p-8 md:p-10 border-b-8 lg:border-b-0 lg:border-r-8 border-basalt-black bg-stark-white hover:bg-seaweed-green hover:text-white transition-colors group">
         <h3 class="text-2xl md:text-3xl font-black mb-2 uppercase flex items-center justify-between gap-4">
@@ -169,6 +160,70 @@
         </div>
       </div>
     </div>
+    <section id="booking-panel" class="border-t-8 border-basalt-black bg-[#f2f7f9] p-6 sm:p-8 md:p-12 hidden">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-8">
+        <div class="brutalist-border bg-white p-6 md:p-8">
+          <p class="text-xs font-black tracking-[0.3em] uppercase text-seaweed-green">Selected Facility</p>
+          <h3 id="booking-facility-name" class="mt-3 text-3xl md:text-5xl font-black uppercase">Meeting Room</h3>
+          <p id="booking-facility-description" class="mt-4 text-base md:text-lg font-medium leading-relaxed"></p>
+          <div class="mt-8 space-y-3 text-sm font-bold">
+            <p>営業時間: 09:00 - 18:00</p>
+            <p>予約単位: 1時間</p>
+            <p id="booking-capacity">定員: -</p>
+          </div>
+        </div>
+        <div class="brutalist-border bg-basalt-black text-white p-6 md:p-8">
+          <div class="flex flex-col gap-6">
+            <div>
+              <label for="booking-date" class="block text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">Date</label>
+              <input id="booking-date" name="date" type="date" class="mt-3 w-full brutalist-input bg-white text-basalt-black" />
+            </div>
+            <div>
+              <div class="flex items-center justify-between gap-4">
+                <p class="text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">Time Slot</p>
+                <p id="booking-slot-hint" class="text-xs font-bold text-white/70">日付を選択してください</p>
+              </div>
+              <div id="booking-slots" class="mt-3 booking-slots-grid"></div>
+            </div>
+            <div id="booking-banner" class="hidden brutalist-border bg-white text-basalt-black px-4 py-3 text-sm font-bold"></div>
+            <form id="booking-form" class="grid sm:grid-cols-2 gap-4">
+              <input type="hidden" name="facility" id="booking-facility-input" />
+              <input type="hidden" name="startTime" id="booking-start-time" />
+              <input type="hidden" name="endTime" id="booking-end-time" />
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-black uppercase tracking-[0.3em] text-seaweed-green" for="booking-name">Name</label>
+                <input id="booking-name" name="name" class="mt-3 w-full brutalist-input bg-white text-basalt-black" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-black uppercase tracking-[0.3em] text-seaweed-green" for="booking-email">Email</label>
+                <input id="booking-email" name="email" type="email" class="mt-3 w-full brutalist-input bg-white text-basalt-black" />
+              </div>
+              <div>
+                <label class="block text-xs font-black uppercase tracking-[0.3em] text-seaweed-green" for="booking-phone">Phone</label>
+                <input id="booking-phone" name="phone" class="mt-3 w-full brutalist-input bg-white text-basalt-black" />
+              </div>
+              <div>
+                <label class="block text-xs font-black uppercase tracking-[0.3em] text-seaweed-green" for="booking-guests">Guests</label>
+                <input id="booking-guests" name="guests" type="number" min="1" class="mt-3 w-full brutalist-input bg-white text-basalt-black" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-black uppercase tracking-[0.3em] text-seaweed-green" for="booking-purpose">Purpose</label>
+                <textarea id="booking-purpose" name="purpose" rows="4" class="mt-3 w-full brutalist-input bg-white text-basalt-black"></textarea>
+              </div>
+              <div class="sm:col-span-2 flex flex-col gap-3">
+                <button id="booking-submit" type="submit" class="bg-seaweed-green text-white font-black uppercase tracking-[0.3em] px-6 py-4 brutalist-border border-white">予約する</button>
+                <p class="text-xs font-bold text-white/70">送信時に最新の空き状況を再確認します。直前に埋まった場合は再選択が必要です。</p>
+              </div>
+            </form>
+            <div id="booking-success" class="hidden brutalist-border bg-white text-basalt-black p-5">
+              <p class="text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">Booked</p>
+              <h4 class="mt-3 text-2xl font-black">予約を受け付けました</h4>
+              <p id="booking-success-detail" class="mt-3 text-sm font-bold leading-relaxed"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ========== FOOTER ========== -->

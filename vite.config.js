@@ -3,13 +3,14 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/corssport-site/",
+  base: "/",
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
         book: resolve(__dirname, "book.html"),
+        cancel: resolve(__dirname, "cancel.html"),
       },
     },
   },

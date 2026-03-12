@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CANCEL | CROSSPORT MSZ</title>
+  <meta name="description" content="CROSSPORT MSZ 予約キャンセルページ" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&family=Outfit:wght@900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="overflow-x-hidden" data-page="cancel">
+  <main class="min-h-screen bg-[linear-gradient(135deg,#f5fafc_0%,#d8e6eb_100%)] flex items-center justify-center p-6 md:p-10">
+    <section class="w-full max-w-3xl brutalist-border bg-white">
+      <div class="border-b-8 border-basalt-black p-6 md:p-10 flex items-end justify-between gap-6">
+        <div>
+          <p class="text-xs font-black tracking-[0.3em] uppercase text-seaweed-green">CROSSPORT MSZ</p>
+          <h1 class="giant-type text-5xl md:text-7xl mt-3">CANCEL</h1>
+        </div>
+        <a href="/book.html" class="font-black uppercase tracking-[0.25em] text-sm hover:text-seaweed-green transition-colors">Book</a>
+      </div>
+      <div class="p-6 md:p-10 grid gap-6">
+        <div id="cancel-loading" class="text-sm font-bold">予約情報を読み込んでいます...</div>
+        <div id="cancel-error" class="hidden brutalist-border bg-[#ffe9e7] px-4 py-3 text-sm font-bold"></div>
+        <div id="cancel-panel" class="hidden grid gap-6">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="brutalist-border bg-[#f2f7f9] p-5">
+              <p class="text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">Facility</p>
+              <p id="cancel-facility" class="mt-3 text-2xl font-black uppercase"></p>
+            </div>
+            <div class="brutalist-border bg-[#f2f7f9] p-5">
+              <p class="text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">Date Time</p>
+              <p id="cancel-datetime" class="mt-3 text-2xl font-black"></p>
+            </div>
+          </div>
+          <p class="text-sm font-bold leading-relaxed">この操作を実行すると予約は削除されます。必要な場合は改めて予約ページから取り直してください。</p>
+          <button id="cancel-submit" class="bg-[#d84f37] text-white font-black uppercase tracking-[0.3em] px-6 py-4 brutalist-border">予約をキャンセルする</button>
+        </div>
+        <div id="cancel-success" class="hidden brutalist-border bg-basalt-black text-white p-6">
+          <p class="text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">Cancelled</p>
+          <h2 class="mt-3 text-3xl font-black">キャンセルが完了しました</h2>
+          <p class="mt-3 text-sm font-bold">新しい予約は <a href="/book.html" class="underline">book.html</a> から行えます。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="/src/main.js" type="module"></script>
+</body>
+</html>
