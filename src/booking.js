@@ -12,7 +12,7 @@ const facilities = {
   "solo-booth": {
     name: "Solo Booth",
     description: "集中作業やオンライン会議向けの個室ブース。",
-    capacity: 1,
+    capacity: 5,
   },
 };
 
@@ -129,9 +129,15 @@ function renderSlots(slots) {
     if (slot.start >= "18:00") {
       button.classList.add("is-evening");
     }
-    button.textContent = slot.available
-      ? `${slot.start} - ${slot.end}`
-      : `${slot.start} - ${slot.end} / 予約済`;
+    if (state.facility === "solo-booth") {
+      button.textContent = slot.available
+        ? `${slot.start} - ${slot.end} / 残り ${slot.remaining}`
+        : `${slot.start} - 満室`;
+    } else {
+      button.textContent = slot.available
+        ? `${slot.start} - ${slot.end}`
+        : `${slot.start} - 予約済`;
+    }
     if (!slot.available) {
       button.disabled = true;
       button.classList.add("is-unavailable", "cursor-not-allowed");
@@ -201,8 +207,15 @@ async function loadCardStatuses() {
         if (!response.ok) {
           throw new Error();
         }
-        const nextAvailable = payload.slots.find((slot) => slot.available);
-        status.textContent = nextAvailable ? `本日空きあり / 次の空き: ${nextAvailable.start}` : "本日は空きなし";
+        if (card.dataset.facility === "solo-booth") {
+          const nextAvailable = payload.slots.find((slot) => slot.remaining > 0);
+          status.textContent = nextAvailable
+            ? `本日空き ${nextAvailable.remaining} / 5 / 次の空き: ${nextAvailable.start}`
+            : "本日は満室";
+        } else {
+          const nextAvailable = payload.slots.find((slot) => slot.available);
+          status.textContent = nextAvailable ? `本日空きあり / 次の空き: ${nextAvailable.start}` : "本日は空きなし";
+        }
       } catch {
         status.textContent = "空き状況を取得できません";
       }

@@ -19,8 +19,15 @@ const FACILITIES = {
     id: "solo-booth",
     name: "Solo Booth",
     label: "ソロブース",
-    calendarEnv: "GCAL_ID_SOLO_BOOTH",
+    calendarEnvs: [
+      "GCAL_ID_SOLO_BOOTH_1",
+      "GCAL_ID_SOLO_BOOTH_2",
+      "GCAL_ID_SOLO_BOOTH_3",
+      "GCAL_ID_SOLO_BOOTH_4",
+      "GCAL_ID_SOLO_BOOTH_5",
+    ],
     capacity: 1,
+    inventory: 5,
     description: "集中作業やオンライン会議向けの個室ブース。",
   },
 };
@@ -41,7 +48,28 @@ function getCalendarId(facilityId) {
     return null;
   }
 
+  if (facility.calendarEnvs) {
+    return process.env[facility.calendarEnvs[0]] || null;
+  }
+
   return process.env[facility.calendarEnv] || null;
+}
+
+function getCalendarIds(facilityId) {
+  const facility = getFacilityConfig(facilityId);
+  if (!facility) {
+    return [];
+  }
+
+  if (facility.calendarEnvs) {
+    return facility.calendarEnvs.map((name, index) => ({
+      id: process.env[name] || null,
+      resourceId: String(index + 1),
+    })).filter((item) => item.id);
+  }
+
+  const id = process.env[facility.calendarEnv] || null;
+  return id ? [{ id, resourceId: "1" }] : [];
 }
 
 module.exports = {
@@ -49,4 +77,5 @@ module.exports = {
   OPERATING_HOURS,
   getFacilityConfig,
   getCalendarId,
+  getCalendarIds,
 };

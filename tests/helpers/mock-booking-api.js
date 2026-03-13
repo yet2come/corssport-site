@@ -16,6 +16,13 @@ async function mockBookingApi(page) {
       { start: "19:00", end: "20:00", available: true },
       { start: "20:00", end: "21:00", available: true },
     ];
+    const normalizedSlots = facility === "solo-booth"
+      ? slots.map((slot) => ({
+          ...slot,
+          remaining: slot.available ? 3 : 0,
+          capacity: 5,
+        }))
+      : slots;
 
     await route.fulfill({
       status: 200,
@@ -26,7 +33,7 @@ async function mockBookingApi(page) {
         date: "2026-03-15",
         timezone: "Asia/Tokyo",
         operatingHours: { open: "09:00", close: "18:00" },
-        slots,
+        slots: normalizedSlots,
       }),
     });
   });
@@ -46,6 +53,7 @@ async function mockBookingApi(page) {
           date: payload.date,
           startTime: payload.startTime,
           endTime: payload.endTime,
+          resourceLabel: payload.facility === "solo-booth" ? "Solo Booth 3" : "",
         },
       }),
     });
@@ -64,6 +72,7 @@ async function mockBookingApi(page) {
           startTime: "09:00",
           endTime: "10:00",
           name: "田中一郎",
+          resourceLabel: "",
         },
       }),
     });

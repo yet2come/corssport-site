@@ -8,9 +8,10 @@ function createCancelUrl({ siteUrl, bookingId, facility, token }) {
   return `${siteUrl.replace(/\/$/, "")}/cancel.html#${fragment}`;
 }
 
-function createBookingEmail({ customerName, facilityName, date, startTime, endTime, guests, purpose, cancelUrl }) {
+function createBookingEmail({ customerName, facilityName, date, startTime, endTime, guests, purpose, cancelUrl, resourceLabel }) {
   const subject = `【CROSSPORT MSZ】予約確認 - ${facilityName} / ${date} ${startTime}-${endTime}`;
   const purposeLine = purpose ? purpose : "未入力";
+  const resourceLine = resourceLabel ? `部屋: ${resourceLabel}` : null;
   const text = [
     "━━━━━━━━━━━━━━━━━━━━━",
     "CROSSPORT MSZ - 予約確認",
@@ -21,6 +22,7 @@ function createBookingEmail({ customerName, facilityName, date, startTime, endTi
     "以下の内容でご予約を承りました。",
     "",
     `施設: ${facilityName}`,
+    resourceLine,
     `日時: ${date} ${startTime} - ${endTime}`,
     `人数: ${guests}名`,
     `利用目的: ${purposeLine}`,
@@ -35,7 +37,7 @@ function createBookingEmail({ customerName, facilityName, date, startTime, endTi
     "CROSSPORT MSZ",
     "TEL: 050-5211-5434",
     "MAIL: crossport@xmo.jp",
-  ].join("\n");
+  ].filter(Boolean).join("\n");
 
   const html = `
     <div style="font-family:'Noto Sans JP',sans-serif;line-height:1.7;color:#1A1A1D">
@@ -43,6 +45,7 @@ function createBookingEmail({ customerName, facilityName, date, startTime, endTi
       <p>以下の内容でご予約を承りました。</p>
       <table style="border-collapse:collapse">
         <tr><td style="padding:4px 12px 4px 0;font-weight:700">施設</td><td>${facilityName}</td></tr>
+        ${resourceLabel ? `<tr><td style="padding:4px 12px 4px 0;font-weight:700">部屋</td><td>${resourceLabel}</td></tr>` : ""}
         <tr><td style="padding:4px 12px 4px 0;font-weight:700">日時</td><td>${date} ${startTime} - ${endTime}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;font-weight:700">人数</td><td>${guests}名</td></tr>
         <tr><td style="padding:4px 12px 4px 0;font-weight:700">利用目的</td><td>${purposeLine}</td></tr>

@@ -1,5 +1,5 @@
 const { calendarFetch } = require("./_lib/google-calendar");
-const { getCalendarId } = require("./_lib/facilities-config");
+const { getCalendarIds } = require("./_lib/facilities-config");
 const { HttpError, methodNotAllowed, sendJson } = require("./_lib/http");
 const { enforceRateLimit } = require("./_lib/rate-limit");
 const { timingSafeTokenEqual } = require("./_lib/security");
@@ -21,12 +21,24 @@ module.exports = async function handler(req, res) {
       throw new HttpError(400, "id, facility and token are required");
     }
 
-    const calendarId = getCalendarId(facility);
-    if (!calendarId) {
+    const calendars = getCalendarIds(facility);
+    if (calendars.length === 0) {
       throw new HttpError(500, "Calendar is not configured");
     }
-
-    const event = await calendarFetch(`/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(bookingId)}`);
+    let event = null;
+    for (const calendar of calendars) {
+      try {
+        event = await calendarFetch(`/calendars/${encodeURIComponent(calendar.id)}/events/${encodeURIComponent(bookingId)}`);
+        break;
+      } catch (error) {
+        if (error.status !== 404) {
+          throw error;
+        }
+      }
+    }
+    if (!event) {
+      throw new HttpError(404, "Booking not found");
+    }
     const privateProps = event.extendedProperties?.private || {};
 
     if (privateProps.facilityId !== facility || !timingSafeTokenEqual(privateProps.cancelToken, token)) {
@@ -63,6 +75,7 @@ module.exports = async function handler(req, res) {
         startTime: timeFormatter.format(start),
         endTime: timeFormatter.format(end),
         name: privateProps.customerName || "",
+        resourceLabel: privateProps.resourceLabel || "",
       },
     });
   } catch (error) {

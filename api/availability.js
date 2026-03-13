@@ -1,6 +1,6 @@
 const { calendarFetch } = require("./_lib/google-calendar");
-const { getDayBounds, slotsFromBusy } = require("./_lib/calendar-slots");
-const { getCalendarId, getFacilityConfig, OPERATING_HOURS } = require("./_lib/facilities-config");
+const { buildSlots, getDayBounds, slotsFromBusy } = require("./_lib/calendar-slots");
+const { getCalendarIds, getFacilityConfig, OPERATING_HOURS } = require("./_lib/facilities-config");
 const { HttpError, methodNotAllowed, sendJson } = require("./_lib/http");
 const { enforceRateLimit } = require("./_lib/rate-limit");
 const { validateDate, validateFacility } = require("./_lib/validate");
@@ -16,9 +16,8 @@ module.exports = async function handler(req, res) {
     const facility = validateFacility(req.query.facility);
     const date = validateDate(req.query.date);
     const facilityConfig = getFacilityConfig(facility);
-    const calendarId = getCalendarId(facility);
-
-    if (!calendarId) {
+    const calendars = getCalendarIds(facility);
+    if (calendars.length === 0) {
       throw new HttpError(500, "Calendar is not configured");
     }
 
@@ -29,11 +28,31 @@ module.exports = async function handler(req, res) {
         timeMin,
         timeMax,
         timeZone: "Asia/Tokyo",
-        items: [{ id: calendarId }],
+        items: calendars.map((calendar) => ({ id: calendar.id })),
       }),
     });
-
-    const busy = payload.calendars?.[calendarId]?.busy || [];
+    let slots;
+    if (facility === "solo-booth") {
+      const capacity = calendars.length;
+      slots = buildSlots(date).map((slot) => {
+        const busyCount = calendars.reduce((count, calendar) => {
+          const busyPeriods = payload.calendars?.[calendar.id]?.busy || [];
+          const hasConflict = busyPeriods.some((busy) => !(busy.end <= slot.startIso || busy.start >= slot.endIso));
+          return count + (hasConflict ? 1 : 0);
+        }, 0);
+        const remaining = capacity - busyCount;
+        return {
+          start: slot.start,
+          end: slot.end,
+          available: remaining > 0,
+          remaining,
+          capacity,
+        };
+      });
+    } else {
+      const busy = payload.calendars?.[calendars[0].id]?.busy || [];
+      slots = slotsFromBusy(date, busy);
+    }
     return sendJson(res, 200, {
       facility,
       facilityName: facilityConfig.name,
@@ -43,7 +62,7 @@ module.exports = async function handler(req, res) {
         open: OPERATING_HOURS.open,
         close: OPERATING_HOURS.close,
       },
-      slots: slotsFromBusy(date, busy),
+      slots,
     });
   } catch (error) {
     const status = error.status || 500;

@@ -1,7 +1,7 @@
 const { Resend } = require("resend");
-const { buildSlots, getDayBounds, toIso } = require("./_lib/calendar-slots");
+const { getDayBounds, toIso } = require("./_lib/calendar-slots");
 const { createBookingEmail, createCancelUrl } = require("./_lib/email-templates");
-const { getCalendarId, getFacilityConfig } = require("./_lib/facilities-config");
+const { getCalendarIds, getFacilityConfig } = require("./_lib/facilities-config");
 const { calendarFetch, CalendarApiError } = require("./_lib/google-calendar");
 const { HttpError, methodNotAllowed, readJsonBody, sendJson } = require("./_lib/http");
 const { enforceRateLimit } = require("./_lib/rate-limit");
@@ -16,28 +16,29 @@ function ensureEnv(name) {
   return value;
 }
 
-async function ensureSlotAvailable(calendarId, date, startTime, endTime) {
+async function getAvailableCalendar(calendars, date, startTime, endTime) {
   const { timeMin, timeMax } = getDayBounds(date);
   const payload = await calendarFetch("/freeBusy", {
     method: "POST",
-    body: JSON.stringify({
-      timeMin,
-      timeMax,
-      timeZone: "Asia/Tokyo",
-      items: [{ id: calendarId }],
-    }),
+      body: JSON.stringify({
+        timeMin,
+        timeMax,
+        timeZone: "Asia/Tokyo",
+        items: calendars.map((calendar) => ({ id: calendar.id })),
+      }),
   });
 
-  const busy = payload.calendars?.[calendarId]?.busy || [];
-  const slot = buildSlots(date).find((item) => item.start === startTime && item.end === endTime);
-  if (!slot) {
-    throw new HttpError(400, "Invalid slot");
+  const startIso = toIso(date, startTime);
+  const endIso = toIso(date, endTime);
+  for (const calendar of calendars) {
+    const busy = payload.calendars?.[calendar.id]?.busy || [];
+    const hasConflict = busy.some((item) => !(item.end <= startIso || item.start >= endIso));
+    if (!hasConflict) {
+      return calendar;
+    }
   }
 
-  const hasConflict = busy.some((item) => !(item.end <= slot.startIso || item.start >= slot.endIso));
-  if (hasConflict) {
-    throw new HttpError(409, "Selected slot is no longer available");
-  }
+  throw new HttpError(409, "Selected slot is no longer available");
 }
 
 module.exports = async function handler(req, res) {
@@ -54,9 +55,8 @@ module.exports = async function handler(req, res) {
     const body = await readJsonBody(req);
     const booking = validateBookingPayload(body);
     const facility = getFacilityConfig(booking.facility);
-    calendarId = getCalendarId(booking.facility);
-
-    if (!calendarId) {
+    const calendars = getCalendarIds(booking.facility);
+    if (calendars.length === 0) {
       throw new HttpError(500, "Calendar is not configured");
     }
 
@@ -65,7 +65,9 @@ module.exports = async function handler(req, res) {
     const resendKey = ensureEnv("RESEND_API_KEY");
     const fromEmail = ensureEnv("RESEND_FROM_EMAIL");
 
-    await ensureSlotAvailable(calendarId, booking.date, booking.startTime, booking.endTime);
+    const selectedCalendar = await getAvailableCalendar(calendars, booking.date, booking.startTime, booking.endTime);
+    calendarId = selectedCalendar.id;
+    const resourceLabel = booking.facility === "solo-booth" ? `Solo Booth ${selectedCalendar.resourceId}` : null;
 
     const eventId = createBookingEventId(booking);
     const cancelToken = generateCancelToken(eventId, booking.email);
@@ -97,6 +99,8 @@ module.exports = async function handler(req, res) {
             customerName: booking.name,
             facilityId: booking.facility,
             facilityName: facility.name,
+            resourceCalendarId: calendarId,
+            resourceLabel: resourceLabel || "",
           },
         },
       }),
@@ -118,6 +122,7 @@ module.exports = async function handler(req, res) {
       guests: booking.guests,
       purpose: booking.purpose,
       cancelUrl,
+      resourceLabel,
     });
 
     const resend = new Resend(resendKey);
@@ -138,6 +143,7 @@ module.exports = async function handler(req, res) {
         date: booking.date,
         startTime: booking.startTime,
         endTime: booking.endTime,
+        resourceLabel,
       },
     });
   } catch (error) {
