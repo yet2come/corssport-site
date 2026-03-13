@@ -37,6 +37,7 @@ const successDetail = document.getElementById("booking-success-detail");
 const submitButton = document.getElementById("booking-submit");
 const startTimeInput = document.getElementById("booking-start-time");
 const endTimeInput = document.getElementById("booking-end-time");
+const priceBox = document.getElementById("booking-price");
 
 function tokyoDateString(date = new Date()) {
   return new Intl.DateTimeFormat("en-CA", {
@@ -62,6 +63,48 @@ function clearBanner() {
   banner.classList.add("hidden");
 }
 
+function formatYen(value) {
+  return `¥${value.toLocaleString("ja-JP")}`;
+}
+
+function setPriceDisplay(selectedSlots) {
+  if (selectedSlots.length === 0) {
+    priceBox.classList.add("hidden");
+    priceBox.textContent = "";
+    return;
+  }
+
+  let message = "";
+
+  if (state.facility === "event-space") {
+    const total = selectedSlots.reduce((sum, slot) => {
+      return sum + (slot.start >= "18:00" ? 13200 : 8800);
+    }, 0);
+    message = `料金: ${formatYen(total)} (${selectedSlots.length}時間)`;
+  } else if (state.facility === "meeting-room") {
+    const total = selectedSlots.reduce((sum, slot) => {
+      return sum + (slot.start >= "18:00" ? 4400 : 2200);
+    }, 0);
+    message = `料金: ${formatYen(total)} (${selectedSlots.length}時間)`;
+  } else if (state.facility === "solo-booth") {
+    const hasEveningSlot = selectedSlots.some((slot) => slot.start >= "18:00");
+    if (hasEveningSlot) {
+      message = "料金: 18:00以降のソロブース料金は要確認";
+    } else {
+      const hours = selectedSlots.length;
+      let total = 1200;
+      if (hours > 2) {
+        total += (hours - 2) * 600;
+      }
+      total = Math.min(total, 2500);
+      message = `料金: ${formatYen(total)} (${hours}時間 / 18:00まで上限 ${formatYen(2500)})`;
+    }
+  }
+
+  priceBox.textContent = message;
+  priceBox.classList.remove("hidden");
+}
+
 function sortTimes(times) {
   return [...times].sort((left, right) => left.localeCompare(right));
 }
@@ -80,6 +123,7 @@ function updateSelectedState() {
   const selectedSlots = getSelectedSlots();
   startTimeInput.value = selectedSlots[0]?.start || "";
   endTimeInput.value = selectedSlots[selectedSlots.length - 1]?.end || "";
+  setPriceDisplay(selectedSlots);
 
   if (selectedSlots.length === 0) {
     slotHint.textContent = "時間を複数選択できます";
@@ -115,6 +159,7 @@ function renderSlots(slots) {
 
   if (!slots || slots.length === 0) {
     slotHint.textContent = "営業時間内のスロットがありません";
+    setPriceDisplay([]);
     return;
   }
 
