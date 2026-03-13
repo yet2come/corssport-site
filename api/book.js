@@ -48,6 +48,7 @@ module.exports = async function handler(req, res) {
 
   let createdEventId = null;
   let calendarId = null;
+  let stage = "init";
 
   try {
     enforceRateLimit(req, "book", 5, 60 * 1000);
@@ -65,6 +66,7 @@ module.exports = async function handler(req, res) {
     const resendKey = ensureEnv("RESEND_API_KEY");
     const fromEmail = ensureEnv("RESEND_FROM_EMAIL");
 
+    stage = "calendar-selection";
     const selectedCalendar = await getAvailableCalendar(calendars, booking.date, booking.startTime, booking.endTime);
     calendarId = selectedCalendar.id;
     const resourceLabel = booking.facility === "solo-booth" ? `Solo Booth ${selectedCalendar.resourceId}` : null;
@@ -72,6 +74,7 @@ module.exports = async function handler(req, res) {
     const eventId = createBookingEventId(booking);
     const cancelToken = generateCancelToken(eventId, booking.email);
 
+    stage = "calendar-insert";
     await calendarFetch(`/calendars/${encodeURIComponent(calendarId)}/events`, {
       method: "POST",
       body: JSON.stringify({
@@ -109,6 +112,7 @@ module.exports = async function handler(req, res) {
     });
     createdEventId = eventId;
 
+    stage = "email-template";
     const cancelUrl = createCancelUrl({
       siteUrl,
       bookingId: eventId,
@@ -127,6 +131,7 @@ module.exports = async function handler(req, res) {
       resourceLabel,
     });
 
+    stage = "email-send";
     const resend = new Resend(resendKey);
     await resend.emails.send({
       from: fromEmail,
@@ -150,13 +155,28 @@ module.exports = async function handler(req, res) {
       },
     });
   } catch (error) {
+    console.error("[book] request failed", {
+      stage,
+      facility: req.body?.facility,
+      calendarId,
+      createdEventId,
+      errorName: error?.name,
+      errorMessage: error?.message,
+      errorStatus: error?.status,
+      errorBody: error?.body,
+      errorDetails: error?.details,
+    });
+
     if (createdEventId && calendarId) {
       try {
         await calendarFetch(`/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(createdEventId)}`, {
           method: "DELETE",
         });
       } catch {
-        // Best effort rollback.
+        console.error("[book] rollback failed", {
+          calendarId,
+          createdEventId,
+        });
       }
     }
 
