@@ -19,6 +19,7 @@ function createBookingEmail({ customerName, facilityName, date, startTime, endTi
     "",
     `${customerName} 様`,
     "",
+    "このたびはクロスポート武生水のご利用ありがとうございます。",
     "以下の内容でご予約を承りました。",
     "",
     `施設: ${facilityName}`,
@@ -34,6 +35,7 @@ function createBookingEmail({ customerName, facilityName, date, startTime, endTi
     "",
     "━━━━━━━━━━━━━━━━━━━━━",
     "",
+    "クロスポート武生水（むしょうず）",
     "CROSSPORT MSZ",
     "TEL: 050-5211-5434",
     "MAIL: crossport@xmo.jp",
@@ -42,7 +44,7 @@ function createBookingEmail({ customerName, facilityName, date, startTime, endTi
   const html = `
     <div style="font-family:'Noto Sans JP',sans-serif;line-height:1.7;color:#1A1A1D">
       <p>${customerName} 様</p>
-      <p>以下の内容でご予約を承りました。</p>
+      <p>このたびはクロスポート武生水のご利用ありがとうございます。<br />以下の内容でご予約を承りました。</p>
       <table style="border-collapse:collapse">
         <tr><td style="padding:4px 12px 4px 0;font-weight:700">施設</td><td>${facilityName}</td></tr>
         ${resourceLabel ? `<tr><td style="padding:4px 12px 4px 0;font-weight:700">部屋</td><td>${resourceLabel}</td></tr>` : ""}
@@ -53,6 +55,12 @@ function createBookingEmail({ customerName, facilityName, date, startTime, endTi
       <p style="margin-top:24px">
         キャンセルをご希望の場合は以下のリンクからお手続きください。<br />
         <a href="${cancelUrl}">${cancelUrl}</a>
+      </p>
+      <p style="margin-top:24px">
+        クロスポート武生水（むしょうず）<br />
+        CROSSPORT MSZ<br />
+        TEL: 050-5211-5434<br />
+        MAIL: crossport@xmo.jp
       </p>
     </div>
   `;
