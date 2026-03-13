@@ -26,10 +26,10 @@ function getDayBounds(date) {
   };
 }
 
-function buildSlots(date) {
+function buildSlots(date, hours = OPERATING_HOURS) {
   const slots = [];
-  const [openHours] = OPERATING_HOURS.open.split(":").map(Number);
-  const [closeHours] = OPERATING_HOURS.close.split(":").map(Number);
+  const [openHours] = hours.open.split(":").map(Number);
+  const [closeHours] = hours.close.split(":").map(Number);
 
   for (let hour = openHours; hour < closeHours; hour += 1) {
     const start = `${String(hour).padStart(2, "0")}:00`;
@@ -45,8 +45,8 @@ function buildSlots(date) {
   return slots;
 }
 
-function slotsFromBusy(date, busyPeriods = []) {
-  return buildSlots(date).map((slot) => {
+function slotsFromBusy(date, busyPeriods = [], hours = OPERATING_HOURS) {
+  return buildSlots(date, hours).map((slot) => {
     const available = !busyPeriods.some((busy) => {
       return !(busy.end <= slot.startIso || busy.start >= slot.endIso);
     });

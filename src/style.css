@@ -99,6 +99,21 @@ body.menu-open {
   transform: translateY(0);
 }
 
+[data-facility-card].is-selected-card {
+  background: var(--color-seaweed-green);
+  color: var(--color-stark-white);
+}
+
+[data-facility-card].is-selected-card .material-symbols-outlined,
+[data-facility-card].is-selected-card [data-facility-status] {
+  color: var(--color-stark-white);
+  opacity: 1;
+}
+
+[data-facility-card].is-selected-card .border-t-4 {
+  border-color: var(--color-stark-white);
+}
+
 .brutalist-input {
   border: 3px solid var(--color-basalt-black);
   padding: 0.9rem 1rem;

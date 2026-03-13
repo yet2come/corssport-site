@@ -16,13 +16,18 @@ async function mockBookingApi(page) {
       { start: "19:00", end: "20:00", available: true },
       { start: "20:00", end: "21:00", available: true },
     ];
-    const normalizedSlots = facility === "solo-booth"
-      ? slots.map((slot) => ({
-          ...slot,
-          remaining: slot.available ? 3 : 0,
-          capacity: 5,
-        }))
-      : slots;
+    const normalizedSlots = (facility === "solo-booth" ? slots.filter((slot) => slot.start < "18:00") : slots)
+      .map((slot) => {
+        if (facility === "solo-booth") {
+          return {
+            ...slot,
+            remaining: slot.available ? 3 : 0,
+            capacity: 5,
+          };
+        }
+
+        return slot;
+      });
 
     await route.fulfill({
       status: 200,
@@ -32,7 +37,7 @@ async function mockBookingApi(page) {
         facilityName: facility,
         date: "2026-03-15",
         timezone: "Asia/Tokyo",
-        operatingHours: { open: "09:00", close: "18:00" },
+        operatingHours: { open: "09:00", close: facility === "solo-booth" ? "18:00" : "21:00" },
         slots: normalizedSlots,
       }),
     });

@@ -12,7 +12,8 @@ test.describe("booking UI", () => {
     await expect(page.getByRole("heading", { name: "BOOK" })).toBeVisible();
     await page.getByRole("button", { name: /Meeting Room/i }).click();
     await page.getByLabel("Date").fill("2026-03-15");
-    await page.getByRole("button", { name: "09:00 - 10:00" }).click();
+    await page.getByRole("button", { name: "11:00 - 12:00" }).click();
+    await page.getByRole("button", { name: "12:00 - 13:00" }).click();
     await page.getByLabel("Name").fill("田中一郎");
     await page.getByLabel("Email").fill("tanaka@example.com");
     await page.getByLabel("Phone").fill("090-1234-5678");
@@ -21,11 +22,12 @@ test.describe("booking UI", () => {
 
     await expect(page.locator("#booking-panel")).toBeVisible();
     await expect(page.locator("#booking-name")).toHaveValue("田中一郎");
+    await expect(page.locator("#booking-slot-hint")).toContainText("11:00 - 13:00");
 
     await page.getByRole("button", { name: "予約する" }).click();
 
     await expect(page.locator("#booking-success")).toBeVisible();
-    await expect(page.locator("#booking-success-detail")).toContainText("Meeting Room / 2026-03-15 09:00-10:00");
+    await expect(page.locator("#booking-success-detail")).toContainText("Meeting Room / 2026-03-15 11:00-13:00");
   });
 
   test("can open cancel page and complete cancellation", async ({ page }) => {

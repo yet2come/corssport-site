@@ -1,6 +1,6 @@
 const { calendarFetch } = require("./_lib/google-calendar");
 const { buildSlots, getDayBounds, slotsFromBusy } = require("./_lib/calendar-slots");
-const { getCalendarIds, getFacilityConfig, OPERATING_HOURS } = require("./_lib/facilities-config");
+const { getCalendarIds, getFacilityConfig, getOperatingHours } = require("./_lib/facilities-config");
 const { HttpError, methodNotAllowed, sendJson } = require("./_lib/http");
 const { enforceRateLimit } = require("./_lib/rate-limit");
 const { validateDate, validateFacility } = require("./_lib/validate");
@@ -16,6 +16,7 @@ module.exports = async function handler(req, res) {
     const facility = validateFacility(req.query.facility);
     const date = validateDate(req.query.date);
     const facilityConfig = getFacilityConfig(facility);
+    const operatingHours = getOperatingHours(facility);
     const calendars = getCalendarIds(facility);
     if (calendars.length === 0) {
       throw new HttpError(500, "Calendar is not configured");
@@ -34,7 +35,7 @@ module.exports = async function handler(req, res) {
     let slots;
     if (facility === "solo-booth") {
       const capacity = calendars.length;
-      slots = buildSlots(date).map((slot) => {
+      slots = buildSlots(date, operatingHours).map((slot) => {
         const busyCount = calendars.reduce((count, calendar) => {
           const busyPeriods = payload.calendars?.[calendar.id]?.busy || [];
           const hasConflict = busyPeriods.some((busy) => !(busy.end <= slot.startIso || busy.start >= slot.endIso));
@@ -51,17 +52,14 @@ module.exports = async function handler(req, res) {
       });
     } else {
       const busy = payload.calendars?.[calendars[0].id]?.busy || [];
-      slots = slotsFromBusy(date, busy);
+      slots = slotsFromBusy(date, busy, operatingHours);
     }
     return sendJson(res, 200, {
       facility,
       facilityName: facilityConfig.name,
       date,
       timezone: "Asia/Tokyo",
-      operatingHours: {
-        open: OPERATING_HOURS.open,
-        close: OPERATING_HOURS.close,
-      },
+      operatingHours,
       slots,
     });
   } catch (error) {
