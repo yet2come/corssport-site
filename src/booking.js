@@ -92,6 +92,27 @@ function clearBanner() {
   banner.classList.add("hidden");
 }
 
+function formatApiError(payload) {
+  if (!payload || typeof payload !== "object") {
+    return "予約に失敗しました";
+  }
+
+  if (payload.details && typeof payload.details === "object") {
+    const firstDetail = Object.values(payload.details).find(
+      (value) => typeof value === "string" && value.trim()
+    );
+    if (firstDetail) {
+      return firstDetail;
+    }
+  }
+
+  if (typeof payload.error === "string" && payload.error.trim()) {
+    return payload.error;
+  }
+
+  return "予約に失敗しました";
+}
+
 function formatYen(value) {
   return `¥${value.toLocaleString("ja-JP")}`;
 }
@@ -375,7 +396,7 @@ form.addEventListener("submit", async (event) => {
     });
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || "予約に失敗しました");
+      throw new Error(formatApiError(data));
     }
 
     form.classList.add("hidden");
