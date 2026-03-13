@@ -126,10 +126,16 @@ body.menu-open {
   transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
+.booking-slot.is-evening {
+  background: #f3cf3d;
+  color: var(--color-basalt-black);
+  border-color: var(--color-basalt-black);
+}
+
 .booking-slot.is-unavailable {
-  background: #d9dee2;
-  color: #5b6670;
-  border-color: #5b6670;
+  background: #7a848d;
+  color: var(--color-stark-white);
+  border-color: var(--color-stark-white);
   opacity: 1;
 }
 

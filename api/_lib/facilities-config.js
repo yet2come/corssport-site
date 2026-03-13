@@ -27,7 +27,7 @@ const FACILITIES = {
 
 const OPERATING_HOURS = {
   open: "09:00",
-  close: "18:00",
+  close: "21:00",
   slotMinutes: 60,
 };
 

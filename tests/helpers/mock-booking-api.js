@@ -12,6 +12,9 @@ async function mockBookingApi(page) {
       { start: "15:00", end: "16:00", available: true },
       { start: "16:00", end: "17:00", available: true },
       { start: "17:00", end: "18:00", available: true },
+      { start: "18:00", end: "19:00", available: true },
+      { start: "19:00", end: "20:00", available: true },
+      { start: "20:00", end: "21:00", available: true },
     ];
 
     await route.fulfill({

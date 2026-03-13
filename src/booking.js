@@ -19,7 +19,7 @@ const facilities = {
 const state = {
   facility: null,
   date: "",
-  slot: null,
+  selectedStarts: [],
 };
 
 const panel = document.getElementById("booking-panel");
@@ -62,27 +62,63 @@ function clearBanner() {
   banner.classList.add("hidden");
 }
 
-function setSelectedSlot(slot) {
-  state.slot = slot;
-  startTimeInput.value = slot?.start || "";
-  endTimeInput.value = slot?.end || "";
+function sortTimes(times) {
+  return [...times].sort((left, right) => left.localeCompare(right));
+}
+
+function getSelectedSlots() {
+  return sortTimes(state.selectedStarts)
+    .map((start) => slotContainer.querySelector(`[data-start="${start}"]`))
+    .filter(Boolean)
+    .map((element) => ({
+      start: element.dataset.start,
+      end: element.dataset.end,
+    }));
+}
+
+function updateSelectedState() {
+  const selectedSlots = getSelectedSlots();
+  startTimeInput.value = selectedSlots[0]?.start || "";
+  endTimeInput.value = selectedSlots[selectedSlots.length - 1]?.end || "";
+
+  if (selectedSlots.length === 0) {
+    slotHint.textContent = "時間を複数選択できます";
+  } else {
+    slotHint.textContent = `${selectedSlots[0].start} - ${selectedSlots[selectedSlots.length - 1].end} を選択中 (${selectedSlots.length}時間)`;
+  }
 
   slotContainer.querySelectorAll("[data-slot]").forEach((button) => {
-    const active = button.dataset.start === slot?.start;
+    const active = state.selectedStarts.includes(button.dataset.start);
     button.classList.toggle("is-selected", active);
   });
 }
 
+function setSelectedStarts(starts) {
+  state.selectedStarts = sortTimes(starts);
+  updateSelectedState();
+}
+
+function toggleSlot(slot) {
+  const selected = new Set(state.selectedStarts);
+  if (selected.has(slot.start)) {
+    selected.delete(slot.start);
+  } else {
+    selected.add(slot.start);
+  }
+
+  setSelectedStarts([...selected]);
+}
+
 function renderSlots(slots) {
   slotContainer.innerHTML = "";
-  setSelectedSlot(null);
+  setSelectedStarts([]);
 
   if (!slots || slots.length === 0) {
     slotHint.textContent = "営業時間内のスロットがありません";
     return;
   }
 
-  slotHint.textContent = "時間を選択してください";
+  slotHint.textContent = "時間を複数選択できます";
   slots.forEach((slot) => {
     const button = document.createElement("button");
     button.type = "button";
@@ -90,14 +126,17 @@ function renderSlots(slots) {
     button.dataset.start = slot.start;
     button.dataset.end = slot.end;
     button.className = "booking-slot brutalist-border";
+    if (slot.start >= "18:00") {
+      button.classList.add("is-evening");
+    }
     button.textContent = slot.available
       ? `${slot.start} - ${slot.end}`
-      : `${slot.start} - ${slot.end} / 予約済み`;
+      : `${slot.start} - ${slot.end} / 予約済`;
     if (!slot.available) {
       button.disabled = true;
       button.classList.add("is-unavailable", "cursor-not-allowed");
     } else {
-      button.addEventListener("click", () => setSelectedSlot(slot));
+      button.addEventListener("click", () => toggleSlot(slot));
     }
     slotContainer.appendChild(button);
   });
@@ -121,6 +160,9 @@ function selectFacility(facilityId) {
   facilityDescription.textContent = facility.description;
   capacity.textContent = `定員: ${facility.capacity}名`;
   facilityInput.value = facilityId;
+  successPanel.classList.add("hidden");
+  form.classList.remove("hidden");
+  setSelectedStarts([]);
   panel.classList.remove("hidden");
   document.querySelectorAll("[data-facility-card]").forEach((card) => {
     card.classList.toggle("bg-seaweed-green", card.dataset.facility === facilityId);
@@ -180,9 +222,16 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   clearBanner();
 
-  if (!state.facility || !dateInput.value || !state.slot) {
+  const selectedSlots = getSelectedSlots();
+  if (!state.facility || !dateInput.value || selectedSlots.length === 0) {
     showBanner("施設・日付・時間を選択してください", "error");
     return;
+  }
+  for (let index = 1; index < selectedSlots.length; index += 1) {
+    if (selectedSlots[index - 1].end !== selectedSlots[index].start) {
+      showBanner("複数選択する場合は連続した時間帯を選択してください", "error");
+      return;
+    }
   }
 
   const formData = new FormData(form);
