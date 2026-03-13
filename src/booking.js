@@ -53,6 +53,30 @@ function tokyoDateString(date = new Date()) {
   }).format(date);
 }
 
+function getTokyoNowParts(date = new Date()) {
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const parts = Object.fromEntries(
+    formatter
+      .formatToParts(date)
+      .filter((part) => part.type !== "literal")
+      .map((part) => [part.type, part.value])
+  );
+
+  return {
+    date: `${parts.year}-${parts.month}-${parts.day}`,
+    hour: Number(parts.hour),
+    minute: Number(parts.minute),
+  };
+}
+
 function showBanner(message, tone = "info") {
   banner.textContent = message;
   banner.classList.remove("hidden", "bg-white", "bg-[#ffe9e7]", "text-basalt-black");
@@ -72,45 +96,59 @@ function formatYen(value) {
   return `¥${value.toLocaleString("ja-JP")}`;
 }
 
+function setPriceLines(lines) {
+  priceBox.innerHTML = lines.map((line) => `<div>${line}</div>`).join("");
+  priceBox.classList.remove("hidden");
+}
+
 function setPriceDisplay(selectedSlots) {
   if (selectedSlots.length === 0) {
     priceBox.classList.add("hidden");
-    priceBox.textContent = "";
+    priceBox.innerHTML = "";
     return;
   }
 
-  let message = "";
-
   if (state.facility === "event-space") {
-    let total = selectedSlots.reduce((sum, slot) => {
+    let visitorTotal = selectedSlots.reduce((sum, slot) => {
       return sum + (slot.start >= "18:00" ? 13200 : 8800);
     }, 0);
+    let memberTotal = selectedSlots.reduce((sum, slot) => {
+      return sum + (slot.start >= "18:00" ? 9900 : 6600);
+    }, 0);
     if (layoutCheckbox.checked) {
-      total += 3300;
+      visitorTotal += 3300;
+      memberTotal += 3300;
     }
-    message = `料金: ${formatYen(total)} (${selectedSlots.length}時間)`;
+    setPriceLines([
+      `ビジター料金: ${formatYen(visitorTotal)} (${selectedSlots.length}時間)`,
+      `メンバー料金: ${formatYen(memberTotal)} (${selectedSlots.length}時間)`,
+    ]);
   } else if (state.facility === "meeting-room") {
-    const total = selectedSlots.reduce((sum, slot) => {
+    const visitorTotal = selectedSlots.reduce((sum, slot) => {
       return sum + (slot.start >= "18:00" ? 4400 : 2200);
     }, 0);
-    message = `料金: ${formatYen(total)} (${selectedSlots.length}時間)`;
+    const memberTotal = selectedSlots.reduce((sum, slot) => {
+      return sum + (slot.start >= "18:00" ? 3300 : 1100);
+    }, 0);
+    setPriceLines([
+      `ビジター料金: ${formatYen(visitorTotal)} (${selectedSlots.length}時間)`,
+      `メンバー料金: ${formatYen(memberTotal)} (${selectedSlots.length}時間)`,
+    ]);
   } else if (state.facility === "solo-booth") {
-    const hasEveningSlot = selectedSlots.some((slot) => slot.start >= "18:00");
-    if (hasEveningSlot) {
-      message = "料金: 18:00以降のソロブース料金は要確認";
-    } else {
-      const hours = selectedSlots.length;
-      let total = 1200;
-      if (hours > 2) {
-        total += (hours - 2) * 600;
-      }
-      total = Math.min(total, 2500);
-      message = `料金: ${formatYen(total)} (${hours}時間 / 18:00まで上限 ${formatYen(2500)})`;
+    const hours = selectedSlots.length;
+    let visitorTotal = 1200;
+    let memberTotal = 600;
+    if (hours > 2) {
+      visitorTotal += (hours - 2) * 600;
+      memberTotal += (hours - 2) * 300;
     }
+    visitorTotal = Math.min(visitorTotal, 2500);
+    memberTotal = Math.min(memberTotal, 1000);
+    setPriceLines([
+      `ビジター料金: ${formatYen(visitorTotal)} (${hours}時間 / 18:00まで上限 ${formatYen(2500)})`,
+      `メンバー料金: ${formatYen(memberTotal)} (${hours}時間 / 18:00まで上限 ${formatYen(1000)})`,
+    ]);
   }
-
-  priceBox.textContent = message;
-  priceBox.classList.remove("hidden");
 }
 
 function sortTimes(times) {
@@ -256,24 +294,36 @@ async function loadAvailability() {
 }
 
 async function loadCardStatuses() {
-  const today = tokyoDateString();
+  const now = getTokyoNowParts();
+  const minutesNow = now.hour * 60 + now.minute;
+  const showTomorrow = minutesNow >= 16 * 60 + 30;
+  const targetDate = showTomorrow
+    ? tokyoDateString(new Date(Date.now() + 24 * 60 * 60 * 1000))
+    : now.date;
+  const thresholdMinutes = showTomorrow ? 0 : minutesNow + 30;
   await Promise.all(
     [...document.querySelectorAll("[data-facility-card]")].map(async (card) => {
       const status = card.querySelector("[data-facility-status]");
       try {
-        const response = await fetch(`/api/availability?facility=${encodeURIComponent(card.dataset.facility)}&date=${today}`);
+        const response = await fetch(`/api/availability?facility=${encodeURIComponent(card.dataset.facility)}&date=${targetDate}`);
         const payload = await response.json();
         if (!response.ok) {
           throw new Error();
         }
+        const candidateSlots = payload.slots.filter((slot) => {
+          const [hours, minutes] = slot.start.split(":").map(Number);
+          return hours * 60 + minutes >= thresholdMinutes;
+        });
         if (card.dataset.facility === "solo-booth") {
-          const nextAvailable = payload.slots.find((slot) => slot.remaining > 0);
+          const nextAvailable = candidateSlots.find((slot) => slot.remaining > 0);
           status.textContent = nextAvailable
-            ? `本日空き ${nextAvailable.remaining} / 5 / 次の空き: ${nextAvailable.start}`
-            : "本日は満室";
+            ? `${showTomorrow ? "明日" : "本日"}空き ${nextAvailable.remaining} / 5 / 次の空き: ${nextAvailable.start}`
+            : `${showTomorrow ? "明日" : "本日"}は満室`;
         } else {
-          const nextAvailable = payload.slots.find((slot) => slot.available);
-          status.textContent = nextAvailable ? `本日空きあり / 次の空き: ${nextAvailable.start}` : "本日は空きなし";
+          const nextAvailable = candidateSlots.find((slot) => slot.available);
+          status.textContent = nextAvailable
+            ? `${showTomorrow ? "明日" : "本日"}空きあり / 次の空き: ${nextAvailable.start}`
+            : `${showTomorrow ? "明日" : "本日"}は空きなし`;
         }
       } catch {
         status.textContent = "空き状況を取得できません";
