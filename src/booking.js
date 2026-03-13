@@ -1,14 +1,14 @@
 const facilities = {
   "event-space": {
     name: "Event Hall",
-    description: "最大20名収容。ワークショップや講演会向けのイベントスペース。",
-    capacity: 20,
+    description: "スクール形式で定員24名＋、シアター形式で最大50名。ワークショップや講演会向けのイベントホール。",
+    capacity: "スクール形式で定員24名＋、シアター形式で最大50名",
     close: "21:00",
   },
   "meeting-room": {
     name: "Meeting Room",
-    description: "モニターとホワイトボードを備えた打ち合わせ向けの会議室。",
-    capacity: 8,
+    description: "最大10名。モニターとホワイトボードを備えた打ち合わせ向けの会議室。",
+    capacity: 10,
     close: "21:00",
   },
   "solo-booth": {
@@ -288,7 +288,9 @@ function selectFacility(facilityId) {
   const facility = facilities[facilityId];
   facilityName.textContent = facility.name;
   facilityDescription.textContent = facility.description;
-  capacity.textContent = `定員: ${facility.capacity}名`;
+  capacity.textContent = typeof facility.capacity === "number"
+    ? `定員: ${facility.capacity}名`
+    : `定員: ${facility.capacity}`;
   document.querySelector("#booking-panel .space-y-3 p").textContent = `営業時間: 09:00 - ${facility.close}`;
   facilityInput.value = facilityId;
   layoutCheckbox.checked = false;
