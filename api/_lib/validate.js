@@ -35,14 +35,15 @@ function validateDate(date) {
 
   const start = new Date(`${date}T00:00:00+09:00`);
   const today = new Date(`${tokyoToday}T00:00:00+09:00`);
-  const maxDate = new Date(today.getTime() + 90 * 24 * 60 * 60 * 1000);
+  const maxDate = new Date(today);
+  maxDate.setMonth(maxDate.getMonth() + 6);
 
   if (Number.isNaN(start.getTime())) {
     throw new ValidationError({ date: "有効な日付を指定してください" });
   }
 
   if (start < today || start > maxDate) {
-    throw new ValidationError({ date: "予約日は本日から90日以内で指定してください" });
+    throw new ValidationError({ date: "予約日は本日から6か月以内で指定してください" });
   }
 
   return date;
@@ -181,4 +182,5 @@ module.exports = {
   validateBookingPayload,
   validateDate,
   validateFacility,
+  timeToMinutes,
 };

@@ -77,6 +77,10 @@ function getTokyoNowParts(date = new Date()) {
   };
 }
 
+function getTokyoDateOffset(days) {
+  return tokyoDateString(new Date(Date.now() + days * 24 * 60 * 60 * 1000));
+}
+
 function showBanner(message, tone = "info") {
   banner.textContent = message;
   banner.classList.remove("hidden", "bg-white", "bg-[#ffe9e7]", "text-basalt-black");
@@ -223,6 +227,9 @@ function toggleSlot(slot) {
 function renderSlots(slots) {
   slotContainer.innerHTML = "";
   setSelectedStarts([]);
+  const now = getTokyoNowParts();
+  const isToday = dateInput.value === now.date;
+  const cutoffMinutes = now.hour * 60 + now.minute;
 
   if (!slots || slots.length === 0) {
     slotHint.textContent = "営業時間内のスロットがありません";
@@ -250,9 +257,14 @@ function renderSlots(slots) {
         ? `${slot.start} - ${slot.end}`
         : `${slot.start} - 予約済`;
     }
-    if (!slot.available) {
+    const [hours, minutes] = slot.start.split(":").map(Number);
+    const isPastSlot = isToday && hours * 60 + minutes <= cutoffMinutes;
+    if (!slot.available || isPastSlot) {
       button.disabled = true;
       button.classList.add("is-unavailable", "cursor-not-allowed");
+      if (isPastSlot && slot.available) {
+        button.textContent = `${slot.start} - 締切`;
+      }
     } else {
       button.addEventListener("click", () => toggleSlot(slot));
     }
@@ -358,7 +370,7 @@ document.querySelectorAll("[data-facility-card]").forEach((card) => {
 });
 
 dateInput.min = tokyoDateString();
-dateInput.max = tokyoDateString(new Date(Date.now() + 90 * 24 * 60 * 60 * 1000));
+dateInput.max = getTokyoDateOffset(183);
 dateInput.addEventListener("change", loadAvailability);
 
 form.addEventListener("submit", async (event) => {
