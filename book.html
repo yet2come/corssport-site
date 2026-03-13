@@ -20,6 +20,14 @@
       <!-- Logo -->
       <a href="index.html" class="flex items-center px-4 md:px-6 bg-seaweed-green text-stark-white font-black text-sm md:text-base border-r-4 border-basalt-black tracking-tighter">
         CROSSPORT MSZ
+        <span class="ml-2 text-[10px] opacity-70">
+          <span class="sm:hidden">[xs]</span>
+          <span class="hidden sm:inline md:hidden">[sm]</span>
+          <span class="hidden md:inline lg:hidden">[md]</span>
+          <span class="hidden lg:inline xl:hidden">[lg]</span>
+          <span class="hidden xl:inline 2xl:hidden">[xl]</span>
+          <span class="hidden 2xl:inline">[2xl]</span>
+        </span>
       </a>
       <!-- Desktop Nav -->
       <nav class="hidden md:flex grow items-center justify-end px-6 space-x-10 font-bold uppercase tracking-tighter text-sm">
@@ -33,7 +41,7 @@
         <span class="material-symbols-outlined" id="menu-icon">menu</span>
       </button>
     </div>
-    <!-- Ticker -->
+    <!--
     <div class="overflow-hidden bg-stark-white text-basalt-black border-t-2 border-basalt-black">
       <div class="ticker flex whitespace-nowrap py-1 text-[10px] font-bold uppercase tracking-widest">
         <span class="ticker-content flex shrink-0 items-center gap-6 px-3">
@@ -65,6 +73,26 @@
           <span class="text-seaweed-green">&#9670;</span>
         </span>
       </div>
+    </div>
+    -->
+    <!-- ========== IKI NOW TICKER ========== -->
+    <div class="relative h-[38px] bg-gray-900">
+      <iframe
+        src="https://now.ikical.com/embed"
+        class="w-full h-[38px] border-0 block overflow-hidden"
+        title="壱岐なう ティッカー"
+        height="38"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin"
+      ></iframe>
+      <a
+        href="https://now.ikical.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="absolute left-0 top-0 bottom-0 z-10 flex items-center bg-gradient-to-r from-gray-900 via-gray-900/90 to-transparent pr-8 px-3 text-[11px] font-bold text-white/70 transition-colors hover:text-white"
+      >
+        ▶︎壱岐なう
+      </a>
     </div>
   </header>
 
