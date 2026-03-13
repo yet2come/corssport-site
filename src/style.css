@@ -119,10 +119,24 @@ body.menu-open {
 .booking-slot {
   background: var(--color-stark-white);
   color: var(--color-basalt-black);
+  border-color: var(--color-basalt-black);
   font-weight: 900;
   padding: 1rem 0.75rem;
   min-height: 72px;
   transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.booking-slot.is-unavailable {
+  background: #d9dee2;
+  color: #5b6670;
+  border-color: #5b6670;
+  opacity: 1;
+}
+
+.booking-slot.is-selected {
+  background: var(--color-basalt-black);
+  color: var(--color-stark-white);
+  border-color: var(--color-stark-white);
 }
 
 .booking-slot:not(:disabled):hover {

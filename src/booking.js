@@ -69,9 +69,7 @@ function setSelectedSlot(slot) {
 
   slotContainer.querySelectorAll("[data-slot]").forEach((button) => {
     const active = button.dataset.start === slot?.start;
-    button.classList.toggle("bg-basalt-black", active);
-    button.classList.toggle("text-white", active);
-    button.classList.toggle("border-white", active);
+    button.classList.toggle("is-selected", active);
   });
 }
 
@@ -92,10 +90,12 @@ function renderSlots(slots) {
     button.dataset.start = slot.start;
     button.dataset.end = slot.end;
     button.className = "booking-slot brutalist-border";
-    button.textContent = `${slot.start} - ${slot.end}`;
+    button.textContent = slot.available
+      ? `${slot.start} - ${slot.end}`
+      : `${slot.start} - ${slot.end} / 予約済み`;
     if (!slot.available) {
       button.disabled = true;
-      button.classList.add("opacity-30", "cursor-not-allowed");
+      button.classList.add("is-unavailable", "cursor-not-allowed");
     } else {
       button.addEventListener("click", () => setSelectedSlot(slot));
     }
