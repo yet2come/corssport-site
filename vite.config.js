@@ -11,6 +11,7 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         book: resolve(__dirname, "book.html"),
         cancel: resolve(__dirname, "cancel.html"),
+        admin: resolve(__dirname, "admin-manual.html"),
       },
     },
   },

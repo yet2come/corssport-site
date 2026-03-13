@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADMIN MANUAL | CROSSPORT MSZ</title>
+  <meta name="description" content="CROSSPORT MSZ 施設予約システム 管理者向けマニュアル" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&family=Outfit:wght@900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="bg-stark-white text-basalt-black">
+  <main class="min-h-screen">
+    <section class="border-b-8 border-basalt-black px-6 py-8 md:px-12 md:py-14">
+      <p class="text-xs font-black tracking-[0.35em] uppercase text-seaweed-green">CROSSPORT MSZ</p>
+      <h1 class="giant-type mt-4 text-5xl md:text-8xl">ADMIN<br />MANUAL</h1>
+      <p class="mt-6 max-w-3xl text-base md:text-lg font-bold leading-relaxed">
+        CROSSPORT MSZ 施設予約システムの管理者向け運用マニュアルです。Google Calendar、Resend、Vercel を使った予約運用と障害対応の要点をまとめています。
+      </p>
+    </section>
+
+    <section class="grid gap-8 px-6 py-8 md:px-12 md:py-12">
+      <article class="brutalist-border bg-[#f2f7f9] p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-black uppercase">1. 予約対象</h2>
+        <div class="mt-5 grid gap-4 md:grid-cols-3">
+          <div class="brutalist-border bg-white p-4">
+            <h3 class="font-black uppercase">Event Hall</h3>
+            <p class="mt-2 text-sm font-bold">営業時間 09:00 - 21:00</p>
+            <p class="mt-2 text-sm">1時間単位。レイアウト変更オプションあり。</p>
+          </div>
+          <div class="brutalist-border bg-white p-4">
+            <h3 class="font-black uppercase">Meeting Room</h3>
+            <p class="mt-2 text-sm font-bold">営業時間 09:00 - 21:00</p>
+            <p class="mt-2 text-sm">1時間単位。18:00以降は夜間料金。</p>
+          </div>
+          <div class="brutalist-border bg-white p-4">
+            <h3 class="font-black uppercase">Solo Booth</h3>
+            <p class="mt-2 text-sm font-bold">営業時間 09:00 - 18:00</p>
+            <p class="mt-2 text-sm">5部屋を自動割当。画面上は残室数を表示。</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="brutalist-border bg-white p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-black uppercase">2. 環境変数</h2>
+        <div class="mt-5 grid gap-4 md:grid-cols-2">
+          <div class="brutalist-border bg-[#f7f7f7] p-4 font-mono text-sm leading-relaxed">
+            GOOGLE_SERVICE_ACCOUNT_KEY<br />
+            GCAL_ID_EVENT_HALL<br />
+            GCAL_ID_MEETING_ROOM<br />
+            GCAL_ID_SOLO_BOOTH_1<br />
+            GCAL_ID_SOLO_BOOTH_2<br />
+            GCAL_ID_SOLO_BOOTH_3<br />
+            GCAL_ID_SOLO_BOOTH_4<br />
+            GCAL_ID_SOLO_BOOTH_5<br />
+            RESEND_API_KEY<br />
+            RESEND_FROM_EMAIL<br />
+            CANCEL_SECRET<br />
+            SITE_URL
+          </div>
+          <div class="text-sm md:text-base font-bold leading-relaxed space-y-3">
+            <p>`GCAL_ID_EVENT_HALL` などの値には Google Calendar の「カレンダー ID」を入れます。カレンダー名ではありません。</p>
+            <p>`RESEND_FROM_EMAIL` は Resend で検証済みの送信元アドレスを入れます。</p>
+            <p>`SITE_URL` は本番では `https://corssport-site.vercel.app`、独自ドメイン運用時はその URL に更新します。</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="brutalist-border bg-[#fff8dd] p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-black uppercase">3. Google Calendar 設定</h2>
+        <ol class="mt-5 list-decimal pl-5 space-y-3 text-sm md:text-base font-bold leading-relaxed">
+          <li>Google Cloud のサービスアカウントを作成し、JSON キーを Vercel に登録します。</li>
+          <li>各カレンダーでサービスアカウントの `client_email` に「予定の変更」権限を付けます。</li>
+          <li>Solo Booth は 1〜5 の 5 カレンダーを用意し、それぞれの ID を環境変数へ登録します。</li>
+          <li>予約済み枠は Google Calendar の `freeBusy` 結果に基づいて UI に反映されます。</li>
+        </ol>
+      </article>
+
+      <article class="brutalist-border bg-white p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-black uppercase">4. メール送信</h2>
+        <div class="mt-5 grid gap-4 md:grid-cols-2">
+          <div class="text-sm md:text-base font-bold leading-relaxed space-y-3">
+            <p>予約確定時は Resend から確認メールを送信します。</p>
+            <p>メール本文には施設名、日時、人数、利用目的、必要に応じて部屋番号、キャンセルリンクが含まれます。</p>
+            <p>キャンセルリンクは `cancel.html#...` 形式で送信されます。</p>
+          </div>
+          <div class="brutalist-border bg-[#f7f7f7] p-4 font-mono text-sm leading-relaxed">
+            件名:<br />
+            【CROSSPORT MSZ】予約確認 - {施設名} / {日付} {開始}-{終了}
+          </div>
+        </div>
+      </article>
+
+      <article class="brutalist-border bg-[#f2f7f9] p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-black uppercase">5. 障害切り分け</h2>
+        <div class="mt-5 grid gap-4 md:grid-cols-2">
+          <div class="brutalist-border bg-white p-4">
+            <h3 class="font-black uppercase">予約が失敗する</h3>
+            <ul class="mt-3 space-y-2 text-sm font-bold leading-relaxed">
+              <li>Vercel Logs で `[book] request failed` を検索する</li>
+              <li>`stage` と `errorMessage` を確認する</li>
+              <li>`SITE_URL is not configured` なら env を追加する</li>
+              <li>`Calendar API 404` ならカレンダー ID を見直す</li>
+            </ul>
+          </div>
+          <div class="brutalist-border bg-white p-4">
+            <h3 class="font-black uppercase">メールが届かない</h3>
+            <ul class="mt-3 space-y-2 text-sm font-bold leading-relaxed">
+              <li>Resend Dashboard の送信ログを確認する</li>
+              <li>`RESEND_FROM_EMAIL` が検証済みか確認する</li>
+              <li>Vercel の `RESEND_API_KEY` が正しいか確認する</li>
+            </ul>
+          </div>
+          <div class="brutalist-border bg-white p-4">
+            <h3 class="font-black uppercase">Solo Booth が満室にならない</h3>
+            <ul class="mt-3 space-y-2 text-sm font-bold leading-relaxed">
+              <li>`GCAL_ID_SOLO_BOOTH_1`〜`5` が全部設定されているか確認する</li>
+              <li>5 カレンダーすべてにサービスアカウント共有があるか確認する</li>
+            </ul>
+          </div>
+          <div class="brutalist-border bg-white p-4">
+            <h3 class="font-black uppercase">空き表示がおかしい</h3>
+            <ul class="mt-3 space-y-2 text-sm font-bold leading-relaxed">
+              <li>`/api/availability?facility=...&date=YYYY-MM-DD` の JSON を直接確認する</li>
+              <li>Google Calendar 側のイベントが「予定あり」か確認する</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="brutalist-border bg-white p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-black uppercase">6. 運用メモ</h2>
+        <ul class="mt-5 space-y-3 text-sm md:text-base font-bold leading-relaxed">
+          <li>当日分の TIME SLOT は現在時刻を過ぎると予約不可になります。</li>
+          <li>カード上の `次の空き` は現在時刻 + 30 分基準で表示されます。</li>
+          <li>16:30 以降は翌日の空き状況をカードに表示します。</li>
+          <li>予約確認メールのキャンセルリンクから予約削除が可能です。</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
