@@ -21,7 +21,7 @@ Google Calendar API と Vercel Serverless Functions の基盤を構築し、GitH
 - [ ] `vite.config.js` 更新: `base: "/"` + `cancel.html` エントリ追加
 - [ ] 環境変数設定:
   - `GOOGLE_SERVICE_ACCOUNT_KEY`
-  - `GCAL_ID_EVENT_SPACE`
+  - `GCAL_ID_EVENT_HALL`
   - `GCAL_ID_MEETING_ROOM`
   - `GCAL_ID_SOLO_BOOTH`
   - `RESEND_API_KEY`

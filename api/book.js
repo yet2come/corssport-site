@@ -83,6 +83,7 @@ module.exports = async function handler(req, res) {
           `電話: ${booking.phone}`,
           `利用目的: ${booking.purpose || "未入力"}`,
           `人数: ${booking.guests}名`,
+          `レイアウト変更: ${booking.layoutChange ? "あり" : "なし"}`,
         ].join("\n"),
         start: {
           dateTime: toIso(booking.date, booking.startTime),
@@ -101,6 +102,7 @@ module.exports = async function handler(req, res) {
             facilityName: facility.name,
             resourceCalendarId: calendarId,
             resourceLabel: resourceLabel || "",
+            layoutChange: booking.layoutChange ? "true" : "false",
           },
         },
       }),
@@ -144,6 +146,7 @@ module.exports = async function handler(req, res) {
         startTime: booking.startTime,
         endTime: booking.endTime,
         resourceLabel,
+        layoutChange: booking.layoutChange,
       },
     });
   } catch (error) {

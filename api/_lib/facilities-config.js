@@ -1,10 +1,11 @@
 const FACILITIES = {
   "event-space": {
     id: "event-space",
-    name: "Event Space",
+    name: "Event Hall",
     label: "イベントスペース",
-    calendarEnv: "GCAL_ID_EVENT_SPACE",
+    calendarEnv: "GCAL_ID_EVENT_HALL",
     capacity: 20,
+    close: "21:00",
     description: "最大20名収容。ワークショップや講演会向けのイベントスペース。",
   },
   "meeting-room": {
@@ -13,6 +14,7 @@ const FACILITIES = {
     label: "会議室",
     calendarEnv: "GCAL_ID_MEETING_ROOM",
     capacity: 8,
+    close: "21:00",
     description: "モニターとホワイトボードを備えた打ち合わせ向けの会議室。",
   },
   "solo-booth": {
@@ -28,6 +30,7 @@ const FACILITIES = {
     ],
     capacity: 1,
     inventory: 5,
+    close: "18:00",
     description: "集中作業やオンライン会議向けの個室ブース。",
   },
 };
@@ -72,10 +75,20 @@ function getCalendarIds(facilityId) {
   return id ? [{ id, resourceId: "1" }] : [];
 }
 
+function getOperatingHours(facilityId) {
+  const facility = getFacilityConfig(facilityId);
+  return {
+    open: OPERATING_HOURS.open,
+    close: facility?.close || OPERATING_HOURS.close,
+    slotMinutes: OPERATING_HOURS.slotMinutes,
+  };
+}
+
 module.exports = {
   FACILITIES,
   OPERATING_HOURS,
   getFacilityConfig,
   getCalendarId,
   getCalendarIds,
+  getOperatingHours,
 };

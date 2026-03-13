@@ -1,18 +1,21 @@
 const facilities = {
   "event-space": {
-    name: "Event Space",
+    name: "Event Hall",
     description: "最大20名収容。ワークショップや講演会向けのイベントスペース。",
     capacity: 20,
+    close: "21:00",
   },
   "meeting-room": {
     name: "Meeting Room",
     description: "モニターとホワイトボードを備えた打ち合わせ向けの会議室。",
     capacity: 8,
+    close: "21:00",
   },
   "solo-booth": {
     name: "Solo Booth",
     description: "集中作業やオンライン会議向けの個室ブース。",
     capacity: 5,
+    close: "18:00",
   },
 };
 
@@ -38,6 +41,8 @@ const submitButton = document.getElementById("booking-submit");
 const startTimeInput = document.getElementById("booking-start-time");
 const endTimeInput = document.getElementById("booking-end-time");
 const priceBox = document.getElementById("booking-price");
+const layoutOption = document.getElementById("booking-layout-option");
+const layoutCheckbox = document.getElementById("booking-layout-change");
 
 function tokyoDateString(date = new Date()) {
   return new Intl.DateTimeFormat("en-CA", {
@@ -77,9 +82,12 @@ function setPriceDisplay(selectedSlots) {
   let message = "";
 
   if (state.facility === "event-space") {
-    const total = selectedSlots.reduce((sum, slot) => {
+    let total = selectedSlots.reduce((sum, slot) => {
       return sum + (slot.start >= "18:00" ? 13200 : 8800);
     }, 0);
+    if (layoutCheckbox.checked) {
+      total += 3300;
+    }
     message = `料金: ${formatYen(total)} (${selectedSlots.length}時間)`;
   } else if (state.facility === "meeting-room") {
     const total = selectedSlots.reduce((sum, slot) => {
@@ -210,14 +218,20 @@ function selectFacility(facilityId) {
   facilityName.textContent = facility.name;
   facilityDescription.textContent = facility.description;
   capacity.textContent = `定員: ${facility.capacity}名`;
+  document.querySelector("#booking-panel .space-y-3 p").textContent = `営業時間: 09:00 - ${facility.close}`;
   facilityInput.value = facilityId;
+  layoutCheckbox.checked = false;
+  if (facilityId === "event-space") {
+    layoutOption.classList.remove("hidden");
+  } else {
+    layoutOption.classList.add("hidden");
+  }
   successPanel.classList.add("hidden");
   form.classList.remove("hidden");
   setSelectedStarts([]);
   panel.classList.remove("hidden");
   document.querySelectorAll("[data-facility-card]").forEach((card) => {
-    card.classList.toggle("bg-seaweed-green", card.dataset.facility === facilityId);
-    card.classList.toggle("text-white", card.dataset.facility === facilityId);
+    card.classList.toggle("is-selected-card", card.dataset.facility === facilityId);
   });
   panel.scrollIntoView({ behavior: "smooth", block: "start" });
   if (!dateInput.value) {
@@ -296,6 +310,7 @@ form.addEventListener("submit", async (event) => {
   const payload = Object.fromEntries(formData.entries());
   payload.date = dateInput.value;
   payload.guests = Number(payload.guests);
+  payload.layoutChange = state.facility === "event-space" && layoutCheckbox.checked;
 
   submitButton.disabled = true;
   submitButton.textContent = "送信中...";
@@ -329,3 +344,6 @@ form.addEventListener("submit", async (event) => {
 });
 
 loadCardStatuses();
+layoutCheckbox.addEventListener("change", () => {
+  setPriceDisplay(getSelectedSlots());
+});

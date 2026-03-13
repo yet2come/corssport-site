@@ -1,5 +1,5 @@
 const { HttpError } = require("./http");
-const { FACILITIES, OPERATING_HOURS } = require("./facilities-config");
+const { FACILITIES, getOperatingHours, OPERATING_HOURS } = require("./facilities-config");
 
 class ValidationError extends HttpError {
   constructor(details) {
@@ -57,7 +57,7 @@ function timeToMinutes(value) {
   return hours * 60 + minutes;
 }
 
-function validateSlot({ startTime, endTime }) {
+function validateSlot({ startTime, endTime }, operatingHours = OPERATING_HOURS) {
   const errors = {};
   if (!isValidTimeString(startTime)) {
     errors.startTime = "開始時間は HH:MM 形式で指定してください";
@@ -69,19 +69,20 @@ function validateSlot({ startTime, endTime }) {
     throw new ValidationError(errors);
   }
 
-  const openMinutes = timeToMinutes(OPERATING_HOURS.open);
-  const closeMinutes = timeToMinutes(OPERATING_HOURS.close);
+  const openMinutes = timeToMinutes(operatingHours.open);
+  const closeMinutes = timeToMinutes(operatingHours.close);
   const startMinutes = timeToMinutes(startTime);
   const endMinutes = timeToMinutes(endTime);
 
   if (
     startMinutes < openMinutes ||
     endMinutes > closeMinutes ||
-    endMinutes - startMinutes !== OPERATING_HOURS.slotMinutes
+    endMinutes <= startMinutes ||
+    (endMinutes - startMinutes) % OPERATING_HOURS.slotMinutes !== 0
   ) {
     throw new ValidationError({
-      startTime: "営業時間内の1時間スロットを選択してください",
-      endTime: "営業時間内の1時間スロットを選択してください",
+      startTime: "営業時間内の連続した時間帯を選択してください",
+      endTime: "営業時間内の連続した時間帯を選択してください",
     });
   }
 
@@ -142,15 +143,24 @@ function validateGuests(guests, facility) {
   return value;
 }
 
+function validateLayoutChange(layoutChange, facility) {
+  if (facility !== "event-space") {
+    return false;
+  }
+
+  return layoutChange === true || layoutChange === "true" || layoutChange === "on";
+}
+
 function validateBookingPayload(payload) {
   const facility = validateFacility(payload.facility);
   const date = validateDate(payload.date);
-  const { startTime, endTime } = validateSlot(payload);
+  const { startTime, endTime } = validateSlot(payload, getOperatingHours(facility));
   const name = validateName(payload.name);
   const email = validateEmail(payload.email);
   const phone = validatePhone(payload.phone);
   const purpose = validatePurpose(payload.purpose);
   const guests = validateGuests(payload.guests, facility);
+  const layoutChange = validateLayoutChange(payload.layoutChange, facility);
 
   return {
     facility,
@@ -162,6 +172,7 @@ function validateBookingPayload(payload) {
     phone,
     purpose,
     guests,
+    layoutChange,
   };
 }
 
