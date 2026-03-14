@@ -614,7 +614,7 @@ GCAL_ID_SOLO_BOOTH           # Solo Booth カレンダー ID
 RESEND_API_KEY               # Resend API キー
 RESEND_FROM_EMAIL            # 送信元アドレス（例: noreply@crossport.jp）
 CANCEL_SECRET                # HMAC 用ランダム文字列（32文字以上）
-SITE_URL                     # サイト URL（例: https://crossport.vercel.app）
+SITE_URL                     # サイト URL（例: https://crossport.cc）
 ```
 
 ### Step 5: GitHub Pages ワークフロー無効化
