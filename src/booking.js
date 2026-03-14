@@ -14,7 +14,7 @@ const facilities = {
   "solo-booth": {
     name: "Solo Booth",
     description: "集中作業やオンライン会議向けの個室ブース。",
-    capacity: 5,
+    capacity: "1名x5室",
     close: "18:00",
   },
 };
@@ -197,7 +197,7 @@ function updateSelectedState() {
   setPriceDisplay(selectedSlots);
 
   if (selectedSlots.length === 0) {
-    slotHint.textContent = "時間を複数選択できます";
+    slotHint.textContent = "連続した時間帯を複数選択できます";
   } else {
     slotHint.textContent = `${selectedSlots[0].start} - ${selectedSlots[selectedSlots.length - 1].end} を選択中 (${selectedSlots.length}時間)`;
   }
@@ -237,7 +237,7 @@ function renderSlots(slots) {
     return;
   }
 
-  slotHint.textContent = "時間を複数選択できます";
+  slotHint.textContent = "連続した時間帯を複数選択できます";
   slots.forEach((slot) => {
     const button = document.createElement("button");
     button.type = "button";
