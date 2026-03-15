@@ -15,13 +15,14 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@tailwindcss/vite": "^4.2.1",
     "@playwright/test": "^1.58.2",
+    "@tailwindcss/vite": "^4.2.1",
     "playwright": "^1.58.2",
     "tailwindcss": "^4.2.1",
     "vite": "^7.3.1"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "google-auth-library": "^9.15.1",
     "resend": "^4.6.0"
   }

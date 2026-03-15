@@ -1,3 +1,6 @@
+import { inject } from "@vercel/analytics";
+inject();
+
 // ===== Mobile Menu Toggle =====
 const menuToggle = document.getElementById("menu-toggle");
 const menuIcon = document.getElementById("menu-icon");

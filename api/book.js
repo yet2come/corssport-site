@@ -141,6 +141,13 @@ module.exports = async function handler(req, res) {
       html: email.html,
     });
 
+    console.log(JSON.stringify({
+      event: "booking_success",
+      facility: booking.facility,
+      date: booking.date,
+      timestamp: new Date().toISOString(),
+    }));
+
     return sendJson(res, 201, {
       success: true,
       booking: {
