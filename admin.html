@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOOKING DASHBOARD | CROSSPORT MSZ</title>
+  <meta name="description" content="CROSSPORT MSZ 施設予約ダッシュボード" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Noto+Sans+JP:wght@300;500;700;900&family=Outfit:wght@900&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="bg-stark-white text-basalt-black">
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-basalt-black/90">
+    <div class="w-full max-w-md mx-4 bg-stark-white brutalist-border p-8">
+      <p class="text-xs font-black tracking-[0.35em] uppercase text-seaweed-green">CROSSPORT MSZ</p>
+      <h2 class="giant-type mt-3 text-4xl md:text-5xl">ADMIN<br />LOGIN</h2>
+      <p class="mt-4 text-sm font-bold text-concrete-dark">管理者トークンを入力してください。</p>
+      <div id="auth-error" class="mt-4 hidden brutalist-border border-red-500 bg-red-50 p-3 text-sm font-bold text-red-700"></div>
+      <input
+        id="auth-token"
+        type="password"
+        placeholder="Token"
+        class="mt-6 w-full brutalist-input bg-white"
+        autocomplete="off"
+      />
+      <button
+        id="auth-submit"
+        class="mt-4 w-full bg-seaweed-green text-white font-black uppercase tracking-[0.3em] px-6 py-4 brutalist-border border-basalt-black hover:opacity-90 transition-opacity"
+      >
+        LOGIN
+      </button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <main class="min-h-screen hidden" id="dashboard">
+    <!-- Header -->
+    <section class="border-b-8 border-basalt-black px-6 py-8 md:px-12 md:py-14">
+      <p class="text-xs font-black tracking-[0.35em] uppercase text-seaweed-green">CROSSPORT MSZ</p>
+      <h1 class="giant-type mt-4 text-5xl md:text-8xl">BOOKING<br />DASHBOARD</h1>
+      <p class="mt-6 max-w-3xl text-base md:text-lg font-bold leading-relaxed">
+        施設予約の一覧と状況を確認できます。
+      </p>
+    </section>
+
+    <!-- Filters -->
+    <section class="border-b-8 border-basalt-black px-6 py-6 md:px-12 md:py-8">
+      <div class="flex flex-wrap items-end gap-4">
+        <div>
+          <label class="block text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">FROM</label>
+          <input type="date" id="filter-from" class="mt-2 brutalist-input bg-white text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">TO</label>
+          <input type="date" id="filter-to" class="mt-2 brutalist-input bg-white text-sm" />
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button data-filter="all" class="facility-filter is-active brutalist-border px-4 py-3 text-xs font-black uppercase tracking-widest bg-basalt-black text-white">ALL</button>
+          <button data-filter="event-space" class="facility-filter brutalist-border px-4 py-3 text-xs font-black uppercase tracking-widest bg-white hover:bg-basalt-black hover:text-white transition-colors">Event Hall</button>
+          <button data-filter="meeting-room" class="facility-filter brutalist-border px-4 py-3 text-xs font-black uppercase tracking-widest bg-white hover:bg-basalt-black hover:text-white transition-colors">Meeting Room</button>
+          <button data-filter="solo-booth" class="facility-filter brutalist-border px-4 py-3 text-xs font-black uppercase tracking-widest bg-white hover:bg-basalt-black hover:text-white transition-colors">Solo Booth</button>
+        </div>
+        <button id="btn-refresh" class="brutalist-border px-4 py-3 bg-seaweed-green text-white font-black uppercase tracking-widest text-xs hover:opacity-90 transition-opacity flex items-center gap-2">
+          <span class="material-symbols-outlined !text-lg">refresh</span>
+          更新
+        </button>
+      </div>
+    </section>
+
+    <!-- Summary Cards -->
+    <section class="border-b-8 border-basalt-black grid grid-cols-2 md:grid-cols-4" id="summary-cards">
+      <div class="border-b-4 md:border-b-0 md:border-r-4 border-basalt-black p-6 md:p-8">
+        <p class="text-xs font-black uppercase tracking-[0.3em] text-concrete-dark">TOTAL</p>
+        <p class="giant-type mt-2 text-4xl md:text-6xl" id="summary-total">-</p>
+      </div>
+      <div class="border-b-4 md:border-b-0 md:border-r-4 border-basalt-black p-6 md:p-8">
+        <p class="text-xs font-black uppercase tracking-[0.3em] text-concrete-dark">EVENT HALL</p>
+        <p class="giant-type mt-2 text-4xl md:text-6xl" id="summary-event-space">-</p>
+      </div>
+      <div class="border-b-4 md:border-b-0 md:border-r-4 border-basalt-black p-6 md:p-8">
+        <p class="text-xs font-black uppercase tracking-[0.3em] text-concrete-dark">MEETING ROOM</p>
+        <p class="giant-type mt-2 text-4xl md:text-6xl" id="summary-meeting-room">-</p>
+      </div>
+      <div class="p-6 md:p-8">
+        <p class="text-xs font-black uppercase tracking-[0.3em] text-concrete-dark">SOLO BOOTH</p>
+        <p class="giant-type mt-2 text-4xl md:text-6xl" id="summary-solo-booth">-</p>
+      </div>
+    </section>
+
+    <!-- Booking List -->
+    <section class="px-6 py-8 md:px-12 md:py-12" id="booking-list">
+      <!-- Loading -->
+      <div id="loading" class="text-center py-12">
+        <p class="text-lg font-black uppercase tracking-widest text-concrete-dark animate-pulse">LOADING...</p>
+      </div>
+      <!-- Empty -->
+      <div id="empty" class="hidden text-center py-12">
+        <span class="material-symbols-outlined !text-6xl text-concrete-mid">event_busy</span>
+        <p class="mt-4 text-lg font-black text-concrete-dark">この期間の予約はありません</p>
+      </div>
+      <!-- Error -->
+      <div id="error" class="hidden brutalist-border border-red-500 bg-red-50 p-6">
+        <p class="font-black text-red-700 uppercase">ERROR</p>
+        <p class="mt-2 text-sm font-bold text-red-600" id="error-message"></p>
+      </div>
+      <!-- Table (desktop) -->
+      <div id="table-container" class="hidden">
+        <!-- Grouped by date, rendered by JS -->
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/src/admin.js"></script>
+</body>
+</html>

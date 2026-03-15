@@ -61,6 +61,19 @@
   ],
   "headers": [
     {
+      "source": "/admin{,-manual}.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    },
+    {
       "source": "/api/(.*)",
       "headers": [
         {
