@@ -8,7 +8,7 @@
 - [x] トップページだけでなく、`/book.html` など個別ページも `1対1` で遷移する — `/:path(.*)` パターンで全パス対応
 - [x] `http` から `https` へのリダイレクトも整理されている — Vercel が自動で HTTPS 強制（SSL Valid Configuration 確認済み）
 - [x] `www` ありなしの正規化方針が決まっており、最終到達先は `https://crossport.cc` に統一されている — `www.crossport.cc`, `www.crossport.site` も `vercel.json` でリダイレクト
-- [ ] `xmo.jp` および `www.xmo.jp` から `https://crossport.cc` へのリダイレクトを検討中（未設定）
+- [x] `xmo.jp` および `www.xmo.jp` から `https://crossport.cc` へ `301` リダイレクトを設定した — `vercel.json` redirects、Vercel Production 接続
 
 ## 2. 新ドメイン側の正規化
 
@@ -20,10 +20,11 @@
 
 ## 3. Search Console
 
-- [ ] `crossport.site` と `crossport.cc` の両方を Search Console で所有権確認した
-- [ ] `crossport.site` プロパティから `Change of Address` を実行した
-- [ ] `https://crossport.cc/sitemap.xml` を Search Console に送信した
-- [ ] `URL 検査` で `https://crossport.cc/` を確認し、`Google が選択した正規 URL` が `https://crossport.cc/` になっている
+- [x] `crossport.site` と `crossport.cc` の両方を Search Console で所有権確認した
+- [x] `crossport.site` プロパティから `Change of Address` を実行した — 検証合格・送信済み
+- [x] `xmo.jp` プロパティから `Change of Address` を実行した — 検証合格・送信済み
+- [x] `https://crossport.cc/sitemap.xml` を Search Console に送信した — 再送信済み（取得成功待ち）
+- [x] `URL 検査` で `https://crossport.cc/` を確認し、`Google が選択した正規 URL` が `https://crossport.cc/` になっている — インデックス登録リクエスト済み
 
 ## 4. インデックス制御
 
