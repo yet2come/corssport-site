@@ -3,6 +3,7 @@ const API_PATH = "/api/admin/bookings";
 /* ── State ── */
 let allBookings = [];
 let activeFilter = "all";
+let activeView = "list";
 
 /* ── DOM refs ── */
 const authModal = document.getElementById("auth-modal");
@@ -18,6 +19,7 @@ const emptyEl = document.getElementById("empty");
 const errorEl = document.getElementById("error");
 const errorMessage = document.getElementById("error-message");
 const tableContainer = document.getElementById("table-container");
+const matrixContainer = document.getElementById("matrix-container");
 
 /* ── Auth ── */
 function getToken() {
@@ -115,6 +117,7 @@ async function loadBookings() {
   emptyEl.classList.add("hidden");
   errorEl.classList.add("hidden");
   tableContainer.classList.add("hidden");
+  matrixContainer.classList.add("hidden");
 
   try {
     const res = await fetch(`${API_PATH}?from=${from}&to=${to}`, {
@@ -167,6 +170,20 @@ btnRefresh.addEventListener("click", loadBookings);
 filterFrom.addEventListener("change", loadBookings);
 filterTo.addEventListener("change", loadBookings);
 
+/* ── View toggle ── */
+document.querySelectorAll(".view-toggle").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".view-toggle").forEach((b) => {
+      b.classList.remove("is-active", "bg-basalt-black", "text-white");
+      b.classList.add("bg-white");
+    });
+    btn.classList.add("is-active", "bg-basalt-black", "text-white");
+    btn.classList.remove("bg-white");
+    activeView = btn.id === "view-matrix" ? "matrix" : "list";
+    renderAll();
+  });
+});
+
 /* ── Render ── */
 function renderSummary() {
   const counts = { total: 0, "event-space": 0, "meeting-room": 0, "solo-booth": 0 };
@@ -197,13 +214,24 @@ function renderAll() {
   if (bookings.length === 0) {
     emptyEl.classList.remove("hidden");
     tableContainer.classList.add("hidden");
+    matrixContainer.classList.add("hidden");
     return;
   }
 
   emptyEl.classList.add("hidden");
-  tableContainer.classList.remove("hidden");
 
-  // Group by date
+  if (activeView === "matrix") {
+    tableContainer.classList.add("hidden");
+    matrixContainer.classList.remove("hidden");
+    renderMatrix(bookings);
+  } else {
+    matrixContainer.classList.add("hidden");
+    tableContainer.classList.remove("hidden");
+    renderList(bookings);
+  }
+}
+
+function renderList(bookings) {
   const grouped = {};
   for (const b of bookings) {
     if (!grouped[b.date]) grouped[b.date] = [];
@@ -291,6 +319,140 @@ function renderAll() {
   }
 
   tableContainer.innerHTML = html;
+}
+
+/* ── Matrix view ── */
+const FACILITY_ROWS = [
+  { id: "event-space", label: "Event Hall", hours: { open: 9, close: 21 } },
+  { id: "meeting-room", label: "Meeting Room", hours: { open: 9, close: 21 } },
+  { id: "solo-booth-1", match: (b) => b.facility === "solo-booth" && b.resourceLabel === "Solo Booth 1", label: "Solo Booth 1", hours: { open: 9, close: 18 } },
+  { id: "solo-booth-2", match: (b) => b.facility === "solo-booth" && b.resourceLabel === "Solo Booth 2", label: "Solo Booth 2", hours: { open: 9, close: 18 } },
+  { id: "solo-booth-3", match: (b) => b.facility === "solo-booth" && b.resourceLabel === "Solo Booth 3", label: "Solo Booth 3", hours: { open: 9, close: 18 } },
+  { id: "solo-booth-4", match: (b) => b.facility === "solo-booth" && b.resourceLabel === "Solo Booth 4", label: "Solo Booth 4", hours: { open: 9, close: 18 } },
+  { id: "solo-booth-5", match: (b) => b.facility === "solo-booth" && b.resourceLabel === "Solo Booth 5", label: "Solo Booth 5", hours: { open: 9, close: 18 } },
+];
+
+const MATRIX_COLORS = {
+  "event-space": { bg: "bg-seaweed-green", text: "text-white" },
+  "meeting-room": { bg: "bg-basalt-black", text: "text-white" },
+  "solo-booth": { bg: "bg-concrete-dark", text: "text-white" },
+};
+
+function getRowBookings(row, bookings) {
+  if (row.match) return bookings.filter(row.match);
+  return bookings.filter((b) => b.facility === row.id);
+}
+
+function bookingAtHour(bookings, hour) {
+  const hh = String(hour).padStart(2, "0") + ":00";
+  return bookings.filter((b) => {
+    const startH = parseInt(b.startTime.split(":")[0], 10);
+    const endH = parseInt(b.endTime.split(":")[0], 10);
+    return hour >= startH && hour < endH;
+  });
+}
+
+function renderMatrix(bookings) {
+  // Collect unique dates
+  const dates = [...new Set(bookings.map((b) => b.date))].sort();
+
+  // Filter rows based on active facility filter
+  let rows = FACILITY_ROWS;
+  if (activeFilter !== "all") {
+    rows = FACILITY_ROWS.filter((r) => r.id === activeFilter || r.id.startsWith(activeFilter));
+  }
+
+  let html = "";
+
+  for (const date of dates) {
+    const dayBookings = bookings.filter((b) => b.date === date);
+    // Find min/max hours across all relevant rows
+    const minHour = Math.min(...rows.map((r) => r.hours.open));
+    const maxHour = Math.max(...rows.map((r) => r.hours.close));
+    const hours = [];
+    for (let h = minHour; h < maxHour; h++) hours.push(h);
+
+    html += `
+      <div class="mb-10">
+        <h3 class="text-xl md:text-2xl font-black uppercase tracking-wide border-b-4 border-basalt-black pb-2 mb-4">
+          ${formatDateHeading(date)}
+        </h3>
+
+        <!-- Mobile: stacked cards -->
+        <div class="md:hidden grid gap-3">
+          ${rows.map((row) => {
+            const rowBookings = getRowBookings(row, dayBookings);
+            return `
+              <div class="brutalist-border p-3 bg-white">
+                <p class="text-xs font-black uppercase tracking-widest mb-2">${row.label}</p>
+                <div class="flex flex-wrap gap-1">
+                  ${hours.filter((h) => h >= row.hours.open && h < row.hours.close).map((h) => {
+                    const matches = bookingAtHour(rowBookings, h);
+                    const hh = String(h).padStart(2, "0");
+                    const colorKey = row.id.startsWith("solo-booth") ? "solo-booth" : row.id;
+                    if (matches.length > 0) {
+                      const b = matches[0];
+                      return `<span class="inline-block px-2 py-1 text-xs font-bold ${MATRIX_COLORS[colorKey].bg} ${MATRIX_COLORS[colorKey].text}" title="${escapeHtml(b.customerName)}">${hh}</span>`;
+                    }
+                    return `<span class="inline-block px-2 py-1 text-xs font-bold bg-gray-100 text-concrete-mid">${hh}</span>`;
+                  }).join("")}
+                </div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+
+        <!-- Desktop: grid table -->
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full border-collapse text-xs">
+            <thead>
+              <tr>
+                <th class="sticky left-0 z-10 bg-stark-white border-b-4 border-r-4 border-basalt-black py-2 px-3 text-left font-black uppercase tracking-widest min-w-[140px]">施設</th>
+                ${hours.map((h) => `
+                  <th class="border-b-4 border-basalt-black py-2 px-1 font-black text-center min-w-[56px] ${h >= 18 ? "bg-amber-50" : ""}">${String(h).padStart(2, "0")}:00</th>
+                `).join("")}
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map((row) => {
+                const rowBookings = getRowBookings(row, dayBookings);
+                const colorKey = row.id.startsWith("solo-booth") ? "solo-booth" : row.id;
+                return `
+                  <tr class="border-b-2 border-concrete-mid/30">
+                    <td class="sticky left-0 z-10 bg-stark-white border-r-4 border-basalt-black py-2 px-3 font-black uppercase tracking-wider whitespace-nowrap">${row.label}</td>
+                    ${hours.map((h) => {
+                      if (h < row.hours.open || h >= row.hours.close) {
+                        return `<td class="py-1 px-1 text-center bg-gray-50"><span class="text-concrete-mid">—</span></td>`;
+                      }
+                      const matches = bookingAtHour(rowBookings, h);
+                      if (matches.length > 0) {
+                        const b = matches[0];
+                        // Check if this is the start of a booking span
+                        const startH = parseInt(b.startTime.split(":")[0], 10);
+                        if (h === startH) {
+                          const endH = Math.min(parseInt(b.endTime.split(":")[0], 10), row.hours.close);
+                          const span = endH - startH;
+                          return `<td colspan="${span}" class="py-1 px-1" title="${escapeHtml(b.customerName)}&#10;${b.startTime}-${b.endTime}${b.purpose ? '&#10;' + escapeHtml(b.purpose) : ''}">
+                            <div class="${MATRIX_COLORS[colorKey].bg} ${MATRIX_COLORS[colorKey].text} px-2 py-2 font-bold text-center truncate cursor-default hover:opacity-80 transition-opacity" style="min-height:32px">
+                              ${escapeHtml(b.customerName)}
+                            </div>
+                          </td>`;
+                        }
+                        return ""; // skip cells covered by colspan
+                      }
+                      return `<td class="py-1 px-1 text-center"><div class="bg-gray-100 min-h-[32px]"></div></td>`;
+                    }).join("")}
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
+  matrixContainer.innerHTML = html;
 }
 
 function escapeHtml(str) {

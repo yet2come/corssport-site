@@ -68,6 +68,16 @@
           <span class="material-symbols-outlined !text-lg">refresh</span>
           更新
         </button>
+        <div class="flex gap-0 ml-auto">
+          <button id="view-list" class="view-toggle is-active brutalist-border border-r-0 px-4 py-3 text-xs font-black uppercase tracking-widest bg-basalt-black text-white flex items-center gap-1">
+            <span class="material-symbols-outlined !text-lg">list</span>
+            LIST
+          </button>
+          <button id="view-matrix" class="view-toggle brutalist-border px-4 py-3 text-xs font-black uppercase tracking-widest bg-white hover:bg-basalt-black hover:text-white transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined !text-lg">grid_view</span>
+            MATRIX
+          </button>
+        </div>
       </div>
     </section>
 
@@ -107,9 +117,13 @@
         <p class="font-black text-red-700 uppercase">ERROR</p>
         <p class="mt-2 text-sm font-bold text-red-600" id="error-message"></p>
       </div>
-      <!-- Table (desktop) -->
+      <!-- List view -->
       <div id="table-container" class="hidden">
         <!-- Grouped by date, rendered by JS -->
+      </div>
+      <!-- Matrix view -->
+      <div id="matrix-container" class="hidden">
+        <!-- Rendered by JS -->
       </div>
     </section>
   </main>
