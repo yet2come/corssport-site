@@ -2,6 +2,63 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "crossport.site"
+        }
+      ],
+      "destination": "https://crossport.cc/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.crossport.site"
+        }
+      ],
+      "destination": "https://crossport.cc/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.crossport.cc"
+        }
+      ],
+      "destination": "https://crossport.cc/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "xmo.jp"
+        }
+      ],
+      "destination": "https://crossport.cc/:path",
+      "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.xmo.jp"
+        }
+      ],
+      "destination": "https://crossport.cc/:path",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",

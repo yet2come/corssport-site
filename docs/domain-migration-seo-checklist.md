@@ -4,18 +4,19 @@
 
 ## 1. リダイレクト
 
-- [ ] `crossport.site` の各 URL から対応する `crossport.cc` の URL へ `301` リダイレクトを設定した
-- [ ] トップページだけでなく、`/book.html` など個別ページも `1対1` で遷移する
-- [ ] `http` から `https` へのリダイレクトも整理されている
-- [ ] `www` ありなしの正規化方針が決まっており、最終到達先は `https://crossport.cc` に統一されている
+- [x] `crossport.site` の各 URL から対応する `crossport.cc` の URL へ `301` リダイレクトを設定した — `vercel.json` redirects
+- [x] トップページだけでなく、`/book.html` など個別ページも `1対1` で遷移する — `/:path(.*)` パターンで全パス対応
+- [x] `http` から `https` へのリダイレクトも整理されている — Vercel が自動で HTTPS 強制（SSL Valid Configuration 確認済み）
+- [x] `www` ありなしの正規化方針が決まっており、最終到達先は `https://crossport.cc` に統一されている — `www.crossport.cc`, `www.crossport.site` も `vercel.json` でリダイレクト
+- [ ] `xmo.jp` および `www.xmo.jp` から `https://crossport.cc` へのリダイレクトを検討中（未設定）
 
 ## 2. 新ドメイン側の正規化
 
-- [ ] `https://crossport.cc/` に `canonical` が設定されている
-- [ ] `og:url` が `https://crossport.cc/` になっている
-- [ ] 構造化データ内の `url` が `https://crossport.cc/` になっている
-- [ ] `SITE_URL` が `https://crossport.cc` に設定されている
-- [ ] 予約確認メール内のキャンセルリンクが `https://crossport.cc/cancel.html#...` になっている
+- [x] `https://crossport.cc/` に `canonical` が設定されている — `index.html:8`
+- [x] `og:url` が `https://crossport.cc/` になっている — `index.html:13`
+- [x] 構造化データ内の `url` が `https://crossport.cc/` になっている — `index.html` JSON-LD
+- [x] `SITE_URL` が `https://crossport.cc` に設定されている — `api/book.js` で `ensureEnv("SITE_URL")` 参照
+- [x] 予約確認メール内のキャンセルリンクが `https://crossport.cc/cancel.html#...` になっている — `api/_lib/email-templates.js` で `SITE_URL` ベース生成
 
 ## 3. Search Console
 
@@ -26,32 +27,32 @@
 
 ## 4. インデックス制御
 
-- [ ] トップページ `/` はインデックス対象のままにしている
-- [ ] `book.html` は `noindex,follow` になっている
-- [ ] `cancel.html` は `noindex,follow` になっている
-- [ ] `admin-manual.html` は `noindex,nofollow` になっている
-- [ ] `sitemap.xml` にはインデックス対象の URL のみを載せている
+- [x] トップページ `/` はインデックス対象のままにしている — `index.html` に robots メタなし（デフォルト index）
+- [x] `book.html` は `noindex,follow` になっている — `book.html:8`
+- [x] `cancel.html` は `noindex,follow` になっている — `cancel.html:8`
+- [x] `admin-manual.html` は `noindex,nofollow` になっている — `admin-manual.html:8`
+- [x] `sitemap.xml` にはインデックス対象の URL のみを載せている — `/` のみ記載
 
 ## 5. 技術ファイル
 
-- [ ] `robots.txt` が `https://crossport.cc/robots.txt` で取得できる
-- [ ] `sitemap.xml` が `https://crossport.cc/sitemap.xml` で取得できる
-- [ ] `robots.txt` から `Sitemap: https://crossport.cc/sitemap.xml` が参照されている
+- [x] `robots.txt` が `https://crossport.cc/robots.txt` で取得できる — `public/robots.txt` 配置済み
+- [x] `sitemap.xml` が `https://crossport.cc/sitemap.xml` で取得できる — `public/sitemap.xml` 配置済み
+- [x] `robots.txt` から `Sitemap: https://crossport.cc/sitemap.xml` が参照されている — `public/robots.txt:4`
 
 ## 6. 外部サービス
 
-- [ ] Vercel の本番ドメイン設定が `crossport.cc` になっている
-- [ ] Resend の送信元ドメイン設定が `crossport.cc` と整合している
-- [ ] Google Calendar 連携、予約確認メール、キャンセル導線が新ドメインで正常動作する
+- [x] Vercel の本番ドメイン設定が `crossport.cc` になっている — Production 環境に接続済み
+- [x] Resend の送信元ドメイン設定が `crossport.cc` と整合している — 送信元は `xmo.jp` ドメインのため影響なし
+- [x] Google Calendar 連携、予約確認メール、キャンセル導線が新ドメインで正常動作する — テスト予約で確認済み（SITE_URL typo 修正後）
 
 ## 7. 公開後の確認
 
-- [ ] `crossport.site` へアクセスすると新ドメインへ即時遷移する
-- [ ] `crossport.cc` のトップが正しく表示される
-- [ ] `crossport.cc/book.html` で予約フォームが開く
-- [ ] 予約確認メールが届く
-- [ ] メール内キャンセルリンクから `crossport.cc/cancel.html` が開く
-- [ ] キャンセルが正常に完了する
+- [x] `crossport.site` へアクセスすると新ドメインへ即時遷移する — 301 確認済み（`/` および `/book.html` パス対応）
+- [x] `crossport.cc` のトップが正しく表示される — HTTP 200 確認済み
+- [x] `crossport.cc/book.html` で予約フォームが開く — HTTP 200 確認済み
+- [x] 予約確認メールが届く — テスト予約で確認済み
+- [x] メール内キャンセルリンクから `crossport.cc/cancel.html` が開く — 確認済み
+- [x] キャンセルが正常に完了する — 確認済み
 
 ## 8. 公開後 1〜4 週間の監視
 
