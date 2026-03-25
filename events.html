@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVENTS | CROSSPORT MSZ — 過去のイベント</title>
+  <meta name="description" content="CROSSPORT MSZ で開催された過去のイベント一覧。もちつき大会、ロボット教室、ZINE FES、ボードゲーム会など、壱岐島で生まれた多彩なイベントのアーカイブ。" />
+  <link rel="canonical" href="https://crossport.cc/events.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="CROSSPORT MSZ" />
+  <meta property="og:title" content="EVENTS | CROSSPORT MSZ — 過去のイベント" />
+  <meta property="og:description" content="CROSSPORT MSZ で開催された過去のイベント一覧。壱岐島で生まれた多彩なイベントのアーカイブ。" />
+  <meta property="og:url" content="https://crossport.cc/events.html" />
+  <meta property="og:image" content="https://crossport.cc/og-image.png" />
+  <meta property="og:locale" content="ja_JP" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&family=Outfit:wght@900&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="overflow-x-hidden" data-page="events">
+
+  <!-- ========== HEADER ========== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-basalt-black text-white border-b-4 border-basalt-black">
+    <div class="flex justify-between items-stretch h-11 md:h-12">
+      <a href="index.html" class="flex items-center px-4 md:px-6 bg-seaweed-green text-stark-white font-black text-sm md:text-base border-r-4 border-basalt-black tracking-tighter">
+        CROSSPORT MSZ
+      </a>
+      <nav class="hidden md:flex grow items-center justify-end px-6 space-x-10 font-bold uppercase tracking-tighter text-sm">
+        <a class="hover:text-seaweed-green transition-colors" href="index.html#about">場所</a>
+        <a class="hover:text-seaweed-green transition-colors" href="index.html#services">サービス</a>
+        <a class="hover:text-seaweed-green transition-colors" href="index.html#access">アクセス</a>
+        <a class="hover:text-seaweed-green transition-colors text-seaweed-green" href="events.html">イベント</a>
+        <a class="px-8 py-4 h-full flex items-center font-black bg-seaweed-green text-white hover:bg-concrete-mid transition-colors" href="book.html">予約</a>
+      </nav>
+      <button id="menu-toggle" class="md:hidden px-5 flex items-center bg-stark-white text-basalt-black" aria-label="メニューを開く">
+        <span class="material-symbols-outlined" id="menu-icon">menu</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== MOBILE MENU ========== -->
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-40 bg-basalt-black text-white flex flex-col pt-16">
+    <nav class="flex flex-col items-center justify-center grow space-y-8 text-2xl font-black uppercase tracking-tight">
+      <a class="hover:text-seaweed-green transition-colors" href="index.html#about" data-menu-link>場所</a>
+      <a class="hover:text-seaweed-green transition-colors" href="index.html#services" data-menu-link>サービス</a>
+      <a class="hover:text-seaweed-green transition-colors" href="index.html#access" data-menu-link>アクセス</a>
+      <a class="hover:text-seaweed-green transition-colors text-seaweed-green" href="events.html" data-menu-link>イベント</a>
+      <a class="mt-4 px-12 py-5 bg-seaweed-green text-white font-black text-xl tracking-widest" href="book.html" data-menu-link>予約</a>
+    </nav>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="pt-12 md:pt-14 bg-basalt-black text-stark-white border-b-8 border-basalt-black">
+    <div class="p-6 sm:p-8 md:p-20 pb-10 md:pb-16">
+      <h1 class="giant-type text-6xl sm:text-8xl md:text-9xl mb-4">EVENTS</h1>
+      <p class="text-xl md:text-2xl font-black mb-2">イベントアーカイブ</p>
+      <p class="text-concrete-mid text-base md:text-lg font-medium max-w-2xl">CROSSPORT MSZ で開催された過去のイベント。地域の「集う・学ぶ・観る」が生まれる場所として、多彩な催しが行われています。</p>
+    </div>
+  </section>
+
+  <!-- ========== CATEGORY FILTER ========== -->
+  <section class="bg-stark-white border-b-4 border-basalt-black">
+    <div class="p-4 sm:p-6 md:px-20 md:py-6 flex flex-wrap gap-2">
+      <button class="event-filter-btn px-4 py-2 text-sm font-black tracking-tight border-3 border-basalt-black bg-basalt-black text-white transition-colors" data-filter="all">ALL</button>
+      <button class="event-filter-btn px-4 py-2 text-sm font-black tracking-tight border-3 border-basalt-black hover:bg-basalt-black hover:text-white transition-colors" data-filter="集う">集う</button>
+      <button class="event-filter-btn px-4 py-2 text-sm font-black tracking-tight border-3 border-basalt-black hover:bg-basalt-black hover:text-white transition-colors" data-filter="学ぶ">学ぶ</button>
+      <button class="event-filter-btn px-4 py-2 text-sm font-black tracking-tight border-3 border-basalt-black hover:bg-basalt-black hover:text-white transition-colors" data-filter="観る">観る</button>
+      <button class="event-filter-btn px-4 py-2 text-sm font-black tracking-tight border-3 border-basalt-black hover:bg-basalt-black hover:text-white transition-colors" data-filter="その他">その他</button>
+    </div>
+  </section>
+
+  <!-- ========== EVENT LIST ========== -->
+  <section class="bg-stark-white" id="event-list">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+
+      <!-- 2025/12/28 もちつき大会 -->
+      <article class="fade-in-up event-card border-b-4 sm:border-r-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="集う">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-seaweed-green text-white tracking-widest">集う</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-12-28">2025.12.28 SUN</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">クロスポート もちつき大会</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">年末恒例のもちつきイベント。お餅を食べながら紙芝居も見れるよ〜</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          10:00 - 15:00
+        </div>
+      </article>
+
+      <!-- 2025/12/26 ロボットクリエイター -->
+      <article class="fade-in-up event-card border-b-4 sm:border-r-4 lg:border-r-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="学ぶ">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-basalt-black text-white tracking-widest">学ぶ</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-12-26">2025.12.26 FRI</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">キミも今日からロボットクリエイター！</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">コドモエキスポ壱岐による冬休み1DAYデジタルものづくり体験。ロボット工作、プログラミング、ロボットゲーム大会。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          9:00 - 17:00
+        </div>
+      </article>
+
+      <!-- 2025/12/21 おもちゃ病院 -->
+      <article class="fade-in-up event-card border-b-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="その他">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-concrete-mid text-basalt-black tracking-widest">その他</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-12-21">2025.12.21 SUN</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐おもちゃ病院</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">ボランティアによる無料おもちゃ修理。毎月第4日曜日にクロスポート武生水で定期開催。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          10:00 - 12:00
+        </div>
+      </article>
+
+      <!-- 2025/12/11 こども支援 -->
+      <article class="fade-in-up event-card border-b-4 sm:border-r-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="学ぶ">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-basalt-black text-white tracking-widest">学ぶ</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-12-11">2025.12.11 THU</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐島こども支援アップデート会</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">「子どもの権利」と「島のリアルな声」に支援の在り方を学ぶ。参加無料。オンライン同時開催。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          9:30 - 12:00
+        </div>
+      </article>
+
+      <!-- 2025/11/22 壱岐オープンダイアログ -->
+      <article class="fade-in-up event-card border-b-4 sm:border-r-4 lg:border-r-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="学ぶ">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-basalt-black text-white tracking-widest">学ぶ</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-11-22">2025.11.22 SAT</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐オープンダイアログ</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">第3回テーマ「島の再設計」。壱岐の今と未来についてみんなで話しませんか？</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          17:00 -
+        </div>
+      </article>
+
+      <!-- 2025/10/11 MAGICAL CHAIN -->
+      <article class="fade-in-up event-card border-b-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="観る">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-[#E91E63] text-white tracking-widest">観る</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-10-11">2025.10.11 SAT</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">MAGICAL CHAIN ひとりSPECIAL at 壱岐島</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">ウルフルケイスケ ライブ。IKI ROCK HOUSE 企画。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          OPEN 17:30 / START 18:00
+        </div>
+      </article>
+
+      <!-- 2025/9/28 壱岐ZINE倶楽部 -->
+      <article class="fade-in-up event-card border-b-4 sm:border-r-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="その他">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-concrete-mid text-basalt-black tracking-widest">その他</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-09-28">2025.09.28 SUN</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐ZINE倶楽部 OPEN CAMPUS</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">ZINEを実際に作ってみよう！Canva等を使ってZINE作りにチャレンジ。完成したZINEはクロスポートで印刷・製本までお試し可能。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          13:00 - 17:00
+        </div>
+      </article>
+
+      <!-- 2025/09/15 壱岐に世界がやってくる -->
+      <article class="fade-in-up event-card border-b-4 sm:border-r-4 lg:border-r-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="集う">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-seaweed-green text-white tracking-widest">集う</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-09-15">2025.09.15 MON</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐に世界がやってくる！</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">〜いろんな国の人たちと遊ぼう〜 NataDeCocoによる90分「文化交流教室」。参加無料。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          9:45 - 11:15
+        </div>
+      </article>
+
+      <!-- 2025/9/13-14 IKI ZINE FES -->
+      <article class="fade-in-up event-card border-b-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="集う">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-seaweed-green text-white tracking-widest">集う</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-09-13">2025.09.13-14</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">IKI ZINE FES vol.2</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">壱岐ZINE倶楽部主催のZINEフェスティバル第2回。出展者募集あり。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          10:00 - 17:00（2日間）
+        </div>
+      </article>
+
+      <!-- 2025/3/29 海外ボードゲーム -->
+      <article class="fade-in-up event-card border-b-4 sm:border-r-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="その他">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-concrete-mid text-basalt-black tracking-widest">その他</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-03-29">2025.03.29 SAT</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">思考力を磨こう！海外ボードゲーム</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">新しい仲間と未知のゲームに出会えるかも！参加無料・誰でもお気軽に。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          9:30 - 12:30
+        </div>
+      </article>
+
+      <!-- 2025/2/2 せつぶん もちつき大会 -->
+      <article class="fade-in-up event-card border-b-4 sm:border-r-4 lg:border-r-4 border-basalt-black p-6 md:p-8 flex flex-col" data-category="集う">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-seaweed-green text-white tracking-widest">集う</span>
+          <time class="text-sm font-bold opacity-60" datetime="2025-02-02">2025.02.02 SUN</time>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">せつぶん もちつき大会</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">節分の季節に合わせたもちつきイベント。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">schedule</span>
+          10:00 - 15:00
+        </div>
+      </article>
+
+      <!-- 定期開催 おもちゃ病院まとめ -->
+      <article class="fade-in-up event-card border-b-4 border-basalt-black p-6 md:p-8 flex flex-col bg-gray-50" data-category="その他">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 text-xs font-black bg-concrete-mid text-basalt-black tracking-widest">定期開催</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐おもちゃ病院</h3>
+        <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">ボランティアによる無料のおもちゃ修理。原則毎月第4日曜日にクロスポート武生水で定期開催しています。当日修理できないものは入院（お預かり）になります。</p>
+        <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <span class="material-symbols-outlined !text-base">event_repeat</span>
+          毎月第4日曜 10:00 - 12:00
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="bg-basalt-black text-stark-white border-t-8 border-basalt-black">
+    <div class="p-6 sm:p-8 md:p-20 text-center">
+      <h2 class="giant-type text-4xl sm:text-5xl md:text-7xl mb-6">HOST YOUR EVENT</h2>
+      <p class="text-lg md:text-xl font-bold mb-8 text-concrete-mid max-w-2xl mx-auto">CROSSPORT MSZ のイベントホールは音響・映像・ネットワーク完備。最大50名収容。あなたのイベントを壱岐島で開催しませんか？</p>
+      <a href="book.html" class="inline-block px-12 py-5 bg-seaweed-green text-white font-black text-lg tracking-widest hover:opacity-80 transition-opacity">
+        イベントホールを予約する
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-stark-white text-basalt-black p-6 pb-20 sm:p-8 sm:pb-20 md:p-20 border-t-8 border-basalt-black">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-10 md:gap-12">
+      <div class="max-w-md">
+        <h3 class="giant-type text-4xl sm:text-6xl mb-6 md:mb-8 text-right">CROSSPORT<br/><span class="text-seaweed-green">MSZ</span></h3>
+        <p class="text-base md:text-lg font-bold leading-tight mb-6">壱岐で、新しい動きが生まれる拠点として。<br/>働く・集う・始めるを支えます。</p>
+        <div class="text-sm font-bold space-y-1 opacity-70">
+          <p><a href="tel:050-5211-5434" class="hover:opacity-100 transition-opacity">TEL: 050-5211-5434</a></p>
+          <p><a href="mailto:crossport@xmo.jp" class="hover:opacity-100 transition-opacity">MAIL: crossport@xmo.jp</a></p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-10 md:gap-24">
+        <div>
+          <h4 class="font-black uppercase mb-6 md:mb-8 text-sm tracking-widest border-b-4 border-basalt-black pb-3">Links</h4>
+          <ul class="space-y-3 md:space-y-4 font-bold text-sm">
+            <li><a class="hover:bg-basalt-black hover:text-white px-1 transition-colors inline-block" href="https://ikical.com/" target="_blank" rel="noopener noreferrer">壱岐カレンダー</a></li>
+            <li><a class="hover:bg-basalt-black hover:text-white px-1 transition-colors inline-block" href="https://now.ikical.com/" target="_blank" rel="noopener noreferrer">壱岐なう(β)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-black uppercase mb-6 md:mb-8 text-sm tracking-widest border-b-4 border-basalt-black pb-3">Social</h4>
+          <div class="flex gap-4">
+            <a class="social-ig w-12 h-12 brutalist-border flex items-center justify-center font-black hover:text-white transition-colors" href="https://www.instagram.com/crossport_msz/" target="_blank" rel="noopener noreferrer">IG</a>
+            <a class="w-12 h-12 brutalist-border flex items-center justify-center font-black hover:bg-[#1877F2] hover:text-white transition-colors" href="https://www.facebook.com/crossport.msz" target="_blank" rel="noopener noreferrer">FB</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 md:mt-24 pt-6 md:pt-8 border-t-4 border-basalt-black flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-black uppercase tracking-tight opacity-80">
+      <p>&copy; 2026 CROSSPORT MSZ / WHERE IDEAS CROSS.</p>
+      <div class="flex gap-8">
+        <span>33°44'42.4"N, 129°41'27.8"E</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/src/main.js" type="module"></script>
+  <script>
+    // Event filter functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.event-filter-btn');
+      const cards = document.querySelectorAll('.event-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+
+          // Update active button
+          filterBtns.forEach(b => {
+            b.classList.remove('bg-basalt-black', 'text-white');
+          });
+          btn.classList.add('bg-basalt-black', 'text-white');
+
+          // Filter cards
+          cards.forEach(card => {
+            if (filter === 'all' || card.dataset.category === filter) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
