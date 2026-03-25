@@ -13,7 +13,7 @@ export default defineConfig({
         cancel: resolve(__dirname, "cancel.html"),
         admin: resolve(__dirname, "admin-manual.html"),
         adminDashboard: resolve(__dirname, "admin.html"),
-        events: resolve(__dirname, "events.html"),
+        events: resolve(__dirname, "events/index.html"),
         notFound: resolve(__dirname, "404.html"),
       },
     },

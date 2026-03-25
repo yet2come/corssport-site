@@ -68,6 +68,11 @@
       ],
       "destination": "https://crossport.cc/:path",
       "permanent": true
+    },
+    {
+      "source": "/events.html",
+      "destination": "/events/",
+      "permanent": true
     }
   ],
   "headers": [
