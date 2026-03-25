@@ -9,6 +9,7 @@
 - [x] `http` から `https` へのリダイレクトも整理されている — Vercel が自動で HTTPS 強制（SSL Valid Configuration 確認済み）
 - [x] `www` ありなしの正規化方針が決まっており、最終到達先は `https://crossport.cc` に統一されている — `www.crossport.cc`, `www.crossport.site` も `vercel.json` でリダイレクト
 - [x] `xmo.jp` および `www.xmo.jp` から `https://crossport.cc` へ `301` リダイレクトを設定した — `vercel.json` redirects、Vercel Production 接続
+- [x] `cpx.xmo.jp` から `https://crossport.cc` へ `301` リダイレクトを設定した — `vercel.json` redirects、Vercel ドメイン追加済み
 
 ## 2. 新ドメイン側の正規化
 

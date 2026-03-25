@@ -1,4 +1,4 @@
-import { inject } from "@vercel/analytics";
+import { inject, track } from "@vercel/analytics";
 inject();
 
 // ===== Mobile Menu Toggle =====
@@ -93,4 +93,7 @@ if (page === "booking") {
 }
 if (page === "cancel") {
   import("./cancel.js");
+}
+if (page === "404") {
+  track("404", { path: window.location.pathname });
 }

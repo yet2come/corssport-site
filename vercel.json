@@ -57,6 +57,17 @@
       ],
       "destination": "https://crossport.cc/:path",
       "permanent": true
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "cpx.xmo.jp"
+        }
+      ],
+      "destination": "https://crossport.cc/:path",
+      "permanent": true
     }
   ],
   "headers": [
