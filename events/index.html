@@ -74,39 +74,21 @@
 
   <!-- ========== EVENT LIST ========== -->
   <section class="bg-stark-white" id="event-list">
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-12 space-y-6 md:space-y-8">
 
       <!-- 2025/12/28 もちつき大会 -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="集う">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 3</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="集う">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-seaweed-green text-white tracking-widest">集う</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-12-28">2025.12.28 SUN</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-12-28">2025.12.28 SUN</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">クロスポート もちつき大会</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">年末恒例のもちつきイベント。お餅を食べながら紙芝居も見れるよ〜</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">クロスポート もちつき大会</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">年末恒例のもちつきイベント。お餅を食べながら紙芝居も見れるよ〜</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             10:00 - 15:00
           </div>
@@ -114,33 +96,18 @@
       </article>
 
       <!-- 2025/12/26 ロボットクリエイター -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="学ぶ">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 2</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="学ぶ">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-basalt-black text-white tracking-widest">学ぶ</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-12-26">2025.12.26 FRI</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-12-26">2025.12.26 FRI</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">キミも今日からロボットクリエイター！</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">コドモエキスポ壱岐による冬休み1DAYデジタルものづくり体験。ロボット工作、プログラミング、ロボットゲーム大会。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">キミも今日からロボットクリエイター！</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">コドモエキスポ壱岐による冬休み1DAYデジタルものづくり体験。ロボット工作、プログラミング、ロボットゲーム大会。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             9:00 - 17:00
           </div>
@@ -148,33 +115,18 @@
       </article>
 
       <!-- 2025/12/21 おもちゃ病院 -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="その他">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 2</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="その他">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-concrete-mid text-basalt-black tracking-widest">その他</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-12-21">2025.12.21 SUN</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-12-21">2025.12.21 SUN</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐おもちゃ病院</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">ボランティアによる無料おもちゃ修理。毎月第4日曜日にクロスポート武生水で定期開催。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">壱岐おもちゃ病院</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">ボランティアによる無料おもちゃ修理。毎月第4日曜日にクロスポート武生水で定期開催。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             10:00 - 12:00
           </div>
@@ -182,24 +134,18 @@
       </article>
 
       <!-- 2025/12/11 こども支援 -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="学ぶ">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 1</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="学ぶ">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-basalt-black text-white tracking-widest">学ぶ</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-12-11">2025.12.11 THU</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-12-11">2025.12.11 THU</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐島こども支援アップデート会</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">「子どもの権利」と「島のリアルな声」に支援の在り方を学ぶ。参加無料。オンライン同時開催。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">壱岐島こども支援アップデート会</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">「子どもの権利」と「島のリアルな声」に支援の在り方を学ぶ。参加無料。オンライン同時開催。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             9:30 - 12:00
           </div>
@@ -207,36 +153,18 @@
       </article>
 
       <!-- 2025/11/22 壱岐オープンダイアログ -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="学ぶ">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 3</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="学ぶ">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-basalt-black text-white tracking-widest">学ぶ</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-11-22">2025.11.22 SAT</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-11-22">2025.11.22 SAT</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐オープンダイアログ</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">第3回テーマ「島の再設計」。壱岐の今と未来についてみんなで話しませんか？</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">壱岐オープンダイアログ</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">第3回テーマ「島の再設計」。壱岐の今と未来についてみんなで話しませんか？</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             17:00 -
           </div>
@@ -244,33 +172,18 @@
       </article>
 
       <!-- 2025/10/11 MAGICAL CHAIN -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="観る">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 2</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="観る">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-[#E91E63] text-white tracking-widest">観る</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-10-11">2025.10.11 SAT</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-10-11">2025.10.11 SAT</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">MAGICAL CHAIN ひとりSPECIAL at 壱岐島</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">ウルフルケイスケ ライブ。IKI ROCK HOUSE 企画。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">MAGICAL CHAIN ひとりSPECIAL at 壱岐島</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">ウルフルケイスケ ライブ。IKI ROCK HOUSE 企画。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             OPEN 17:30 / START 18:00
           </div>
@@ -278,39 +191,18 @@
       </article>
 
       <!-- 2025/9/28 壱岐ZINE倶楽部 -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="その他">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 4</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="その他">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-concrete-mid text-basalt-black tracking-widest">その他</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-09-28">2025.09.28 SUN</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-09-28">2025.09.28 SUN</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐ZINE倶楽部 OPEN CAMPUS</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">ZINEを実際に作ってみよう！Canva等を使ってZINE作りにチャレンジ。完成したZINEはクロスポートで印刷・製本までお試し可能。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">壱岐ZINE倶楽部 OPEN CAMPUS</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">ZINEを実際に作ってみよう！Canva等を使ってZINE作りにチャレンジ。完成したZINEはクロスポートで印刷・製本までお試し可能。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             13:00 - 17:00
           </div>
@@ -318,36 +210,18 @@
       </article>
 
       <!-- 2025/09/15 壱岐に世界がやってくる -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="集う">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 3</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="集う">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-seaweed-green text-white tracking-widest">集う</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-09-15">2025.09.15 MON</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-09-15">2025.09.15 MON</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐に世界がやってくる！</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">〜いろんな国の人たちと遊ぼう〜 NataDeCocoによる90分「文化交流教室」。参加無料。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">壱岐に世界がやってくる！</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">〜いろんな国の人たちと遊ぼう〜 NataDeCocoによる90分「文化交流教室」。参加無料。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             9:45 - 11:15
           </div>
@@ -355,36 +229,18 @@
       </article>
 
       <!-- 2025/9/13-14 IKI ZINE FES -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="集う">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 3</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="集う">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-seaweed-green text-white tracking-widest">集う</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-09-13">2025.09.13-14</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-09-13">2025.09.13-14</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">IKI ZINE FES vol.2</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">壱岐ZINE倶楽部主催のZINEフェスティバル第2回。出展者募集あり。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">IKI ZINE FES vol.2</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">壱岐ZINE倶楽部主催のZINEフェスティバル第2回。出展者募集あり。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             10:00 - 17:00（2日間）
           </div>
@@ -392,33 +248,18 @@
       </article>
 
       <!-- 2025/3/29 海外ボードゲーム -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="その他">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 2</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="その他">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-concrete-mid text-basalt-black tracking-widest">その他</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-03-29">2025.03.29 SAT</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-03-29">2025.03.29 SAT</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">思考力を磨こう！海外ボードゲーム</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">新しい仲間と未知のゲームに出会えるかも！参加無料・誰でもお気軽に。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">思考力を磨こう！海外ボードゲーム</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">新しい仲間と未知のゲームに出会えるかも！参加無料・誰でもお気軽に。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             9:30 - 12:30
           </div>
@@ -426,33 +267,18 @@
       </article>
 
       <!-- 2025/2/2 せつぶん もちつき大会 -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col" data-category="集う">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 2</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="集う">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-seaweed-green text-white tracking-widest">集う</span>
-            <time class="text-sm font-bold opacity-60" datetime="2025-02-02">2025.02.02 SUN</time>
+            <time class="text-sm font-bold opacity-50" datetime="2025-02-02">2025.02.02 SUN</time>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">せつぶん もちつき大会</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">節分の季節に合わせたもちつきイベント。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">せつぶん もちつき大会</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">節分の季節に合わせたもちつきイベント。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">schedule</span>
             10:00 - 15:00
           </div>
@@ -460,32 +286,17 @@
       </article>
 
       <!-- 定期開催 おもちゃ病院まとめ -->
-      <article class="fade-in-up event-card border-b-4 border-basalt-black flex flex-col bg-gray-50" data-category="その他">
-        <div class="event-carousel relative aspect-[4/3] bg-gray-100 border-b-4 border-basalt-black overflow-hidden">
-          <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out">
-            <div class="carousel-slide min-w-full h-full bg-gray-200 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-            <div class="carousel-slide min-w-full h-full bg-gray-300 flex items-center justify-center">
-              <span class="material-symbols-outlined !text-6xl text-concrete-mid">photo_camera</span>
-            </div>
-          </div>
-          <button class="carousel-prev absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="前の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_left</span>
-          </button>
-          <button class="carousel-next absolute right-0 top-0 bottom-0 w-12 flex items-center justify-center bg-basalt-black/0 hover:bg-basalt-black/40 text-white transition-colors" aria-label="次の画像">
-            <span class="material-symbols-outlined !text-3xl drop-shadow-lg">chevron_right</span>
-          </button>
-          <div class="carousel-dots absolute bottom-3 left-0 right-0 flex justify-center gap-2"></div>
-          <span class="absolute top-3 right-3 text-xs font-black bg-basalt-black/70 text-white px-2 py-1 tracking-wider">1 / 2</span>
+      <article class="fade-in-up event-card flex flex-col md:flex-row border-4 border-basalt-black bg-gray-50 hover:translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_var(--color-basalt-black)] transition-all" data-category="その他">
+        <div class="md:w-72 md:shrink-0 aspect-[16/10] md:aspect-auto bg-gray-200 border-b-4 md:border-b-0 md:border-r-4 border-basalt-black flex items-center justify-center">
+          <span class="material-symbols-outlined !text-5xl text-concrete-mid">photo_camera</span>
         </div>
-        <div class="p-6 md:p-8 flex flex-col grow">
-          <div class="flex items-center gap-3 mb-4">
+        <div class="p-5 md:p-6 flex flex-col grow">
+          <div class="flex items-center gap-3 mb-3">
             <span class="px-3 py-1 text-xs font-black bg-concrete-mid text-basalt-black tracking-widest">定期開催</span>
           </div>
-          <h3 class="text-xl md:text-2xl font-black mb-3 leading-tight">壱岐おもちゃ病院</h3>
-          <p class="text-sm font-medium opacity-70 mb-6 leading-relaxed grow">ボランティアによる無料のおもちゃ修理。原則毎月第4日曜日にクロスポート武生水で定期開催しています。当日修理できないものは入院（お預かり）になります。</p>
-          <div class="pt-4 border-t-3 border-basalt-black text-xs font-bold opacity-50 flex items-center gap-2">
+          <h3 class="text-lg md:text-xl font-black mb-2 leading-tight">壱岐おもちゃ病院</h3>
+          <p class="text-sm font-medium opacity-60 leading-relaxed grow">ボランティアによる無料のおもちゃ修理。原則毎月第4日曜日にクロスポート武生水で定期開催しています。当日修理できないものは入院（お預かり）になります。</p>
+          <div class="mt-4 pt-3 border-t-2 border-basalt-black/10 text-xs font-bold opacity-40 flex items-center gap-2">
             <span class="material-symbols-outlined !text-base">event_repeat</span>
             毎月第4日曜 10:00 - 12:00
           </div>
@@ -545,7 +356,6 @@
   <script src="/src/main.js" type="module"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // ===== Category filter =====
       const filterBtns = document.querySelectorAll('.event-filter-btn');
       const cards = document.querySelectorAll('.event-card');
 
@@ -557,58 +367,6 @@
           cards.forEach(card => {
             card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
           });
-        });
-      });
-
-      // ===== Image carousel =====
-      document.querySelectorAll('.event-carousel').forEach(carousel => {
-        const track = carousel.querySelector('.carousel-track');
-        const slides = carousel.querySelectorAll('.carousel-slide');
-        const prevBtn = carousel.querySelector('.carousel-prev');
-        const nextBtn = carousel.querySelector('.carousel-next');
-        const dotsContainer = carousel.querySelector('.carousel-dots');
-        const counter = carousel.querySelector('span:last-child');
-        const total = slides.length;
-        let current = 0;
-
-        // Hide nav if single slide
-        if (total <= 1) {
-          if (prevBtn) prevBtn.style.display = 'none';
-          if (nextBtn) nextBtn.style.display = 'none';
-          return;
-        }
-
-        // Create dots
-        for (let i = 0; i < total; i++) {
-          const dot = document.createElement('button');
-          dot.className = 'w-2 h-2 rounded-full transition-colors ' + (i === 0 ? 'bg-white' : 'bg-white/40');
-          dot.setAttribute('aria-label', `画像${i + 1}を表示`);
-          dot.addEventListener('click', () => goTo(i));
-          dotsContainer.appendChild(dot);
-        }
-
-        function goTo(index) {
-          current = index;
-          track.style.transform = `translateX(-${current * 100}%)`;
-          counter.textContent = `${current + 1} / ${total}`;
-          dotsContainer.querySelectorAll('button').forEach((dot, i) => {
-            dot.className = 'w-2 h-2 rounded-full transition-colors ' + (i === current ? 'bg-white' : 'bg-white/40');
-          });
-        }
-
-        prevBtn.addEventListener('click', () => goTo(current <= 0 ? total - 1 : current - 1));
-        nextBtn.addEventListener('click', () => goTo(current >= total - 1 ? 0 : current + 1));
-
-        // Touch swipe
-        let startX = 0;
-        let diffX = 0;
-        carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-        carousel.addEventListener('touchmove', e => { diffX = e.touches[0].clientX - startX; }, { passive: true });
-        carousel.addEventListener('touchend', () => {
-          if (Math.abs(diffX) > 50) {
-            diffX < 0 ? nextBtn.click() : prevBtn.click();
-          }
-          diffX = 0;
         });
       });
     });
