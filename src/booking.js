@@ -161,17 +161,11 @@ function setPriceDisplay(selectedSlots) {
     ]);
   } else if (state.facility === "solo-booth") {
     const hours = selectedSlots.length;
-    let visitorTotal = 1200;
-    let memberTotal = 600;
-    if (hours > 2) {
-      visitorTotal += (hours - 2) * 600;
-      memberTotal += (hours - 2) * 300;
-    }
-    visitorTotal = Math.min(visitorTotal, 2500);
-    memberTotal = Math.min(memberTotal, 1000);
+    const visitorTotal = Math.min(hours * 600, 2500);
+    const memberTotal = Math.min(hours * 330, 1100);
     setPriceLines([
-      `ビジター料金: ${formatYen(visitorTotal)} (${hours}時間 / 18:00まで上限 ${formatYen(2500)})`,
-      `メンバー料金: ${formatYen(memberTotal)} (${hours}時間 / 18:00まで上限 ${formatYen(1000)})`,
+      `ビジター料金: ${formatYen(visitorTotal)} (${hours}時間 / 上限 ${formatYen(2500)}/日)`,
+      `メンバー料金: ${formatYen(memberTotal)} (${hours}時間 / 上限 ${formatYen(1100)}/日)`,
     ]);
   }
 }
