@@ -1,9 +1,10 @@
 const crypto = require("node:crypto");
 
-function createBookingEventId({ facility, date, startTime, endTime }) {
+function createBookingEventId({ facility, date, startTime, endTime, email }) {
+  const random = crypto.randomBytes(4).toString("hex");
   return crypto
     .createHash("sha256")
-    .update(`booking:${facility}:${date}:${startTime}-${endTime}`)
+    .update(`booking:${facility}:${date}:${startTime}-${endTime}:${email}:${random}`)
     .digest("hex")
     .slice(0, 32);
 }

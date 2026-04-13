@@ -1,9 +1,40 @@
-const { getCalendarIds } = require("./_lib/facilities-config");
+const { sendAdminNotification } = require("./_lib/admin-notify");
+const { getCalendarIds, getFacilityConfig } = require("./_lib/facilities-config");
+const { createAdminCancelledBookingEmail } = require("./_lib/email-templates");
 const { calendarFetch, CalendarApiError } = require("./_lib/google-calendar");
 const { HttpError, methodNotAllowed, readJsonBody, sendJson } = require("./_lib/http");
 const { enforceRateLimit } = require("./_lib/rate-limit");
 const { timingSafeTokenEqual } = require("./_lib/security");
 const { validateFacility } = require("./_lib/validate");
+
+function formatDateTimeRange(event) {
+  const dateTime = event.start?.dateTime;
+  const endDateTime = event.end?.dateTime;
+  if (!dateTime || !endDateTime) {
+    return null;
+  }
+
+  const start = new Date(dateTime);
+  const end = new Date(endDateTime);
+  const date = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(start);
+  const timeFormatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Tokyo",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  return {
+    date,
+    startTime: timeFormatter.format(start),
+    endTime: timeFormatter.format(end),
+  };
+}
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
@@ -51,6 +82,27 @@ module.exports = async function handler(req, res) {
     await calendarFetch(`/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(bookingId)}`, {
       method: "DELETE",
     });
+
+    const timing = formatDateTimeRange(event);
+    const facilityConfig = getFacilityConfig(facility);
+    const guests =
+      typeof privateProps.guests === "string" && privateProps.guests
+        ? Number.parseInt(privateProps.guests, 10)
+        : undefined;
+    const layoutChange =
+      privateProps.layoutChange === "true" ? true : privateProps.layoutChange === "false" ? false : undefined;
+    const adminEmail = createAdminCancelledBookingEmail({
+      customerName: privateProps.customerName || "",
+      customerEmail: privateProps.customerEmail || "",
+      facilityName: privateProps.facilityName || facilityConfig?.name || facility,
+      date: timing?.date || "不明",
+      startTime: timing?.startTime || "不明",
+      endTime: timing?.endTime || "不明",
+      resourceLabel: privateProps.resourceLabel || "",
+      guests: Number.isNaN(guests) ? undefined : guests,
+      layoutChange,
+    });
+    void sendAdminNotification(adminEmail);
 
     return sendJson(res, 200, {
       success: true,

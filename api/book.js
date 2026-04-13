@@ -1,6 +1,11 @@
 const { Resend } = require("resend");
+const { sendAdminNotification } = require("./_lib/admin-notify");
 const { getDayBounds, toIso } = require("./_lib/calendar-slots");
-const { createBookingEmail, createCancelUrl } = require("./_lib/email-templates");
+const {
+  createAdminNewBookingEmail,
+  createBookingEmail,
+  createCancelUrl,
+} = require("./_lib/email-templates");
 const { getCalendarIds, getFacilityConfig } = require("./_lib/facilities-config");
 const { calendarFetch, CalendarApiError } = require("./_lib/google-calendar");
 const { HttpError, methodNotAllowed, readJsonBody, sendJson } = require("./_lib/http");
@@ -14,6 +19,44 @@ function ensureEnv(name) {
     throw new HttpError(500, `${name} is not configured`);
   }
   return value;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function sendCustomerBookingEmail({ resend, fromEmail, to, email }) {
+  let lastError;
+
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      const result = await resend.emails.send({
+        from: fromEmail,
+        to,
+        subject: email.subject,
+        text: email.text,
+        html: email.html,
+      });
+      if (result?.error) {
+        throw Object.assign(new Error(result.error.message), result.error);
+      }
+      return;
+    } catch (error) {
+      lastError = error;
+
+      if (attempt === 1) {
+        console.warn("[book] customer email send failed, retrying", {
+          to,
+          errorName: error?.name,
+          errorMessage: error?.message,
+          errorStatus: error?.status,
+        });
+        await sleep(1000);
+      }
+    }
+  }
+
+  throw lastError;
 }
 
 async function getAvailableCalendar(calendars, date, startTime, endTime) {
@@ -65,13 +108,20 @@ module.exports = async function handler(req, res) {
     const siteUrl = ensureEnv("SITE_URL");
     const resendKey = ensureEnv("RESEND_API_KEY");
     const fromEmail = ensureEnv("RESEND_FROM_EMAIL");
+    const resend = new Resend(resendKey);
 
     stage = "calendar-selection";
     const selectedCalendar = await getAvailableCalendar(calendars, booking.date, booking.startTime, booking.endTime);
     calendarId = selectedCalendar.id;
     const resourceLabel = booking.facility === "solo-booth" ? `Solo Booth ${selectedCalendar.resourceId}` : null;
 
-    const eventId = createBookingEventId(booking);
+    const eventId = createBookingEventId({
+      facility: booking.facility,
+      date: booking.date,
+      startTime: booking.startTime,
+      endTime: booking.endTime,
+      email: booking.email,
+    });
     const cancelToken = generateCancelToken(eventId, booking.email);
 
     stage = "calendar-insert";
@@ -105,6 +155,7 @@ module.exports = async function handler(req, res) {
             facilityName: facility.name,
             resourceCalendarId: calendarId,
             resourceLabel: resourceLabel || "",
+            guests: String(booking.guests),
             layoutChange: booking.layoutChange ? "true" : "false",
           },
         },
@@ -132,14 +183,27 @@ module.exports = async function handler(req, res) {
     });
 
     stage = "email-send";
-    const resend = new Resend(resendKey);
-    await resend.emails.send({
-      from: fromEmail,
+    await sendCustomerBookingEmail({
+      resend,
+      fromEmail,
       to: booking.email,
-      subject: email.subject,
-      text: email.text,
-      html: email.html,
+      email,
     });
+
+    const adminEmail = createAdminNewBookingEmail({
+      customerName: booking.name,
+      customerEmail: booking.email,
+      phone: booking.phone,
+      facilityName: facility.name,
+      date: booking.date,
+      startTime: booking.startTime,
+      endTime: booking.endTime,
+      guests: booking.guests,
+      purpose: booking.purpose,
+      resourceLabel,
+      layoutChange: booking.layoutChange,
+    });
+    void sendAdminNotification(adminEmail);
 
     console.log(JSON.stringify({
       event: "booking_success",
