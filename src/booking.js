@@ -369,7 +369,43 @@ dateInput.min = tokyoDateString();
 dateInput.max = getTokyoDateOffset(183);
 dateInput.addEventListener("change", loadAvailability);
 
-form.addEventListener("submit", async (event) => {
+const confirmOverlay = document.getElementById("confirm-overlay");
+const confirmDetails = document.getElementById("confirm-details");
+const confirmSubmit = document.getElementById("confirm-submit");
+const confirmBack = document.getElementById("confirm-back");
+const confirmBackdrop = document.getElementById("confirm-backdrop");
+
+let pendingPayload = null;
+
+function showConfirmModal(payload) {
+  const facility = facilities[payload.facility];
+  const rows = [
+    ["施設", facility?.name || payload.facility],
+    ["日時", `${payload.date} ${payload.startTime} - ${payload.endTime}`],
+    ["お名前", payload.name],
+    ["メール", payload.email],
+    ["電話番号", payload.phone],
+    ["人数", `${payload.guests}名`],
+  ];
+  if (payload.purpose) {
+    rows.push(["利用目的", payload.purpose]);
+  }
+  if (payload.layoutChange) {
+    rows.push(["レイアウト変更", "あり"]);
+  }
+  confirmDetails.innerHTML = rows
+    .map(([label, value]) => `<tr><td>${label}</td><td>${value}</td></tr>`)
+    .join("");
+  confirmOverlay.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function hideConfirmModal() {
+  confirmOverlay.classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+form.addEventListener("submit", (event) => {
   event.preventDefault();
   clearBanner();
 
@@ -391,8 +427,18 @@ form.addEventListener("submit", async (event) => {
   payload.guests = Number(payload.guests);
   payload.layoutChange = state.facility === "event-space" && layoutCheckbox.checked;
 
-  submitButton.disabled = true;
-  submitButton.textContent = "送信中...";
+  pendingPayload = payload;
+  showConfirmModal(payload);
+});
+
+confirmBack.addEventListener("click", hideConfirmModal);
+confirmBackdrop.addEventListener("click", hideConfirmModal);
+
+confirmSubmit.addEventListener("click", async () => {
+  if (!pendingPayload) return;
+
+  confirmSubmit.disabled = true;
+  confirmSubmit.textContent = "送信中...";
 
   try {
     const response = await fetch("/api/book", {
@@ -400,25 +446,28 @@ form.addEventListener("submit", async (event) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(pendingPayload),
     });
     const data = await response.json();
     if (!response.ok) {
       throw new Error(formatApiError(data));
     }
 
+    hideConfirmModal();
     form.classList.add("hidden");
     successPanel.classList.remove("hidden");
     successDetail.textContent = `${data.booking.facilityName} / ${data.booking.date} ${data.booking.startTime}-${data.booking.endTime} で予約を受け付けました。確認メールをご確認ください。`;
     showBanner("予約を受け付けました", "info");
   } catch (error) {
+    hideConfirmModal();
     showBanner(error.message, "error");
     if (String(error.message).includes("no longer available")) {
       await loadAvailability();
     }
   } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = "予約する";
+    confirmSubmit.disabled = false;
+    confirmSubmit.textContent = "確認して予約する";
+    pendingPayload = null;
   }
 });
 

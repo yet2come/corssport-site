@@ -279,6 +279,24 @@
         </div>
       </div>
     </section>
+
+    <!-- ========== BOOKING CONFIRM MODAL ========== -->
+    <div id="confirm-overlay" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-basalt-black/70" id="confirm-backdrop"></div>
+      <div class="relative flex items-center justify-center min-h-full p-4">
+        <div class="brutalist-border bg-white text-basalt-black w-full max-w-md max-h-[90vh] overflow-y-auto p-6 sm:p-8">
+          <p class="text-xs font-black uppercase tracking-[0.3em] text-seaweed-green">Confirm Booking</p>
+          <h4 class="mt-3 text-2xl font-black">予約内容の確認</h4>
+          <table class="mt-6 w-full text-sm">
+            <tbody id="confirm-details" class="[&_td]:py-2 [&_td:first-child]:font-black [&_td:first-child]:pr-4 [&_td:first-child]:whitespace-nowrap [&_td:first-child]:align-top"></tbody>
+          </table>
+          <div class="mt-8 flex flex-col gap-3">
+            <button id="confirm-submit" type="button" class="bg-seaweed-green text-white font-black uppercase tracking-[0.3em] px-6 py-4 brutalist-border border-basalt-black">確認して予約する</button>
+            <button id="confirm-back" type="button" class="bg-white text-basalt-black font-black uppercase tracking-[0.3em] px-6 py-4 brutalist-border border-basalt-black">戻る</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- ========== FOOTER ========== -->
