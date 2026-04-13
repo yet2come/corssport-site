@@ -457,6 +457,7 @@ confirmSubmit.addEventListener("click", async () => {
     form.classList.add("hidden");
     successPanel.classList.remove("hidden");
     successDetail.textContent = `${data.booking.facilityName} / ${data.booking.date} ${data.booking.startTime}-${data.booking.endTime} で予約を受け付けました。確認メールをご確認ください。`;
+    successPanel.scrollIntoView({ behavior: "smooth", block: "center" });
     showBanner("予約を受け付けました", "info");
   } catch (error) {
     hideConfirmModal();
